@@ -11,6 +11,7 @@ const Modal = ({ isVisible, children }) => {
     >
       <div className='md:w-[600px] w-[90%] mx-auto flex flex-col'>
         <div className='bg-white p-2 rounded'>{children}</div>
+    
       </div>
     </div>
   );
