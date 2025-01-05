@@ -1,6 +1,6 @@
 import { MenuIcon } from 'lucide-react';
 
-const Dashboard = ({ showMenu }) => {
+const VagasEmAlta = ({ showMenu }) => {
   function handleOpenMenu() {
     showMenu();
   }
@@ -16,7 +16,7 @@ const Dashboard = ({ showMenu }) => {
         <div className='mb-8 flex items-center justify-between'>
           <div>
             <h1 className='text-2xl font-medium dark:text-[#FAFAF9]'>
-              Dashboard
+              Vagas em Alta
             </h1>
             <p className='text-gray-500 dark:text-zinc-400'>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -31,15 +31,15 @@ const Dashboard = ({ showMenu }) => {
         <div className='grid grid-cols-3 gap-6'>
           {/* Row 1 */}
           <div className='col-span-3 md:col-span-1 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
-          <div className='col-span-3 md:col-span-1 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
+          <div className='col-span-3 md:col-span-2 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
 
           {/* Row 2 */}
-          <div className='col-span-3 md:col-span-1 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
           <div className='col-span-3 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
+          {/* <div className='col-span-2 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div> */}
         </div>
       </main>
     </div>
   );
 };
 
-export default Dashboard;
+export default VagasEmAlta;
