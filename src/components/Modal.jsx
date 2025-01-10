@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Modal = ({ isVisible, children }) => {
   if (!isVisible) return null;
