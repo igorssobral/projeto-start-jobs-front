@@ -5,8 +5,8 @@ const VagasEmAlta = ({ showMenu }) => {
     showMenu();
   }
   return (
-    <div className='h-dvh bg-gray-50 dark:bg-[#1F1E25]'>
-      <main className='ml-0 md:ml-64 p-8'>
+    <div className='min-h-screen bg-slate-100 transition-colors dark:bg-blue-950'>
+      <main className='ml-0 md:ml-64 p-6 h-[100%] rounded-3xl'>
         <button
           onClick={handleOpenMenu}
           className='md:hidden dark:text-zinc-50'
@@ -19,13 +19,14 @@ const VagasEmAlta = ({ showMenu }) => {
               Vagas em Alta
             </h1>
             <p className='text-gray-500 dark:text-zinc-400'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Encontre as Vagas mais atuais e recorrentes, para você se candidatar.
             </p>
           </div>
-          {/* <h1 className='text-xl font-normal dark:text-[#FAFAF9]'>
-      Bem vindo, nome
-    </h1> */}
+          <h1 className='text-xl font-normal dark:text-[#FAFAF9]'> 
+            Perfil = Nome logado
+          </h1>
         </div>
+        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
         {/* Grid Layout */}
         <div className='grid grid-cols-3 gap-6'>

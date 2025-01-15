@@ -30,7 +30,6 @@ function ModalLogin(props) {
         >
           X
         </button>
-
         <h3 className='mb-4 text-2xl font-medium text-gray-900 dark:text-white'>
           Faça login pra entrar na plataforma
         </h3>
