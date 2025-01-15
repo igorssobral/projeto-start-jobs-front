@@ -5,7 +5,7 @@ function Home({showMenu}) {
         showMenu();
       }
   return (
-    <main className='ml-0 md:ml-64 p-8 h-dvh'>
+    <main className='ml-0 md:ml-64 p-6 h-[100%] rounded-3xl'>
       <button onClick={handleOpenMenu} className='md:hidden dark:text-zinc-50'>
         <MenuIcon />
       </button>
@@ -22,6 +22,7 @@ function Home({showMenu}) {
           Bem vindo, nome
         </h1>
       </div>
+      <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
       {/* Grid Layout */}
       <div className='grid grid-cols-3 gap-6'>

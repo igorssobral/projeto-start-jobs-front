@@ -131,7 +131,8 @@ const StartJobsHome = () => {
   };
 
   return (
-    <div className='max-h-screen bg-gray-50 dark:bg-[#1F1E25]'>
+    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-blue-950 rounded-2xl  overflow-hidden">
+   {/* <div className='max-h-screen bg-gray-50 dark:bg-[#1F1E25]'> */}
       {/* Sidebar */}
       <SideBar
         openMenu={openMenu}

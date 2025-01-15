@@ -57,21 +57,21 @@ const SideBar = ({
           openMenu
             ? 'translate-x-0 opacity-100'
             : '-translate-x-full xs:opacity-0'
-        } md:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white dark:bg-[#0C0B10] shadow-lg flex flex-col transition-all duration-300 ease-in-out`}
+        } md:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white dark:bg-zinc-900 shadow-lg flex flex-col transition-all rounded-2xl duration-300 ease-in-out`}
       >
         <div className='p-6'>
           <div className='flex items-center space-x-2'>
             <div className='text-blue-500 text-3xl'>
               <img src={logo} alt='Logo' width='50' height='50' />
             </div>
-            <div className='text-blue-500 font-bold text-xl'>Start Jobs</div>
+            <div className='text-blue-500 font-bold text-xl'>Start JOBS</div>
 
             <button onClick={handleOpenMenu}>
               <Menu className='absolute top-10 right-2 md:hidden dark:text-zinc-50' />
             </button>
           </div>
         </div>
-        <div className='border-b  w-[85%] mx-auto border-zinc-500/70 my-4' />
+        <div className='border-b  w-[90%] mx-auto border-zinc-500/70 my-4' />
 
         {/* Navigation  */}
         <nav className='flex-1 px-4 space-y-1 '>
@@ -127,8 +127,9 @@ const SideBar = ({
             }  px-4 py-3  rounded-lg`}
           >
             <UserPlus size={20} />
-            <span>Register</span>
+            <span>Registro</span>
           </button>
+
           <button
             onClick={handleShowCandidaturas}
             // href='/candidaturas'
@@ -146,6 +147,7 @@ const SideBar = ({
             <Box size={20} />
             <span>Candidaturas</span>
           </button>
+
           <button
             onClick={handleShowDasboard}
             // href='/dashboard'
@@ -175,7 +177,7 @@ const SideBar = ({
             }`}
           >
             <Brain size={20} />
-            <span>Dicas CV</span>
+            <span>Dicas de Currículo</span>
           </button>
           <button
             onClick={handleShowVagasEmAlta}
@@ -190,7 +192,7 @@ const SideBar = ({
             }`}
           >
             <FileText size={20} />
-            <span>Vagas em alta</span>
+            <span>Vagas em Alta</span>
           </button>
         </nav>
 

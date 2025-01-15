@@ -11,7 +11,7 @@ function ModalLogin(props) {
             className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-zinc-50 transition-colors'
             onClick={props.handleClose}
           >
-            X
+            x
           </button>
 
           <h3 class='mb-4 text-2xl font-medium text-gray-900  dark:text-white '>
