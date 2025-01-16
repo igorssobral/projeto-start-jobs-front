@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../assets/logo2x.png';
 import Home from './Home';
 import Candidaturas from './candidaturas';
@@ -10,6 +10,7 @@ import ModalLogin from '../components/ModalLogin';
 import ModalRegistro from '../components/ModalRegistro';
 import ModalRecoveryPassword from '../components/ModalRecoveryPassword';
 import SideBar from '../components/SideBar';
+import { getJobs } from '../services/jobsService';
 
 const StartJobsHome = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -26,6 +27,14 @@ const StartJobsHome = () => {
   let handleOpenMenu = () => {
     setOpenMenu(!openMenu);
   };
+
+  useEffect(() => {
+    async function Jobs() {
+      const response = await getJobs();
+      console.log('🚀 ~ Jobs ~ response:', response);
+    }
+    Jobs();
+  }, []);
 
   let handleShowHome = () => {
     setShowHomePage(true);
@@ -131,8 +140,8 @@ const StartJobsHome = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-blue-950 rounded-2xl  overflow-hidden">
-   {/* <div className='max-h-screen bg-gray-50 dark:bg-[#1F1E25]'> */}
+    <div className='min-h-screen bg-slate-100 transition-colors dark:bg-blue-950 rounded-2xl  overflow-hidden'>
+      {/* <div className='max-h-screen bg-gray-50 dark:bg-[#1F1E25]'> */}
       {/* Sidebar */}
       <SideBar
         openMenu={openMenu}
