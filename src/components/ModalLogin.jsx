@@ -25,7 +25,7 @@ function ModalLogin(props) {
     <Modal isVisible={props.isVisible}>
       <div className='py-6 px-6 lg:8 text-left relative'>
         <button
-          className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-zinc-50 transition-colors'
+          className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-blue-800 transition-colors'
           onClick={props.handleClose}
         >
           X

@@ -28,13 +28,6 @@ const StartJobsHome = () => {
     setOpenMenu(!openMenu);
   };
 
-  useEffect(() => {
-    async function Jobs() {
-      const response = await getJobs();
-      console.log('🚀 ~ Jobs ~ response:', response);
-    }
-    Jobs();
-  }, []);
 
   let handleShowHome = () => {
     setShowHomePage(true);

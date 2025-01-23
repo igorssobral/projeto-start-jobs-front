@@ -5,7 +5,7 @@ const Dashboard = ({ showMenu }) => {
     showMenu();
   }
   return (
-    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-blue-950">
+    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]">
       <main className="ml-0 md:ml-64 p-6">
         <button
           onClick={handleOpenMenu}
