@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import logo from '../assets/logo2x.png';
 import Home from './Home';
-import Candidaturas from './candidaturas';
+import Candidaturas from './Candidaturas';
 import Dashboard from './Dashboard';
 import DicasCV from './DicasCV';
 import VagasEmAlta from './VagasEmAlta';

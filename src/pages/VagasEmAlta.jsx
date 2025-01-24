@@ -1,4 +1,6 @@
-import { MenuIcon } from 'lucide-react';
+import { Bell, MenuIcon } from 'lucide-react';
+import { Footer } from '../components/Footer';
+import perfilPaula from "../assets/perfilPaula.jpg";
 
 const VagasEmAlta = ({ showMenu }) => {
   function handleOpenMenu() {
@@ -6,7 +8,7 @@ const VagasEmAlta = ({ showMenu }) => {
   }
   return (
     <div className='min-h-screen bg-slate-100 transition-colors dark:bg-blue-950'>
-      <main className='ml-0 md:ml-64 p-6 h-[100%] rounded-3xl'>
+      <div className="ml-0 md:ml-64 p-6 h-[100%] rounded-3xl">
         <button
           onClick={handleOpenMenu}
           className='md:hidden dark:text-zinc-50'
@@ -22,14 +24,26 @@ const VagasEmAlta = ({ showMenu }) => {
               Encontre as Vagas mais atuais e recorrentes, para você se candidatar.
             </p>
           </div>
-          <h1 className='text-xl font-normal dark:text-[#FAFAF9]'> 
-            Perfil = Nome logado
-          </h1>
+          <div className="flex items-center justify-between px-1">
+            <button className="btn-ghost size-10 dark:text-zinc-400">
+                <Bell size={20} />
+            </button>
+            <button className="size-10 overflow-hidden rounded-full">
+                <img 
+                  src={perfilPaula} 
+                  alt="foto logado" 
+                  className="mr-3 size-full object-cover"/>
+            </button>
+            <h1 className="ml-4 text-xl font-normal dark:text-zinc-400">
+              Perfil logado
+            </h1>
+          </div>
         </div>
         <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
         {/* Grid Layout */}
-        <div className='grid grid-cols-3 gap-6'>
+        <main >
+          <div className='grid grid-cols-3 gap-6 mt-10'>
           {/* Row 1 */}
           <div className='col-span-3 md:col-span-1 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
           <div className='col-span-3 md:col-span-2 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
@@ -39,6 +53,8 @@ const VagasEmAlta = ({ showMenu }) => {
           {/* <div className='col-span-2 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div> */}
         </div>
       </main>
+      <Footer />
+      </div>
     </div>
   );
 };
