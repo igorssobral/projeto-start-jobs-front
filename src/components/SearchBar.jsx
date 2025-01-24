@@ -33,5 +33,7 @@ function SearchBar() {
             <button className="w-64 bg-blue-500 text-white font-bold py-3 rounded-md">Buscar</button>
         </div>
     )
+
 }
+
 export default SearchBar;

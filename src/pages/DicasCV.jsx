@@ -9,6 +9,7 @@ const DicasCV = ({ showMenu }) => {
   return (
     <div className="min-h-screen bg-slate-100 transition-colors dark:bg-blue-950">
       <div className="ml-0 md:ml-64 p-6">
+
         <button
           onClick={handleOpenMenu}
           className="md:hidden dark:text-zinc-50"
@@ -57,9 +58,6 @@ const DicasCV = ({ showMenu }) => {
       </main>
           <Footer />   
       </div>
-
-      
-      
     </div>
   );
 };
