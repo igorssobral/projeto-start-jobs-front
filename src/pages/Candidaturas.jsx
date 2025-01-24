@@ -137,16 +137,16 @@ const Candidaturas = ({ showMenu }) => {
           </div>
           <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-          {/* Grid Layout */}
-          <SearchBar />
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
-            {jobs && jobs?.map((job) => <Jobcard key={job.id} {...job} />)}
-          </div>
+        <SearchBar/>
+        <div className="grid grid-cols-3 gap-6">
+          {/* Row 1 */}
+          <div className="col-span-3 bg-white rounded-lg shadow-sm min-h-[670px] dark:bg-[#151419]"></div>
+
+         
+        </div>
         </main>
       </div>
-      <Modal>
-        <div className='w-3/4 h-96'></div>
-      </Modal>
+     
     </>
   );
 };
