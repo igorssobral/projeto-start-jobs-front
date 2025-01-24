@@ -1,6 +1,5 @@
 import { MenuIcon } from 'lucide-react';
 import SearchBar from '../components/SearchBar';
-import Modal from '../components/Modal';
 import Jobcard from '../components/JobCard';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
