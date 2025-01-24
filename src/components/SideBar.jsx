@@ -5,6 +5,7 @@ import {
   FileText,
   Globe,
   Home,
+  LogOut,
   Menu,
   Moon,
   Sun,
@@ -12,6 +13,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../context/auth-context';
 
 const SideBar = ({
   openMenu,
@@ -33,6 +35,7 @@ const SideBar = ({
   showVagasEmAltaPage,
 }) => {
     const [darkMode, setDarkMode] = useState();
+    const {user, logout} = useAuth();
     useEffect(() => {
        const root = window.document.documentElement;
    
@@ -98,7 +101,7 @@ const SideBar = ({
             <span>Home</span>
           </button>
 
-          <button
+          {!user && <button
             onClick={handleShowModal}
             className={`w-full flex items-center space-x-3 transition-colors duration-300 ${
               showModalLogin
@@ -112,9 +115,9 @@ const SideBar = ({
           >
             <UserCircle2 size={20} />
             <span>Login</span>
-          </button>
+          </button>}
 
-          <button
+          {!user && <button
             onClick={handleShowModalRegister}
             className={`w-full flex items-center space-x-3 transition-colors duration-300 ${
               showModalRegister
@@ -128,7 +131,7 @@ const SideBar = ({
           >
             <UserPlus size={20} />
             <span>Registro</span>
-          </button>
+          </button>} 
 
           <button
             onClick={handleShowCandidaturas}
@@ -197,7 +200,18 @@ const SideBar = ({
         </nav>
 
         {/* Theme Toggle */}
-        <div className='p-4'>
+        <div className='p-4 space-y-3'>
+          {user && <button
+            onClick={logout}
+            className={`flex items-center space-x-3 text-gray-600 px-4 py-3  rounded-lg w-full transition-colors duration-300 border border-transparent hover:border-blue-500 ${
+              darkMode
+                ? 'text-zinc-400 hover:bg-zinc-900'
+                : 'hover:bg-gray-50'
+            }`}
+          >
+            <LogOut size={20}/>
+            <span>Sair</span>
+          </button>}
           <button
             onClick={() => setDarkMode(!darkMode)}
             className={`flex items-center space-x-3 text-gray-600 px-4 py-3  rounded-lg w-full transition-colors duration-300 ${

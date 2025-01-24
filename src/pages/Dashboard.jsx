@@ -1,4 +1,5 @@
 import { MenuIcon } from "lucide-react";
+import Header from '../components/Header';
 
 const Dashboard = ({ showMenu }) => {
   function handleOpenMenu() {
@@ -13,19 +14,8 @@ const Dashboard = ({ showMenu }) => {
         >
           <MenuIcon />
         </button>
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-medium dark:text-[#FAFAF9]">
-              Dashboard
-            </h1>
-            <p className="text-gray-500 dark:text-zinc-400">
-              Acompanhe seus processos e compare as expectativas.
-            </p>
-          </div>
-          <h1 className="text-xl font-normal dark:text-[#FAFAF9]">
-          Perfil = nome logado
-          </h1>
-        </div>
+        <Header title={"Dashboard"} description={" Acompanhe seus processos e compare as expectativas."}/>
+       
         <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
         {/* Grid Layout */}

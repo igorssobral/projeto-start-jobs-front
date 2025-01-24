@@ -4,6 +4,7 @@ import Jobcard from '../components/JobCard';
 import { useEffect, useState } from 'react';
 import { getJobs } from '../services/jobsService';
 import Modal from '../components/Modal';
+import Header from '../components/Header';
 
 const Candidaturas = ({ showMenu }) => {
   const [jobs, setJobs] = useState([]);
@@ -121,32 +122,19 @@ const Candidaturas = ({ showMenu }) => {
           >
             <MenuIcon />
           </button>
+          <Header
+            title={'Candidaturas'}
+            description={' Pesquise e filtre as oportunidades desejadas.'}
+          />
 
-          <div className='mb-8 flex items-center justify-between'>
-            <div>
-              <h1 className='text-2xl font-medium dark:text-[#FAFAF9]'>
-                Candidaturas
-              </h1>
-              <p className='text-gray-500 dark:text-zinc-400'>
-                Pesquise e filtre as oportunidades desejadas.
-              </p>
-            </div>
-            <h1 className='text-xl font-normal dark:text-[#FAFAF9]'>
-              Perfil = nome logado
-            </h1>
-          </div>
           <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-        <SearchBar/>
-        <div className="grid grid-cols-3 gap-6">
-          {/* Row 1 */}
-          <div className="col-span-3 bg-white rounded-lg shadow-sm min-h-[670px] dark:bg-[#151419]"></div>
-
-         
-        </div>
+          <SearchBar />
+          <div className='grid grid-cols-3 gap-6'>
+            <div className='col-span-3 bg-white rounded-lg shadow-sm min-h-[670px] dark:bg-[#151419]'></div>
+          </div>
         </main>
       </div>
-     
     </>
   );
 };

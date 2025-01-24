@@ -1,4 +1,5 @@
 import { MenuIcon } from 'lucide-react';
+import Header from '../components/Header';
 
 function Home({showMenu}) {
     function handleOpenMenu() {
@@ -9,19 +10,10 @@ function Home({showMenu}) {
       <button onClick={handleOpenMenu} className='md:hidden dark:text-zinc-50'>
         <MenuIcon />
       </button>
-      <div className='mb-8 flex items-center justify-between'>
-        <div>
-          <h1 className='text-2xl font-medium dark:text-[#FAFAF9]'>
-            Start Jobs
-          </h1>
-          <p className='text-gray-500 dark:text-zinc-400'>
-            Gerenciamento de perfis | 2024-2025
-          </p>
-        </div>
-        <h1 className='text-base md:text-xl font-normal dark:text-[#FAFAF9]'>
-          Bem vindo, nome
-        </h1>
-      </div>
+      <Header title={"Start Jobs"} description={" Gerenciamento de perfis | 2024-2025"}/>
+
+      
+    
       <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
       {/* Grid Layout */}

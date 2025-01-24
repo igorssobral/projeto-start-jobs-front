@@ -1,6 +1,9 @@
 import { MenuIcon } from "lucide-react";
-
+import PDFViewer from '../components/PdfViewer';
+import pdf from '../assets/ATS.pdf'
+import Header from '../components/Header';
 const DicasCV = ({ showMenu }) => {
+
   function handleOpenMenu() {
     showMenu();
   }
@@ -13,31 +16,14 @@ const DicasCV = ({ showMenu }) => {
         >
           <MenuIcon />
         </button>
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-medium dark:text-[#FAFAF9]">
-              Dicas para o seu Currículo
-            </h1>
-            <p className="text-gray-500 dark:text-zinc-400">
-              Aqui você encontra dicas de como montar um Currículo Vitae Profissional.
-            </p>
-          </div>
-          <h1 className="text-xl font-normal dark:text-[#FAFAF9]">
-            Perfil = nome logado
-          </h1>
-        </div>
+        <Header title={"Dicas para o seu Currículo"} description={" Aqui você encontra dicas de como montar um Currículo Vitae Profissional."}/>
+
+        
         <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-3 gap-6">
-          {/* Row 1 */}
-          <div className="col-span-3 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]"></div>
-          <div className="col-span-3 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]"></div>
-
-          {/* Row 2 */}
-          {/* <div className='col-span-1 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div>
-          <div className='col-span-2 bg-white rounded-lg shadow-sm h-96 dark:bg-[#151419]'></div> */}
-        </div>
+        
+        <PDFViewer pdfUrl={pdf}/>
+      
       </main>
     </div>
   );
