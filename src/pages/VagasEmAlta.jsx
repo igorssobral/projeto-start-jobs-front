@@ -162,7 +162,7 @@ const VagasEmAlta = ({ showMenu }) => {
       </div>
     </div>
     
-  </>
+
   );
 };
 
