@@ -4,7 +4,7 @@ const Modal = ({ isVisible, children }) => {
 
   return (
     <div
-      className='h-dvh overflow-y-auto fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'
+      className='h-dvh overflow-y-auto z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'
       id='wrapper'
     >
       <div className='md:w-[600px] w-[90%] mx-auto flex flex-col'>

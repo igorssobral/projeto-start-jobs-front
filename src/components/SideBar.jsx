@@ -95,7 +95,7 @@ const SideBar = ({
         openMenu
           ? 'translate-x-0 opacity-100'
           : '-translate-x-full xs:opacity-0'
-      } md:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white dark:bg-zinc-900 shadow-lg flex flex-col z-50 transition-all rounded-2xl duration-300 ease-in-out`}
+      } md:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white dark:bg-zinc-900 shadow-lg flex flex-col z-40 transition-all rounded-2xl duration-300 ease-in-out`}
     >
       <div className='p-6'>
         <div className='flex items-center space-x-2'>

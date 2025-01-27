@@ -12,17 +12,19 @@ import SideBar from '../components/SideBar';
 
 const StartJobsHome = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [activePage, setActivePage] = useState('home'); 
-  const [activeModal, setActiveModal] = useState(null); 
+  const [activePage, setActivePage] = useState('home');
+  const [activeModal, setActiveModal] = useState(null);
 
   const handleShowPage = (page) => {
+    if (!(page === 'login' || page === 'register')) {
+      setActiveModal(null);
+    }
     setActivePage(page);
-    setOpenMenu(false); 
+    setOpenMenu(false);
   };
 
   const handleShowModal = (modal) => {
     setActiveModal(modal);
-    setActivePage('login');
   };
 
   const handleCloseModal = () => {
@@ -46,11 +48,15 @@ const StartJobsHome = () => {
         activeModal={activeModal}
       />
 
-      {activePage === 'home' && <Home showMenu={handleOpenMenu}/>}
-      {activePage === 'candidaturas' && <Candidaturas showMenu={handleOpenMenu}/>}
-      {activePage === 'dashboard' && <Dashboard showMenu={handleOpenMenu}/>}
-      {activePage === 'dicasCv' && <DicasCV showMenu={handleOpenMenu}/>}
-      {activePage === 'vagasEmAlta' && <VagasEmAlta showMenu={handleOpenMenu}/>}
+      {activePage === 'home' && <Home showMenu={handleOpenMenu} />}
+      {activePage === 'candidaturas' && (
+        <Candidaturas showMenu={handleOpenMenu} />
+      )}
+      {activePage === 'dashboard' && <Dashboard showMenu={handleOpenMenu} />}
+      {activePage === 'dicasCv' && <DicasCV showMenu={handleOpenMenu} />}
+      {activePage === 'vagasEmAlta' && (
+        <VagasEmAlta showMenu={handleOpenMenu} />
+      )}
 
       <ModalLogin
         isVisible={activeModal === 'login'}
