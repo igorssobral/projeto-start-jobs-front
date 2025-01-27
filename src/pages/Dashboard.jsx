@@ -1,7 +1,6 @@
 import Header from '../components/Header';
 import {
   ArrowUpNarrowWide,
-  Bell,
   Expand,
   MenuIcon,
   Package,
@@ -26,14 +25,13 @@ import {
 import { overviewData, destaquesData, topVagas } from "../stats/Index";
 
 import { Footer } from "../components/Footer";
-import perfilPaula from "../assets/perfilPaula.jpg";
 
 const Dashboard = ({ showMenu }) => {
   function handleOpenMenu() {
     showMenu();
   }
   return (
-    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-blue-950">
+    <div className="min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]">
       <div className="ml-0 md:ml-64 p-6">
 
         <button
@@ -45,47 +43,22 @@ const Dashboard = ({ showMenu }) => {
         <Header title={"Dashboard"} description={" Acompanhe seus processos."}/>
        
         <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-medium dark:text-[#FAFAF9]">
-              Dashboard
-            </h1>
-            <p className="text-slate-500 dark:text-zinc-400">
-              Acompanhe os processos e compare suas expectativas.
-            </p>
-          </div>
-          <div className="flex items-center justify-between px-1">
-            <button className="btn-ghost size-10 dark:text-zinc-400">
-              <Bell size={20} />
-            </button>
-            <button className="size-10 overflow-hidden rounded-full">
-              <img
-                src={perfilPaula}
-                alt="foto logado"
-                className="mr-3 size-full object-cover"
-              />
-            </button>
-            <h1 className="ml-4 text-xl font-normal dark:text-zinc-400">
-              Perfil logado
-            </h1>
-          </div>
-        </div>
-        <div className="border-b  w-[100%] mx-auto border-zinc-500/70 my-4" /> 
+        
       </div>
 
       <div  className="ml-10 mb-6 md:ml-64 px-10">
       <main>
         <div className="flex flex-col gap-y-3">
           {/* <h1 className="title text-2xl text-">Dashboard</h1> */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <div className="card">
-              <div className="card-header">
-                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+            <div className="card dark:bg-[#0e0d11]">
+              <div className="card-header ">
+                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600">
                   <Package size={26} />
                 </div>
                 <p className="card-title">Candidaturas</p>
               </div>
-              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-slate-950">
+              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]">
                 <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">
                   25
                 </p>
@@ -95,14 +68,14 @@ const Dashboard = ({ showMenu }) => {
                 </span>
               </div>
             </div>
-            <div className="card">
-              <div className="card-header">
-                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
+            <div className="card dark:bg-[#0e0d11]">
+              <div className="card-header ">
+                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600">
                   <Expand size={26} />
                 </div>
                 <p className="card-title">Vagas Abertas</p>
               </div>
-              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-slate-950">
+              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]">
                 <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">
                   16
                 </p>
@@ -112,14 +85,14 @@ const Dashboard = ({ showMenu }) => {
                 </span>
               </div>
             </div>
-            <div className="card">
-              <div className="card-header">
-                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
+            <div className="card dark:bg-[#0e0d11]">
+              <div className="card-header ">
+                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600">
                   <Users size={26} />
                 </div>
                 <p className="card-title">Entrevistas</p>
               </div>
-              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-slate-950">
+              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]">
                 <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">
                   15
                 </p>
@@ -129,14 +102,14 @@ const Dashboard = ({ showMenu }) => {
                 </span>
               </div>
             </div>
-            <div className="card">
-              <div className="card-header">
-                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-blue-600/20 dark:text-blue-600">
+            <div className="card dark:bg-[#0e0d11]">
+              <div className="card-header ">
+                <div className="w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600">
                   <ArrowUpNarrowWide size={26} />
                 </div>
                 <p className="card-title">Classificação</p>
               </div>
-              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-slate-950">
+              <div className="card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]">
                 <p className="text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50">
                   12
                 </p>
@@ -151,12 +124,12 @@ const Dashboard = ({ showMenu }) => {
           {/* ******************************** */}
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-            <div className="card col-span-1 md:col-span-2 lg:col-span-4">
+            <div className="card col-span-1 md:col-span-2 lg:col-span-4 dark:bg-[#0e0d11]">
               <div className="card-header">
                 <p className="card-title">Análises</p>
               </div>
 
-              <div className="card-body p-0">
+              <div className="card-body p-0 ">
                 <ResponsiveContainer width={"100%"} height={300}>
                   <BarChart
                     data={overviewData}
@@ -187,7 +160,7 @@ const Dashboard = ({ showMenu }) => {
             </div>
             {/* ***************************** */}
 
-            <div className="card col-span-1 md:col-span-2 lg:col-span-3">
+            <div className="card col-span-1 md:col-span-2 lg:col-span-3 dark:bg-[#0e0d11]">
               <div className="card-header">
                 <p className="card-title">Top 10 Destaques</p>
               </div>
@@ -220,14 +193,14 @@ const Dashboard = ({ showMenu }) => {
               </div>
             </div>
           </div>
-          <div className="card">
+          <div className="card dark:bg-[#0e0d11]">
             <div className="card-header">
               <p className="card-title">Oportunidades</p>
             </div>
             <div className="card-body p-0"></div>
             <div className="relative h-[500px] w-full flex-shrink-0 overflow-auto rounded-none [scrollbar-width:_thin]">
               <table className="table">
-                <thead className="table-header">
+                <thead className="table-header dark:bg-[#1F1E25]">
                   <tr className="table-row">
                     <th className="table-head">#</th>
                     <th className="table-head">Empresas</th>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import logo from '../assets/logo2x.png';
 import Home from './Home';
-import Candidaturas from './Candidaturas';
 import Dashboard from './Dashboard';
 import DicasCV from './DicasCV';
 import VagasEmAlta from './VagasEmAlta';
@@ -9,6 +8,7 @@ import ModalLogin from '../components/ModalLogin';
 import ModalRegistro from '../components/ModalRegistro';
 import ModalRecoveryPassword from '../components/ModalRecoveryPassword';
 import SideBar from '../components/SideBar';
+import Candidaturas from './candidaturas';
 
 const StartJobsHome = () => {
   const [openMenu, setOpenMenu] = useState(false);
