@@ -1,6 +1,6 @@
 import { MenuIcon } from 'lucide-react';
-// import PDFViewer from '../components/PdfViewer';
-// import pdf from '../assets/ATS.pdf';
+import PDFViewer from '../components/PdfViewer';
+import pdf from '../assets/ATS.pdf';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import DicasCVCard from '../components/DicasCVCard';
@@ -8,8 +8,11 @@ import Image1 from '../assets/DicasCV_1.png';
 import Image2 from '../assets/DicasCV_2.png';
 import Image3 from '../assets/DicasCV_3.png';
 import Image4 from '../assets/DicasCV_4.png';
+import Modal from '../components/Modal';
+import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
+  const [openDicasCv, setOpenDicasCv] = useState(false);
   const cardsData = [
     {
       image: Image1,
@@ -43,6 +46,11 @@ const DicasCV = ({ showMenu }) => {
 
   function handleOpenMenu() {
     showMenu();
+  }
+  function handleCardClick(index) {
+    if (index === 2) {
+      setOpenDicasCv(!openDicasCv);
+    }
   }
   return (
     <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
@@ -79,6 +87,7 @@ const DicasCV = ({ showMenu }) => {
                   altText={card.altText}
                   title={card.title}
                   description={card.description}
+                  onClick={() => handleCardClick(index)}
                 />
               ))}
             </div>
@@ -91,6 +100,13 @@ const DicasCV = ({ showMenu }) => {
             </div>
           </div>
         </main>
+        <Modal
+          isVisible={openDicasCv}
+          width={'800px'}
+          closeModal={() => setOpenDicasCv(false)}
+        >
+          <PDFViewer />
+        </Modal>
         <Footer />
       </div>
     </div>

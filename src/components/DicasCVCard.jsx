@@ -1,6 +1,9 @@
-const DicasCVCard = ({ image, altText, title, description }) => {
+const DicasCVCard = ({ image, altText, title, description, onClick }) => {
   return (
-    <div className='max-w-lg mx-auto bg-[#F6F5F0] dark:bg-[#151419] rounded-2xl shadow-lg overflow-hidden'>
+    <div
+      className='max-w-lg mx-auto bg-[#F6F5F0] dark:bg-[#151419] rounded-2xl shadow-lg overflow-hidden cursor-pointer '
+      onClick={onClick}  
+    >
       <img
         src={image}
         alt={altText}
