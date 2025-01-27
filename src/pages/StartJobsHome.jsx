@@ -46,11 +46,11 @@ const StartJobsHome = () => {
         activeModal={activeModal}
       />
 
-      {activePage === 'home' && <Home />}
-      {activePage === 'candidaturas' && <Candidaturas />}
-      {activePage === 'dashboard' && <Dashboard />}
-      {activePage === 'dicasCv' && <DicasCV />}
-      {activePage === 'vagasEmAlta' && <VagasEmAlta />}
+      {activePage === 'home' && <Home showMenu={handleOpenMenu}/>}
+      {activePage === 'candidaturas' && <Candidaturas showMenu={handleOpenMenu}/>}
+      {activePage === 'dashboard' && <Dashboard showMenu={handleOpenMenu}/>}
+      {activePage === 'dicasCv' && <DicasCV showMenu={handleOpenMenu}/>}
+      {activePage === 'vagasEmAlta' && <VagasEmAlta showMenu={handleOpenMenu}/>}
 
       <ModalLogin
         isVisible={activeModal === 'login'}
