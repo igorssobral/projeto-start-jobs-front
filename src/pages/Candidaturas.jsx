@@ -1,7 +1,11 @@
+import { Bell, MenuIcon } from 'lucide-react';
+import SearchBar from '../components/SearchBar';
+import Jobcard from '../components/JobCard';
+import { useEffect, useState } from 'react';
+import { getJobs } from '../services/jobsService';
+import Modal from '../components/Modal';
+import Header from '../components/Header';
 import dayjs from "dayjs";
-import { Bell, MenuIcon } from "lucide-react";
-import SearchBar from "../components/SearchBar";
-import Jobcard from "../components/JobCard";
 import jobData from "../jobData";
 import { Footer } from "../components/Footer";
 import perfilPaula from "../assets/perfilPaula.jpg"
@@ -125,7 +129,17 @@ const Candidaturas = ({ showMenu }) => {
           >
             <MenuIcon />
           </button>
+          <Header
+            title={'Candidaturas'}
+            description={' Pesquise e filtre as oportunidades desejadas.'}
+          />
 
+          <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+
+          <SearchBar />
+          <div className='grid grid-cols-3 gap-6'>
+            <div className='col-span-3 bg-white rounded-lg shadow-sm min-h-[670px] dark:bg-[#151419]'></div>
+          </div>
           <div className='mb-8 flex items-center justify-between'>
             <div>
               <h1 className='text-2xl font-medium dark:text-[#FAFAF9]'>
@@ -161,9 +175,7 @@ const Candidaturas = ({ showMenu }) => {
         ))}
           </div>
           <Footer />
-
         </main>
-        
       </div>
     </>
   );

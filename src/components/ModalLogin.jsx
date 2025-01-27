@@ -2,19 +2,30 @@ import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import Modal from './Modal';
 import { login } from '../services/authService';
+import { useAuth } from '../context/auth-context';
+import { toast } from 'react-toastify';
+import { LoaderCircle } from 'lucide-react';
 
 function ModalLogin(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const { logged, user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const data = await login(email, password);
       console.log('Usuário logado com sucesso:', data);
-      localStorage.setItem('token', data.token); // Salva o token no localStorage
+      logged(data);
+      localStorage.setItem('token', data); // Salva o token no localStorage
+
+      setLoading(false);
       props.handleClose();
+      toast.success(`Bem Vindo! ${user.user}`);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
       setError('Email ou senha inválidos. Tente novamente.');
@@ -86,6 +97,7 @@ function ModalLogin(props) {
               </label>
             </div>
             <button
+            type='button'
               onClick={props.showRecoveryPassword}
               className='text-sm text-blue-700 hover:underline'
             >
@@ -96,12 +108,20 @@ function ModalLogin(props) {
             type='submit'
             className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-            Entrar
+            {loading ? (
+              <span className='flex items-center justify-center gap-2'>
+                <LoaderCircle className='animate-spin' /> Entrando
+              </span>
+            ) : (
+              'Entrar'
+            )}
           </button>
           <button
             type='button'
             className='flex justify-center items-center gap-2 w-full text-white bg-blue-400 hover:bg-blue-600 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
-            onClick={() => console.log('Login com Google ainda não implementado')}
+            onClick={() =>
+              console.log('Login com Google ainda não implementado')
+            }
           >
             <FaGoogle /> Entrar com o Google
           </button>

@@ -1,3 +1,4 @@
+import Header from '../components/Header';
 import {
   ArrowUpNarrowWide,
   Bell,
@@ -41,6 +42,9 @@ const Dashboard = ({ showMenu }) => {
         >
           <MenuIcon />
         </button>
+        <Header title={"Dashboard"} description={" Acompanhe seus processos."}/>
+       
+        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-medium dark:text-[#FAFAF9]">

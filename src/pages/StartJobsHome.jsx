@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unknown-property */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import logo from '../assets/logo2x.png';
 import Home from './Home';
 import Candidaturas from './Candidaturas';
@@ -10,173 +9,69 @@ import ModalLogin from '../components/ModalLogin';
 import ModalRegistro from '../components/ModalRegistro';
 import ModalRecoveryPassword from '../components/ModalRecoveryPassword';
 import SideBar from '../components/SideBar';
-import { getJobs } from '../services/jobsService';
 
 const StartJobsHome = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [showModalLogin, setShowModalLogin] = useState(false);
-  const [showModalRegister, setShowModalRegister] = useState(false);
-  const [showModalRecoveryPassword, setShowModalRecoveryPassword] =
-    useState(false);
-  const [showHomePage, setShowHomePage] = useState(true);
-  const [showCandidaturasPage, setShowCandidaturasPage] = useState(false);
-  const [showDashboardPage, setShowDashboardPage] = useState(false);
-  const [showDicasCvPage, setShowDicasCvPage] = useState(false);
-  const [showVagasEmAltaPage, setShowVagasEmAltaPage] = useState(false);
+  const [activePage, setActivePage] = useState('home');
+  const [activeModal, setActiveModal] = useState(null);
 
-  let handleOpenMenu = () => {
+  const handleShowPage = (page) => {
+    if (!(page === 'login' || page === 'register')) {
+      setActiveModal(null);
+    }
+    setActivePage(page);
+    setOpenMenu(false);
+  };
+
+  const handleShowModal = (modal) => {
+    setActiveModal(modal);
+  };
+
+  const handleCloseModal = () => {
+    setActiveModal(null);
+    handleShowPage('home');
+  };
+
+  const handleOpenMenu = () => {
     setOpenMenu(!openMenu);
   };
 
-
-  let handleShowHome = () => {
-    setShowHomePage(true);
-    handleCloseCandidaturas();
-    handleCloseDasboard();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-    handleOpenMenu();
-  };
-
-  let handleCloseHome = () => {
-    setShowHomePage(false);
-  };
-
-  let handleShowCandidaturas = () => {
-    setShowCandidaturasPage(true);
-    handleCloseHome();
-    handleCloseDasboard();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-    handleOpenMenu();
-  };
-
-  let handleCloseCandidaturas = () => {
-    setShowCandidaturasPage(false);
-  };
-  let handleShowDasboard = () => {
-    setShowDashboardPage(true);
-    handleCloseHome();
-    handleCloseCandidaturas();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-    handleOpenMenu();
-  };
-
-  let handleCloseDasboard = () => {
-    setShowDashboardPage(false);
-  };
-  let handleShowDicasCv = () => {
-    setShowDicasCvPage(true);
-    handleCloseHome();
-    handleCloseDasboard();
-    handleCloseCandidaturas();
-    handleCloseVagasEmAlta();
-    handleOpenMenu();
-  };
-
-  let handleCloseDicasCv = () => {
-    setShowDicasCvPage(false);
-  };
-  let handleShowVagasEmAlta = () => {
-    setShowVagasEmAltaPage(true);
-    handleCloseHome();
-    handleCloseDasboard();
-    handleCloseCandidaturas();
-    handleCloseDicasCv();
-    handleOpenMenu();
-  };
-
-  let handleCloseVagasEmAlta = () => {
-    setShowVagasEmAltaPage(false);
-  };
-
-  let handleShowModal = () => {
-    setShowModalLogin(true);
-    handleCloseHome();
-    handleCloseCandidaturas();
-    handleCloseDasboard();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-  };
-
-  let handleCloseModal = () => {
-    setShowModalLogin(false);
-    handleShowHome();
-  };
-  let handleShowModalRegister = () => {
-    setShowModalRegister(true);
-    handleCloseHome();
-    handleCloseCandidaturas();
-    handleCloseDasboard();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-  };
-
-  let handleCloseModalRegister = () => {
-    setShowModalRegister(false);
-    handleShowHome();
-  };
-  let handleShowModalRecoveryPassword = () => {
-    setShowModalRecoveryPassword(true);
-    handleCloseHome();
-    handleCloseCandidaturas();
-    handleCloseDasboard();
-    handleCloseDicasCv();
-    handleCloseVagasEmAlta();
-    handleOpenMenu();
-  };
-
-  let handleCloseModalRecoveryPassword = () => {
-    setShowModalRecoveryPassword(false);
-    handleShowHome();
-  };
-
   return (
-    <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25] rounded-2xl  overflow-hidden'>
-      {/* <div className='max-h-screen bg-gray-50 dark:bg-[#1F1E25]'> */}
-      {/* Sidebar */}
+    <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25] rounded-2xl overflow-hidden'>
       <SideBar
         openMenu={openMenu}
         logo={logo}
         handleOpenMenu={handleOpenMenu}
-        handleShowHome={handleShowHome}
+        handleShowPage={handleShowPage}
         handleShowModal={handleShowModal}
-        handleShowModalRegister={handleShowModalRegister}
-        handleShowCandidaturas={handleShowCandidaturas}
-        handleShowDasboard={handleShowDasboard}
-        handleShowDicasCv={handleShowDicasCv}
-        handleShowVagasEmAlta={handleShowVagasEmAlta}
-        showModalLogin={showModalLogin}
-        showModalRegister={showModalRegister}
-        showModalRecoveryPassword={showModalRecoveryPassword}
-        showCandidaturasPage={showCandidaturasPage}
-        showDashboardPage={showDashboardPage}
-        showDicasCvPage={showDicasCvPage}
-        showVagasEmAltaPage={showVagasEmAltaPage}
+        activePage={activePage}
+        activeModal={activeModal}
       />
 
-      {showHomePage && <Home showMenu={handleOpenMenu} />}
-
-      {showCandidaturasPage && <Candidaturas showMenu={handleOpenMenu} />}
-      {showDashboardPage && <Dashboard showMenu={handleOpenMenu} />}
-      {showDicasCvPage && <DicasCV showMenu={handleOpenMenu} />}
-      {showVagasEmAltaPage && <VagasEmAlta showMenu={handleOpenMenu} />}
+      {activePage === 'home' && <Home showMenu={handleOpenMenu} />}
+      {activePage === 'candidaturas' && (
+        <Candidaturas showMenu={handleOpenMenu} />
+      )}
+      {activePage === 'dashboard' && <Dashboard showMenu={handleOpenMenu} />}
+      {activePage === 'dicasCv' && <DicasCV showMenu={handleOpenMenu} />}
+      {activePage === 'vagasEmAlta' && (
+        <VagasEmAlta showMenu={handleOpenMenu} />
+      )}
 
       <ModalLogin
-        isVisible={showModalLogin}
+        isVisible={activeModal === 'login'}
         handleClose={handleCloseModal}
-        showRecoveryPassword={handleShowModalRecoveryPassword}
+        showRecoveryPassword={() => handleShowModal('recoveryPassword')}
       />
 
       <ModalRegistro
-        isVisible={showModalRegister}
-        handleClose={handleCloseModalRegister}
+        isVisible={activeModal === 'register'}
+        handleClose={handleCloseModal}
       />
 
       <ModalRecoveryPassword
-        isVisible={showModalRecoveryPassword}
-        handleClose={handleCloseModalRecoveryPassword}
+        isVisible={activeModal === 'recoveryPassword'}
+        handleClose={handleCloseModal}
       />
     </div>
   );

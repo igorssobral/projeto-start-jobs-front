@@ -1,4 +1,7 @@
 import { Bell, MenuIcon } from "lucide-react";
+import PDFViewer from '../components/PdfViewer';
+import pdf from '../assets/ATS.pdf'
+import Header from '../components/Header';
 import { Footer } from "../components/Footer";
 import perfilPaula from "../assets/perfilPaula.jpg";
 import DicasCVCard from "../components/DicasCVCard";
@@ -53,6 +56,14 @@ const DicasCV = ({ showMenu }) => {
         >
           <MenuIcon />
         </button>
+        <Header title={"Dicas para o seu Currículo"} description={" Aqui você encontra dicas de como montar um Currículo Vitae Profissional."}/>
+
+        
+        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+
+        
+        <PDFViewer pdfUrl={pdf}/>
+      
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-medium dark:text-[#FAFAF9]">

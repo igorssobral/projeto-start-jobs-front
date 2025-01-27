@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import Modal from './Modal';
 import { register } from '../services/authService';
+import { LoaderCircle } from 'lucide-react';
 
 function ModalRegistro(props) {
   const [formData, setFormData] = useState({
@@ -13,6 +14,8 @@ function ModalRegistro(props) {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +24,7 @@ function ModalRegistro(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     if (formData.senha !== formData.confirmPassword) {
       setError('As senhas não coincidem.');
@@ -39,6 +43,7 @@ function ModalRegistro(props) {
       console.log('Usuário registrado com sucesso:', data);
       setSuccess('Usuário registrado com sucesso!');
       setError('');
+      setLoading(false)
       props.handleClose();
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);
@@ -156,7 +161,13 @@ function ModalRegistro(props) {
             type='submit'
             className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-            Cadastrar
+               {loading ? (
+              <span className='flex items-center justify-center gap-2'>
+                <LoaderCircle className='animate-spin' /> Cadastrando
+              </span>
+            ) : (
+              'Cadastrar'
+            )}
           </button>
           <button
             type='button'
