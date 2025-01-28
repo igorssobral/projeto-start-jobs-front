@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 
 function Jobcard(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmCandidatura, setConfirmCandidatura] = useState(false);
 
   const date1 = dayjs(); // Data atual
   const diffInDays = date1.diff(dayjs(props.date_posted), 'day'); // Calculando a diferença de dias
@@ -47,7 +48,7 @@ function Jobcard(props) {
                 Ver mais detalhes
               </button>
               <a href={props.url} target="_blank" rel="noopener noreferrer">
-                <button className=" text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full">
+                <button className=" text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full" onClick={()=> setConfirmCandidatura(true)}>
                   Aplicar
                 </button>
               </a>
@@ -104,6 +105,34 @@ function Jobcard(props) {
               >
                 Fechar
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {confirmCandidatura && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 p-6">
+            <div className="flex flex-col justify-between items-start border-b pb-3">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-zinc-200">
+                Confirmar candidatura
+              </h2>
+              <p className='text-base text-zinc-800 dark:text-zinc-400'>Se inscreva na vaga? Salve em suas candidaturas</p>
+            </div>
+         
+            <div className="flex justify-end mt-6 space-x-2">
+              <button
+                onClick={()=>setConfirmCandidatura(false)}
+                className="text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Fechar
+              </button>
+     
+            <button
+            className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
+            onClick={() => setConfirmCandidatura(true)}
+          >
+            Salvar em candidaturas
+          </button>
             </div>
           </div>
         </div>
