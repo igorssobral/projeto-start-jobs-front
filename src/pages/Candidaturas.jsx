@@ -45,14 +45,17 @@ const Candidaturas = ({ showMenu }) => {
 
           <SearchBar />
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
-            {jobs &&
-              jobs?.map((job) => (
+          {jobs.length > 0 ? (
+              jobs.map((job) => (
                 <CandidaturaCard
                   key={job.id}
                   {...job}
                   refreshJobs={refreshJobs}
                 />
-              ))}
+              ))
+            ) : (
+             ""
+            )}
           </div>
 
           <Footer />
