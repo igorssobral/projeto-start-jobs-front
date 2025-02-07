@@ -18,6 +18,7 @@ export const getLocalStorage = (key)=> {
           return {
             token: token,
             user: decoded.nome || '',
+            id: decoded.idUsuario,
           };
         }
       }
