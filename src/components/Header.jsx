@@ -1,5 +1,5 @@
 import { useAuth } from '../context/auth-context';
-import profile from '../assets/logo1x.png';
+import profile from '../assets/user01.png';
 
 const Header = ({ title, description }) => {
   const { user } = useAuth();
@@ -11,9 +11,9 @@ const Header = ({ title, description }) => {
       </div>
       <h1 className='text-lg font-normal dark:text-[#FAFAF9]'>
         {user ? (
-          <span className='flex items-center gap-2'>
+          <span className='flex items-center gap-2 text-base'>
             <img src={profile} alt='' className='size-12 rounded-full' />
-            Bem Vindo, <strong className='text-xl'>{user.user}</strong>
+            Bem Vindo, <span className='text-base font-semibold'>{user.user}</span>
           </span>
         ) : (
           ''

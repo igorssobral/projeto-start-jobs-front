@@ -105,6 +105,10 @@ const VagasEmAlta = ({ showMenu }) => {
     }
     Jobs();
   }, []);
+
+
+
+
   function handleOpenMenu() {
     showMenu();
   }

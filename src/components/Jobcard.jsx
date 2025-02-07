@@ -1,13 +1,50 @@
 import { useState } from 'react';
 import dayjs from 'dayjs';
-import { X } from 'lucide-react';
+import { LoaderCircle, X } from 'lucide-react';
+import { useAuth } from '../context/auth-context';
+import { ApiCandidatura } from '../services/candidaturaService';
 
 function Jobcard(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmCandidatura, setConfirmCandidatura] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const { adicionarCandidatura } = ApiCandidatura();
+
+  const { user } = useAuth();
   const date1 = dayjs(); // Data atual
   const diffInDays = date1.diff(dayjs(props.date_posted), 'day'); // Calculando a diferença de dias
+
+  async function salvarCandidatura() {
+    setLoading(true);
+    const candidaturaData = {
+      idUsuario: user.id,
+      statusCandidatura: [
+        {
+          label: 'Em Análise',
+          completed: false,
+        },
+      ],
+      vaga: {
+        titulo: props.job_title,
+        descricao: props.description,
+        empresa: props.company,
+        localizacao: props.location,
+        senioridade: props.seniority,
+        modeloTrabalho: props.remote
+          ? 'Remoto'
+          : props.hybrid
+          ? 'Híbrido'
+          : 'Presencial',
+        url: props.url,
+        dataCriacao: props.date_posted,
+      },
+    };
+
+   const data =  adicionarCandidatura(candidaturaData);
+    setLoading(false);
+    setConfirmCandidatura(false);
+  }
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -134,9 +171,15 @@ function Jobcard(props) {
 
               <button
                 className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
-                onClick={() => setConfirmCandidatura(true)}
+                onClick={salvarCandidatura}
               >
-                Salvar em candidaturas
+                {loading ? (
+                  <span className='flex items-center justify-center gap-2'>
+                    <LoaderCircle className='animate-spin' /> Salvando
+                  </span>
+                ) : (
+                  'Salvar em candidaturas'
+                )}
               </button>
             </div>
           </div>

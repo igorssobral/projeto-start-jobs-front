@@ -19,7 +19,6 @@ function ModalLogin(props) {
     setLoading(true);
     try {
       const data = await login(email, password);
-      console.log('Usuário logado com sucesso:', data);
       logged(data);
       localStorage.setItem('token', data); // Salva o token no localStorage
 
@@ -33,7 +32,7 @@ function ModalLogin(props) {
   };
 
   return (
-    <Modal isVisible={props.isVisible}>
+    <Modal isVisible={props.isVisible} >
       <div className='py-6 px-6 lg:8 text-left relative'>
         <button
           className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-blue-800 transition-colors'

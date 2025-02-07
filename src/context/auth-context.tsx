@@ -22,6 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setUser({
       token: token,
       user: decoded.nome || '',
+      id: decoded.idUsuario,
     });
   };
 
