@@ -17,12 +17,12 @@ export const ApiCandidatura = () => {
         }
       );
 
-      toast.success("Candidatura adicionada.")
+      toast.success('Candidatura adicionada.');
 
       return response.data;
     } catch (error) {
       console.error('Erro ao salvar candidaturas', error);
-      toast.error('Erro ao salvar candidatura.')
+      toast.error(error.response.data);
       return error;
     }
   };
@@ -43,13 +43,12 @@ export const ApiCandidatura = () => {
     }
   };
 
-  function addCandidaturaNewStatus(candidaturaId, statusCandidatura) {
+  const addCandidaturaNewStatus = async (candidaturaId, statusCandidatura) => {
     const updatedStatus = {
       statusCandidatura,
     };
-
-    axios
-      .put(
+    try {
+      const response = await axios.put(
         `http://localhost:8080/api/candidaturas/status/${candidaturaId}`,
         updatedStatus,
         {
@@ -57,26 +56,28 @@ export const ApiCandidatura = () => {
             Authorization: `Bearer ${user.token}`,
           },
         }
-      )
-      .then((response) => {
-        toast.success("Nova Etapa adicionada.")
+      );
+      toast.success('Nova Etapa adicionada.');
 
-        return response.data;
-      })
-      .catch((error) => {
-        console.error('Erro ao atualizar status:', error);
-        toast.error('Erro ao adicionar nova etapa.')
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao atualizar status:', error);
+      toast.error('Erro ao adicionar nova etapa.');
 
-        return error;
-      });
-  }
-  function updateCandidaturaStatus(candidaturaId, statusCandidatura) {
+      return error;
+    }
+  };
+  const updateCandidaturaStatus = async (candidaturaId, statusCandidatura) => {
+    console.log(
+      '🚀 ~ updateCandidaturaStatus ~ statusCandidatura:',
+      statusCandidatura
+    );
     const updatedStatus = {
       statusCandidatura,
     };
 
-    axios
-      .put(
+    try {
+      const response = await axios.put(
         `http://localhost:8080/api/candidaturas/update-status/${candidaturaId}`,
         updatedStatus,
         {
@@ -84,19 +85,17 @@ export const ApiCandidatura = () => {
             Authorization: `Bearer ${user.token}`,
           },
         }
-      )
-      .then((response) => {
-        console.log('Candidatura atualizada:', response.data);
-        toast.success("Status Atualizado.")
-        return response.data;
-      })
-      .catch((error) => {
-        console.error('Erro ao atualizar candidatura:', error);
-        toast.error('Erro ao atualizar status.')
+      );
+      console.log('Candidatura atualizada:', response.data);
+      toast.success('Status Atualizado.');
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao atualizar candidatura:', error);
+      toast.error('Erro ao atualizar status.');
 
-        return error;
-      });
-  }
+      return error;
+    }
+  };
 
   return {
     adicionarCandidatura,

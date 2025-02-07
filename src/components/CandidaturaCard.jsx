@@ -1,22 +1,21 @@
-import { useState } from 'react';
-import dayjs from 'dayjs';
+import { useState, useCallback } from 'react';
+import { ProgressSteps } from './ProgressSteps';
 import { X } from 'lucide-react';
-import ProgressSteps from './ProgressSteps';
+import dayjs from 'dayjs';
 
 function CandidaturaCard(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const toggleModal = useCallback(() => {
+    setIsModalOpen((prevState) => !prevState);
+    props.refreshJobs();
+  }, []);
+
   const date1 = dayjs();
   const arr = props.dataCandidatura;
-
   const date = new Date(arr[0], arr[1] - 1, arr[2]);
-
   const dateFormat = date.toISOString().split('T')[0];
-  const diffInDays = date1.diff(dayjs(dateFormat), 'day'); // Calculando a diferença de dias
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const diffInDays = date1.diff(dayjs(dateFormat), 'day');
 
   return (
     <>
@@ -40,7 +39,7 @@ function CandidaturaCard(props) {
           <div className='flex flex-col 2xl:flex-row items-center lg:gap-4 w-full lg:w-auto'>
             <p className='text-gray-500 dark:text-gray-400 text-sm'>
               {diffInDays > 0
-                ? `Isncrito há ${diffInDays} dia${diffInDays !== 1 ? 's' : ''}`
+                ? `Inscrito há ${diffInDays} dia${diffInDays !== 1 ? 's' : ''}`
                 : 'Inscrito Hoje'}
             </p>
             <div className='flex xl:flex-col-reverse gap-4 mt-4 lg:mt-0'>
@@ -77,8 +76,8 @@ function CandidaturaCard(props) {
               <ProgressSteps
                 idCandidatura={props.id}
                 status={props.statusCandidatura}
+                refreshJobs={props.refreshJobs}
               />
-              <div></div>
             </div>
             <div className='mt-4 space-y-4'>
               <p className='text-gray-700 dark:text-gray-300'>

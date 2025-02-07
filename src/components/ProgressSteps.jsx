@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle, Circle, Loader, PlusCircle, X } from 'lucide-react';
 import { ApiCandidatura } from '../services/candidaturaService';
+import { toast } from 'react-toastify';
 
-export default function ProgressSteps({ idCandidatura, status }) {
+export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
   const [newStepLabel, setNewStepLabel] = useState('');
   const [newSteps, setNewSteps] = useState([]);
   const [idUpdate, setIdUpdate] = useState(0);
+  const [updateStatus, setUpdateStatus] = useState(false);
   const [modalNewStep, setModalNewStep] = useState(false);
   const [modalConfirmUpdate, setModalConfirmUpdate] = useState(false);
 
@@ -29,7 +31,7 @@ export default function ProgressSteps({ idCandidatura, status }) {
     );
 
     if (isStepExist) {
-      alert('Este passo já existe!');
+      toast.error('Este passo já existe!');
       return;
     }
 
@@ -40,51 +42,60 @@ export default function ProgressSteps({ idCandidatura, status }) {
     };
 
     setSteps((prevSteps) => [...prevSteps, newStep]);
-
     setNewSteps((prevNewSteps) => [...prevNewSteps, newStep]);
 
     setNewStepLabel('');
-
     setCurrentStep(steps.length + 1);
+    refreshJobs();
   };
 
   const markCompleted = (stepId) => {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
-
+  
     if (stepIndex > 0 && !steps[stepIndex - 1].completed) {
       return;
     }
-
+  
     setSteps((prevSteps) =>
-      prevSteps.map((step) =>
-        step.id === stepId ? { ...step, completed: true } : step
-      )
+      prevSteps.map((step) => {
+        const prev = step.id === stepId ? { ...step, completed: true } : step;
+        return prev;
+      })
     );
-
+  
     const nextStep = steps.find((step) => !step.completed);
     if (nextStep) {
       setCurrentStep(nextStep.id);
     }
-    atualizarStatus();
+  
+    setUpdateStatus(true);
   };
 
   useEffect(() => {
+    if (updateStatus) {
+      atualizarStatus(steps);
+      refreshJobs();
+    }
+  }, [updateStatus]);
+
+  useEffect(() => {
     if (newSteps.length > 0) {
-      async function processarAdicaoStatus() {
-        const data = addCandidaturaNewStatus(idCandidatura, newSteps);
+      async function adicionarNovoStatus() {
+        const data = await addCandidaturaNewStatus(idCandidatura, newSteps);
 
         setNewSteps([]);
         setModalNewStep(false);
+        refreshJobs();  // Recarrega os dados após adicionar uma nova etapa
       }
 
-      processarAdicaoStatus();
+      adicionarNovoStatus();
     }
   }, [newSteps]);
 
-  async function atualizarStatus() {
-    const data = updateCandidaturaStatus(idCandidatura, steps);
+  async function atualizarStatus(stepsUpdated) {
+    const data = await updateCandidaturaStatus(idCandidatura, stepsUpdated);
     setModalConfirmUpdate(false);
-    setIdUpdate(0);
+    setUpdateStatus(false);
   }
 
   function confirmUpdate(id) {
@@ -152,7 +163,7 @@ export default function ProgressSteps({ idCandidatura, status }) {
                 <h2 className='text-xl font-semibold text-gray-900 dark:text-white'>
                   Atualizar Etapa
                 </h2>
-                <p className='text-sm'>
+                <p className='text-sm dark:text-zinc-300'>
                   Clique em <strong>Atualizar Status</strong> caso tenha
                   avançado nessa etapa do processo seletivo
                 </p>
@@ -224,4 +235,4 @@ export default function ProgressSteps({ idCandidatura, status }) {
       )}
     </div>
   );
-}
+};
