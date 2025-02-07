@@ -42,7 +42,6 @@ function Jobcard(props) {
     };
 
    const data =  adicionarCandidatura(candidaturaData);
-
     setLoading(false);
     setConfirmCandidatura(false);
   }

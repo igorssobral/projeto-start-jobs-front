@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useAuth } from '../context/auth-context';
+import { toast } from 'react-toastify';
 
 export const ApiCandidatura = () => {
   const { user } = useAuth();
@@ -15,12 +16,13 @@ export const ApiCandidatura = () => {
           },
         }
       );
-      console.log('🚀 ~ adicionarCandidatura ~ response.data:', response.data)
 
+      toast.success("Candidatura adicionada.")
 
       return response.data;
     } catch (error) {
       console.error('Erro ao salvar candidaturas', error);
+      toast.error('Erro ao salvar candidatura.')
       return error;
     }
   };
@@ -57,12 +59,13 @@ export const ApiCandidatura = () => {
         }
       )
       .then((response) => {
-        console.log('Candidatura atualizada:', response.data);
+        toast.success("Nova Etapa adicionada.")
 
         return response.data;
       })
       .catch((error) => {
-        console.error('Erro ao atualizar candidatura:', error);
+        console.error('Erro ao atualizar status:', error);
+        toast.error('Erro ao adicionar nova etapa.')
 
         return error;
       });
@@ -84,11 +87,12 @@ export const ApiCandidatura = () => {
       )
       .then((response) => {
         console.log('Candidatura atualizada:', response.data);
-
+        toast.success("Status Atualizado.")
         return response.data;
       })
       .catch((error) => {
         console.error('Erro ao atualizar candidatura:', error);
+        toast.error('Erro ao atualizar status.')
 
         return error;
       });
