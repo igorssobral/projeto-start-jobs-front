@@ -11,7 +11,6 @@ const Candidaturas = ({ showMenu }) => {
   const { getCandidaturas } = ApiCandidatura();
 
   const refreshJobs = async () => {
-    console.log("asassssasssaaaaaaaa")
     const jobList = await getCandidaturas();
     setJobs(jobList);
   };
