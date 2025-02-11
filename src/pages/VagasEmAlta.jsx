@@ -3,6 +3,7 @@ import SearchBar from '../components/SearchBar';
 import Jobcard from '../components/JobCard';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
+import { Footer } from '../components/Footer';
 
 const VagasEmAlta = ({ showMenu }) => {
   const [jobs, setJobs] = useState([]);
@@ -135,6 +136,8 @@ const VagasEmAlta = ({ showMenu }) => {
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
             {jobs && jobs?.map((job) => <Jobcard key={job.id} {...job} />)}
           </div>
+          <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+          <Footer />
         </main>
       </div>
     </>
