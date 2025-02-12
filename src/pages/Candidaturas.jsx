@@ -57,7 +57,7 @@ const Candidaturas = ({ showMenu }) => {
              ""
             )}
           </div>
-
+          <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
           <Footer />
         </main>
       </div>
