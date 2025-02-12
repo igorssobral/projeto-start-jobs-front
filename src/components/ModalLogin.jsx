@@ -27,6 +27,7 @@ function ModalLogin(props) {
       toast.success(`Bem Vindo! ${user.user}`);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
+      setLoading(false)
       setError('Email ou senha inválidos. Tente novamente.');
     }
   };

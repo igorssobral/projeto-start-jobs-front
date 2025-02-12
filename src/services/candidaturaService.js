@@ -18,7 +18,6 @@ export const ApiCandidatura = () => {
       );
 
       toast.success('Candidatura adicionada.');
-
       return response.data;
     } catch (error) {
       console.error('Erro ao salvar candidaturas', error);

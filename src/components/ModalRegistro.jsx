@@ -16,7 +16,6 @@ function ModalRegistro(props) {
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,7 +23,7 @@ function ModalRegistro(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     if (formData.senha !== formData.confirmPassword) {
       setError('As senhas não coincidem.');
@@ -43,11 +42,12 @@ function ModalRegistro(props) {
       console.log('Usuário registrado com sucesso:', data);
       setSuccess('Usuário registrado com sucesso!');
       setError('');
-      setLoading(false)
+      setLoading(false);
       props.handleClose();
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);
       setError('Erro ao registrar usuário. Tente novamente.');
+      setLoading(false);
     }
   };
 
@@ -161,7 +161,7 @@ function ModalRegistro(props) {
             type='submit'
             className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
-               {loading ? (
+            {loading ? (
               <span className='flex items-center justify-center gap-2'>
                 <LoaderCircle className='animate-spin' /> Cadastrando
               </span>
