@@ -27,7 +27,7 @@ function Home({showMenu}) {
       {/* Grid Layout */}
       <div className="grid grid-cols-3 gap-2">
         {/* Row 1 */}
-        <div className="col-span-3 md:col-span-3 bg-white rounded-lg shadow-md h-96 dark:bg-[#151419]">
+        <div className="col-span-3 md:col-span-3 bg-white rounded-lg shadow-md h-96 dark:bg-[#151419] dark:text-slate-50">
           <div className="flex flex-row">
             <img
               src={reuniao}
@@ -62,7 +62,7 @@ function Home({showMenu}) {
         </div>
 
         {/* Row 2 */}
-        <div className="col-span-3 md:col-span-auto bg-white rounded-lg shadow-md h-96 dark:bg-[#151419]">
+        <div className="col-span-3 md:col-span-auto bg-white rounded-lg shadow-md h-96 dark:bg-[#151419] dark:text-slate-50">
           <div className="flex flex-row">
             <div>
               <h1 className="text-blue-500 m-2 ml-3 text-lg font-extrabold">
@@ -109,7 +109,7 @@ function Home({showMenu}) {
         </div>
 
         {/* Row 3 */}
-        <div className="col-span-3 md:col-span-auto bg-white rounded-lg shadow-md h-96 dark:bg-[#151419]">
+        <div className="col-span-3 md:col-span-auto bg-white rounded-lg shadow-md h-96 dark:bg-[#151419] dark:text-slate-50">
         <div className="flex flex-row">
             <div class="">
               <img src={smartphone} alt="image smartphone" className="h-full object-cover rounded-lg shadow-md mt-3 mx-1" />
