@@ -47,13 +47,14 @@ function Home({showMenu}) {
                 oportunidades de emprego.
               </p>
               <p className="font-medium text-sm mb-4">
-                {" "}
-                Nosso sistema acompanha cada etapa do processo de seleção, desde
+              <span className="ml-10">Nosso</span>
+                 sistema acompanha cada etapa do processo de seleção, desde
                 a inscrição inicial até a contratação, proporcionando uma
                 experiência organizada e ágil aos candidatos.
               </p>
               <p className="font-medium text-sm">
-                Com a Start JOBS sua plataforma integrada de gerenciamento de
+              <span className="ml-10">Com</span>
+                 a Start JOBS sua plataforma integrada de gerenciamento de
                 candidaturas, encontrar o emprego ideal nunca foi tão eficiente
                 e fácil!
               </p>
@@ -79,13 +80,11 @@ function Home({showMenu}) {
 
               <p className="font-normal ml-3">🔹 Transparência total:</p>
               <p className="ml-8 mb-2 font-medium text-sm">
-                {" "}
                 Saiba sempre onde está no processo.
               </p>
 
               <p className="font-normal ml-3">🔹 Eficiência máxima:</p>
               <p className="ml-8 mb-2 font-medium text-sm">
-                {" "}
                 Economize tempo e esforço com nossa plataforma integrada.
               </p>
 
