@@ -117,7 +117,7 @@ const VagasEmAlta = ({ showMenu }) => {
           hybrid: false,
           seniority: 'mid_level',
           source_url: 'https://www.indeed.com/viewjob?jk=0987654321',
-          url: 'https://careers.google.com/jobs/123456',
+          url: 'https://www.google.com/about/careers/applications/jobs/results',
         },
         {
           avg_annual_salary_usd: 100000,
