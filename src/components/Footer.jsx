@@ -1,16 +1,15 @@
-export const Footer = ()=> {
+export const Footer = () => {
     return (
-        <footer className="mt-10 mx-10 flex items-center justify-between">
-        {/* // className="flex flex-wrap items-center justify-between gap-4 pt-4"> */}
-            <p className="text-base font-medium text-slate-900 dark:text-slate-50">© 2024 Start JOBS Code All Rights Reserved</p>
-            <div className="flex items-center justify-end text-base font-medium text-slate-900 dark:text-slate-50">
-            
-                <a 
-                    href="#"
-                    className="link">
-                        Desenvolvido por #ash-Tag Systems
-                </a>
-            </div>
-        </footer>
+      <footer className="mt-6 mx-10 flex flex-col sm:flex-row items-center justify-between pt-6 pb-4">
+        <p className="text-base font-medium text-slate-900 dark:text-slate-50 text-center sm:text-left">
+          © 2024 Start JOBS Code All Rights Reserved
+        </p>
+        <div className="flex items-center justify-center sm:justify-end text-base font-medium text-slate-900 dark:text-slate-50 mt-4 sm:mt-0">
+          <a href="#" className="link">
+            Desenvolvido por #ash-Tag Systems
+          </a>
+        </div>
+      </footer>
     );
-};
+  };
+  
