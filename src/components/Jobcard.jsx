@@ -22,7 +22,8 @@ function Jobcard(props) {
       statusCandidatura: [
         {
           label: 'Em Análise',
-          completed: false,
+          approved: false,
+          rejected: false,
         },
       ],
       vaga: {
@@ -41,7 +42,7 @@ function Jobcard(props) {
       },
     };
 
-   const data =  adicionarCandidatura(candidaturaData);
+    const data = adicionarCandidatura(candidaturaData);
     setLoading(false);
     setConfirmCandidatura(false);
   }
@@ -52,7 +53,7 @@ function Jobcard(props) {
 
   return (
     <>
-      <div className='py-6 px-6 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover:border-blue-500 hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
+      <div className='py-6 px-6 2xl:max-h-44 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover:border-blue-500 hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
         <div className='flex flex-col xl:flex-row justify-between items-center lg:items-center gap-4 lg:gap-8'>
           <div className='flex flex-col items-start gap-3 w-full lg:w-max'>
             <h1 className='lg:max-w-80 text-lg font-semibold text-gray-900 dark:text-white'>

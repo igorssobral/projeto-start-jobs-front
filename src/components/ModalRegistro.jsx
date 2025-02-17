@@ -43,6 +43,13 @@ function ModalRegistro(props) {
       setSuccess('Usuário registrado com sucesso!');
       setError('');
       setLoading(false);
+      setFormData({
+        nome: '',
+        telefone: '',
+        email: '',
+        senha: '',
+        confirmPassword: '',
+      });
       props.handleClose();
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);

@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
-import { CheckCircle, Circle, Loader, PlusCircle, X } from 'lucide-react';
+import {
+  CheckCircle,
+  Circle,
+  Loader,
+  OctagonX,
+  PlusCircle,
+  X,
+} from 'lucide-react';
 import { ApiCandidatura } from '../services/candidaturaService';
 import { toast } from 'react-toastify';
 
 export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
+  const [currentStatus, setCurrentStatus] = useState();
   const [newStepLabel, setNewStepLabel] = useState('');
   const [newSteps, setNewSteps] = useState([]);
   const [idUpdate, setIdUpdate] = useState(0);
@@ -16,10 +24,11 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const { updateCandidaturaStatus, addCandidaturaNewStatus } = ApiCandidatura();
 
   useEffect(() => {
-    const nextStep = steps.find((step) => !step.completed);
+    const nextStep = steps.find((step) => !step.approved);
 
     if (nextStep) {
       setCurrentStep(nextStep.id);
+      setCurrentStatus(nextStep)
     }
   }, [steps]);
 
@@ -38,7 +47,8 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     const newStep = {
       id: steps.length + 1,
       label: newStepLabel,
-      completed: false,
+      approved: false,
+      rejected: false,
     };
 
     setSteps((prevSteps) => [...prevSteps, newStep]);
@@ -51,23 +61,49 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
   const markCompleted = (stepId) => {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
-  
-    if (stepIndex > 0 && !steps[stepIndex - 1].completed) {
+
+    if (stepIndex > 0 && !steps[stepIndex - 1].approved) {
       return;
     }
-  
+
     setSteps((prevSteps) =>
       prevSteps.map((step) => {
-        const prev = step.id === stepId ? { ...step, completed: true } : step;
+        const prev =
+          step.id === stepId
+            ? { ...step, approved: true, rejected: false }
+            : step;
         return prev;
       })
     );
-  
-    const nextStep = steps.find((step) => !step.completed);
+
+    const nextStep = steps.find((step) => !step.approved);
     if (nextStep) {
       setCurrentStep(nextStep.id);
     }
-  
+
+    setUpdateStatus(true);
+  };
+  const markRejected = (stepId) => {
+    const stepIndex = steps.findIndex((step) => step.id === stepId);
+
+    if (stepIndex > 0 && !steps[stepIndex - 1].approved) {
+      return;
+    }
+    setSteps((prevSteps) =>
+      prevSteps.map((step) => {
+        const prev =
+          step.id === stepId
+            ? { ...step, approved: false, rejected: true }
+            : step;
+        return prev;
+      })
+    );
+
+    const nextStep = steps.find((step) => !step.rejected);
+    if (nextStep) {
+      setCurrentStep(nextStep.id);
+    }
+   
     setUpdateStatus(true);
   };
 
@@ -85,7 +121,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
         setNewSteps([]);
         setModalNewStep(false);
-        refreshJobs();  // Recarrega os dados após adicionar uma nova etapa
+        refreshJobs(); // Recarrega os dados após adicionar uma nova etapa
       }
 
       adicionarNovoStatus();
@@ -100,9 +136,10 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
   function confirmUpdate(id) {
     const isCurrent = id === currentStep;
-    if (!isCurrent) {
-      return;
-    }
+    const currentStep2 = steps.find((step) => step.id === currentStep);
+    if (!isCurrent) return;
+
+    if (currentStep2.rejected) return;
 
     setIdUpdate(id);
     setModalConfirmUpdate(true);
@@ -112,13 +149,16 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     <div className='flex flex-col items-center space-y-4 p-4'>
       <div className='flex flex-wrap items-center gap-4'>
         {steps.map((step, index) => {
-          const isCompleted = step.completed;
-          const isCurrent = step.id === currentStep;
+          const isCompleted = step.approved;
+          const isRejected = step.rejected;
+          const isCurrent = step.id === currentStep && !step.rejected;
 
           return (
             <div key={step.id} className='flex items-center space-x-2'>
               {isCompleted ? (
                 <CheckCircle className='text-green-500' size={24} />
+              ) : isRejected ? (
+                <OctagonX className='text-red-500' size={24} />
               ) : isCurrent ? (
                 <Loader className='text-blue-500 animate-spin' size={24} />
               ) : (
@@ -128,7 +168,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
               <span
                 className={`text-sm cursor-pointer ${
                   isCurrent ? 'font-bold text-blue-500' : 'text-gray-300'
-                }`}
+                } ${isRejected ? 'text-red-400' : ''}`}
                 onClick={() => confirmUpdate(step.id)}
               >
                 {step.label}
@@ -137,7 +177,11 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
               {index < steps.length - 1 && (
                 <div
                   className={`w-10 h-1 ${
-                    isCompleted ? 'bg-green-500' : 'bg-gray-300'
+                    isCompleted
+                      ? 'bg-green-500'
+                      : isRejected
+                      ? 'bg-red-600'
+                      : 'bg-gray-300'
                   }`}
                 />
               )}
@@ -149,7 +193,8 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
       <div className='flex space-x-2'>
         <button
           onClick={() => setModalNewStep(true)}
-          className='flex items-center space-x-2 text-blue-600'
+          disabled={currentStatus?.rejected}
+          className={`flex items-center space-x-2 ${currentStatus?.rejected ? 'text-blue-600/50' : 'text-blue-600'}`}
         >
           <PlusCircle size={20} /> <span>Adicionar Etapa</span>
         </button>
@@ -164,8 +209,12 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
                   Atualizar Etapa
                 </h2>
                 <p className='text-sm dark:text-zinc-300'>
-                  Clique em <strong>Atualizar Status</strong> caso tenha
-                  avançado nessa etapa do processo seletivo
+                  Clique em <strong>Avançar</strong> caso tenha avançado nessa
+                  etapa do processo seletivo
+                </p>
+                <p className='text-sm dark:text-zinc-300'>
+                  Clique em <strong>Rejeitado</strong> caso não tenha sido
+                  aprovado nessa etapa do processo seletivo
                 </p>
               </div>
 
@@ -178,17 +227,23 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
             </div>
 
             <div className='flex space-x-2'>
-              <button
+              {/* <button
                 onClick={() => setModalConfirmUpdate(false)}
-                className='flex items-center h-10 space-x-2 text-white bg-red-500 px-2 rounded-md hover:bg-red-600 transition-colors'
+                className='flex items-center h-10 space-x-2 text-white bg-zinc-500 px-2 rounded-md hover:bg-red-600 transition-colors'
               >
                 <span>Cancelar</span>
+              </button> */}
+              <button
+                onClick={() => markRejected(idUpdate)}
+                className='flex items-center h-10 space-x-2 text-white bg-red-500 px-2 rounded-md hover:bg-red-600 transition-colors'
+              >
+                <span>Rejeitado</span>
               </button>
               <button
                 onClick={() => markCompleted(idUpdate)}
                 className='flex items-center h-10 space-x-2 text-white bg-blue-500 px-2 rounded-md hover:bg-blue-600 transition-colors'
               >
-                <span>Atualizar status</span>
+                <span>Avançar</span>
               </button>
             </div>
           </div>

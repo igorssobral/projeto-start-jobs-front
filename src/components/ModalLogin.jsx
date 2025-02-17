@@ -24,6 +24,8 @@ function ModalLogin(props) {
 
       setLoading(false);
       props.handleClose();
+      setEmail('')
+      setPassword('')
       toast.success(`Bem Vindo! ${user.user}`);
     } catch (err) {
       console.error('Erro ao fazer login:', err);

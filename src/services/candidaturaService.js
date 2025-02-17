@@ -1,21 +1,17 @@
-import axios from 'axios';
 import { useAuth } from '../context/auth-context';
 import { toast } from 'react-toastify';
+import api from './api';
 
 export const ApiCandidatura = () => {
   const { user } = useAuth();
 
   const adicionarCandidatura = async (candidaturaData) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8080/api/candidaturas',
-        candidaturaData,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await api.post('/api/candidaturas', candidaturaData, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       toast.success('Candidatura adicionada.');
       return response.data;
@@ -27,8 +23,8 @@ export const ApiCandidatura = () => {
   };
   const getCandidaturas = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/candidaturas/usuario/${user.id}`,
+      const response = await api.get(
+        `/api/candidaturas/usuario/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -42,13 +38,31 @@ export const ApiCandidatura = () => {
     }
   };
 
+  const deleteCandidatura = async (id) => {
+    try {
+      const response = await api.delete(
+        `/api/candidaturas/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      toast.success('Candidatura removida com sucesso!')
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao obter candidaturas:', error);
+      return error;
+    }
+  };
+
   const addCandidaturaNewStatus = async (candidaturaId, statusCandidatura) => {
     const updatedStatus = {
       statusCandidatura,
     };
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/candidaturas/status/${candidaturaId}`,
+      const response = await api.put(
+        `/api/candidaturas/status/${candidaturaId}`,
         updatedStatus,
         {
           headers: {
@@ -67,17 +81,14 @@ export const ApiCandidatura = () => {
     }
   };
   const updateCandidaturaStatus = async (candidaturaId, statusCandidatura) => {
-    console.log(
-      '🚀 ~ updateCandidaturaStatus ~ statusCandidatura:',
-      statusCandidatura
-    );
+  
     const updatedStatus = {
       statusCandidatura,
     };
 
     try {
-      const response = await axios.put(
-        `http://localhost:8080/api/candidaturas/update-status/${candidaturaId}`,
+      const response = await api.put(
+        `/api/candidaturas/update-status/${candidaturaId}`,
         updatedStatus,
         {
           headers: {
@@ -85,7 +96,6 @@ export const ApiCandidatura = () => {
           },
         }
       );
-      console.log('Candidatura atualizada:', response.data);
       toast.success('Status Atualizado.');
       return response.data;
     } catch (error) {
@@ -99,6 +109,7 @@ export const ApiCandidatura = () => {
   return {
     adicionarCandidatura,
     getCandidaturas,
+    deleteCandidatura,
     addCandidaturaNewStatus,
     updateCandidaturaStatus,
   };

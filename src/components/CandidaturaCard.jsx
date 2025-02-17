@@ -1,10 +1,15 @@
 import { useState, useCallback } from 'react';
 import { ProgressSteps } from './ProgressSteps';
-import { X } from 'lucide-react';
+import { LoaderCircle, Trash, X } from 'lucide-react';
 import dayjs from 'dayjs';
+import { ApiCandidatura } from '../services/candidaturaService';
 
 function CandidaturaCard(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { deleteCandidatura } = ApiCandidatura();
 
   const toggleModal = useCallback(() => {
     setIsModalOpen((prevState) => !prevState);
@@ -16,6 +21,14 @@ function CandidaturaCard(props) {
   const date = new Date(arr[0], arr[1] - 1, arr[2]);
   const dateFormat = date.toISOString().split('T')[0];
   const diffInDays = date1.diff(dayjs(dateFormat), 'day');
+
+  async function removerCandidatura() {
+    setIsLoading(true);
+    const data = await deleteCandidatura(props.id);
+    setIsLoading(false);
+    setConfirmDelete(false);
+    toggleModal();
+  }
 
   return (
     <>
@@ -42,13 +55,19 @@ function CandidaturaCard(props) {
                 ? `Inscrito há ${diffInDays} dia${diffInDays !== 1 ? 's' : ''}`
                 : 'Inscrito Hoje'}
             </p>
-            <div className='flex xl:flex-col-reverse gap-4 mt-4 lg:mt-0'>
+            <div className='flex xl:flex-col gap-4 mt-4 lg:mt-0'>
               <button
                 onClick={toggleModal}
                 className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Ver mais detalhes
               </button>
+              {/* <button
+                onClick={()=> setConfirmDelete(true)}
+                className='w-full lg:w-auto text-red-600 bg-transparent border border-red-700 hover:bg-red-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+              >
+                Remover
+              </button> */}
             </div>
           </div>
         </div>
@@ -103,15 +122,62 @@ function CandidaturaCard(props) {
                 {props.vaga.descricao || 'Descrição não fornecida.'}
               </p>
             </div>
-            <div className='flex justify-end mt-6'>
+            <div className='flex justify-center mt-6 gap-10'>
               <button
-                onClick={toggleModal}
-                className='text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
+                onClick={() => setConfirmDelete(true)}
+                className='flex gap-2 text-gray-50  bg-red-700 hover:bg-red-500  transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
               >
-                Fechar
+                <Trash size={20} /> Remover candidatura
               </button>
+              <a
+                href={props.vaga.url}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <button className='text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5'>
+                  Visitar site da vaga
+                </button>
+              </a>
             </div>
           </div>
+
+          {confirmDelete && (
+            <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+              <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-[600px] p-6'>
+                <div className='flex flex-col justify-between items-start border-b pb-3'>
+                  <h2 className='text-xl font-semibold text-gray-900 dark:text-zinc-200'>
+                    Remover candidatura
+                  </h2>
+                  <p className='text-base text-zinc-800 dark:text-zinc-400'>
+                    Tem certeza? Essa ação não pode ser desfeita.
+                  </p>
+                </div>
+
+                <div className='flex justify-end mt-6 space-x-2'>
+                  <button
+                    onClick={() => setConfirmDelete(false)}
+                    className='text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
+                  >
+                    Fechar
+                  </button>
+
+                  <button
+                    className=' text-white bg-red-600 hover:bg-red-800 transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
+                    onClick={removerCandidatura}
+                  >
+                    {isLoading ? (
+                      <span className='flex items-center justify-center gap-2'>
+                        <LoaderCircle className='animate-spin' /> Removendo
+                        candidatura
+                      </span>
+                    ) : (
+                      'Remover'
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>
