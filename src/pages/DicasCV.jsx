@@ -107,8 +107,8 @@ const DicasCV = ({ showMenu }) => {
         >
           <PDFViewer />
         </Modal>
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-        <Footer />
+        {/* <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+        <Footer /> */}
       </div>
     </div>
   );
