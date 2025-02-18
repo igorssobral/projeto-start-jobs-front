@@ -1,6 +1,5 @@
 import { MenuIcon } from 'lucide-react';
 import PDFViewer from '../components/PdfViewer';
-import pdf from '../assets/ATS.pdf';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import DicasCVCard from '../components/DicasCVCard';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
   const [openDicasCv, setOpenDicasCv] = useState(false);
+
   const cardsData = [
     {
       image: Image1,
@@ -64,11 +64,8 @@ const DicasCV = ({ showMenu }) => {
           }
         />
 
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+        <div className='border-b w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-        {/* <PDFViewer pdfUrl={pdf}/> */}
-
-        {/* Grid Layout */}
         <main>
           <h1 className='text-2xl text-center font-medium mb-8 dark:text-[#FAFAF9]'>
             Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira
@@ -97,6 +94,8 @@ const DicasCV = ({ showMenu }) => {
             </div>
           </div>
         </main>
+
+        {/* Modal para exibir o PDF */}
         <Modal
           isVisible={openDicasCv}
           width={'800px'}
@@ -104,8 +103,7 @@ const DicasCV = ({ showMenu }) => {
         >
           <PDFViewer />
         </Modal>
-        {/* <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-        <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
