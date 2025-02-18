@@ -104,7 +104,6 @@ const DicasCV = ({ showMenu }) => {
         >
           <PDFViewer />
         </Modal>
-
         <Footer />
       </div>
     </div>

@@ -19,21 +19,23 @@ function ModalLogin(props) {
     setLoading(true);
     try {
       const data = await login(email, password);
-      console.log('Usuário logado com sucesso:', data);
       logged(data);
       localStorage.setItem('token', data); // Salva o token no localStorage
 
       setLoading(false);
       props.handleClose();
+      setEmail('')
+      setPassword('')
       toast.success(`Bem Vindo! ${user.user}`);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
+      setLoading(false)
       setError('Email ou senha inválidos. Tente novamente.');
     }
   };
 
   return (
-    <Modal isVisible={props.isVisible}>
+    <Modal isVisible={props.isVisible} >
       <div className='py-6 px-6 lg:8 text-left relative'>
         <button
           className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-blue-800 transition-colors'
