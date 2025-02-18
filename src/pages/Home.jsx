@@ -5,10 +5,11 @@ import { MenuIcon } from "lucide-react";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";
 
-import hiring from "../assets/job-hiring2.jpg";
-import smartphone from "../assets/smartphone.jpg";
-import socialMedia from "../assets/social-media.png";
+import Hiring from "../assets/job-hiring2.jpg";
+import Smartphone from "../assets/smartphone.jpg";
+import SocialMedia from "../assets/social-media.png";
 import ApertoMao from "../assets/apertomao.jpg";
+import Reuniao from "../assets/reuniao-2.jpg"
 
 import { LuLayers, LuMapPinPlus, LuBoxes, LuShrink } from "react-icons/lu";
 
@@ -20,11 +21,11 @@ function Home({ showMenu }) {
 
   const [slidePerView, setSlidePerView] = useState(1);
   const data = [
-    { id: '1', image: '../assets/reuniao.jpg'},
-    { id: '2', image: '../assets/apertomao.jpg'},
-    { id: '3', image: '../assets/job-hiring2.jpg'},
-    { id: '4', image: '../assets/social-media.png'},
-    { id: '5', image: '../assets/smartphone.jpg'}
+    { id: '1', image: Reuniao},
+    { id: '2', image: ApertoMao},
+    { id: '3', image: Hiring},
+    { id: '4', image: SocialMedia},
+    { id: '5', image: Smartphone}
   ]
 
 
@@ -136,7 +137,7 @@ function Home({ showMenu }) {
         </div>
 
         {/* Row 3 */}
-        <div className="col-span-3 md:col-span-auto bg-white shadow-md h-96 dark:bg-[#151419] dark:text-slate-50">
+        <div className="col-span-3 md:col-span-auto bg-white shadow-md h-96 rounded-lg dark:bg-[#151419] dark:text-slate-50">
 
           <Swiper 
             slidesPerView={slidePerView}
@@ -145,36 +146,14 @@ function Home({ showMenu }) {
           >
             {data.map((item)=> (
                <SwiperSlide key={(item.id)}>
-                  <img src={item.image} alt="Slider" className="w-[100%] h-[24rem] object-cover" />
+                  <img src={item.image} alt="Slider" className="w-[100%] h-[24rem] object-cover rounded-lg" />
                </SwiperSlide>
             ))}
           </Swiper>
 
-          {/* <div className="flex flex-row">
-            <div>
-              <img
-                src={hiring}
-                alt="imagem reuniao"
-                className="rounded-lg shadow-sm"/>
-            </div>
-            <div class="">
-              <img
-                src={smartphone}
-                alt="image smartphone"
-                className="h-full object-cover rounded-lg shadow-md mt-3 mx-1"
-              />
-            </div>
-            <div>
-              <img
-                src={socialMedia}
-                alt="image redes sociais"
-                className="h-full object-cover rounded-lg shadow-md mt-3 px-1"
-              />
-            </div>
-          </div> */}
         </div>
       </div>
-      <div className="border-b  w-[100%] mx-auto border-zinc-500/70 my-4" />
+      <div className="border-b  w-[100%] mx-auto border-zinc-500/70 mt-10" />
       <Footer />
     </main>
   );
