@@ -1,6 +1,5 @@
 import { MenuIcon } from 'lucide-react';
 import PDFViewer from '../components/PdfViewer';
-import pdf from '../assets/ATS.pdf';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import DicasCVCard from '../components/DicasCVCard';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
   const [openDicasCv, setOpenDicasCv] = useState(false);
+
   const cardsData = [
     {
       image: Image1,
@@ -47,11 +47,7 @@ const DicasCV = ({ showMenu }) => {
   function handleOpenMenu() {
     showMenu();
   }
-  function handleCardClick(index) {
-    if (index === 2) {
-      setOpenDicasCv(!openDicasCv);
-    }
-  }
+
   return (
     <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
       <div className='ml-0 md:ml-64 p-6'>
@@ -68,11 +64,8 @@ const DicasCV = ({ showMenu }) => {
           }
         />
 
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+        <div className='border-b w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-        {/* <PDFViewer pdfUrl={pdf}/> */}
-
-        {/* Grid Layout */}
         <main>
           <h1 className='text-2xl text-center font-medium mb-8 dark:text-[#FAFAF9]'>
             Crie o currículo perfeito com nosso gerador online
@@ -87,19 +80,23 @@ const DicasCV = ({ showMenu }) => {
                   altText={card.altText}
                   title={card.title}
                   description={card.description}
-                  onClick={() => handleCardClick(index)}
                 />
               ))}
             </div>
 
-            {/* Botão Criar Currículo */}
+            {/* Botão Confira mais Dicas - acionará o modal com o PDF */}
             <div className='flex justify-center mt-12'>
-              <button className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
-                Criar meu currículo
+              <button
+                onClick={() => setOpenDicasCv(true)}
+                className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
+              >
+                Confira mais Dicas
               </button>
             </div>
           </div>
         </main>
+
+        {/* Modal para exibir o PDF */}
         <Modal
           isVisible={openDicasCv}
           width={'800px'}
@@ -107,8 +104,7 @@ const DicasCV = ({ showMenu }) => {
         >
           <PDFViewer />
         </Modal>
-        {/* <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-        <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
