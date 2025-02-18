@@ -68,7 +68,7 @@ const DicasCV = ({ showMenu }) => {
 
         <main>
           <h1 className='text-2xl text-center font-medium mb-8 dark:text-[#FAFAF9]'>
-            Crie o currículo perfeito com nosso gerador online
+            Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira
           </h1>
           <div className='p-4'>
             {/* Grid dos cards */}
@@ -84,12 +84,11 @@ const DicasCV = ({ showMenu }) => {
               ))}
             </div>
 
-            {/* Botão Confira mais Dicas - acionará o modal com o PDF */}
+            {/* Botão Confira mais Dicas - Abrirá o Modal com o pdf */}
             <div className='flex justify-center mt-12'>
               <button
-                onClick={() => setOpenDicasCv(true)}
-                className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
-              >
+              onClick={() => setOpenDicasCv(true)}
+              className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
                 Confira mais Dicas
               </button>
             </div>
