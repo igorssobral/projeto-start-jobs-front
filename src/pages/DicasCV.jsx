@@ -47,11 +47,7 @@ const DicasCV = ({ showMenu }) => {
   function handleOpenMenu() {
     showMenu();
   }
-  function handleCardClick(index) {
-    if (index === 2) {
-      setOpenDicasCv(!openDicasCv);
-    }
-  }
+
   return (
     <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
       <div className='ml-0 md:ml-64 p-6'>
@@ -75,7 +71,7 @@ const DicasCV = ({ showMenu }) => {
         {/* Grid Layout */}
         <main>
           <h1 className='text-2xl text-center font-medium mb-8 dark:text-[#FAFAF9]'>
-            Crie o currículo perfeito com nosso gerador online
+            Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira
           </h1>
           <div className='p-4'>
             {/* Grid dos cards */}
@@ -87,15 +83,16 @@ const DicasCV = ({ showMenu }) => {
                   altText={card.altText}
                   title={card.title}
                   description={card.description}
-                  onClick={() => handleCardClick(index)}
                 />
               ))}
             </div>
 
-            {/* Botão Criar Currículo */}
+            {/* Botão Confira mais Dicas - Abrirá o Modal com o pdf */}
             <div className='flex justify-center mt-12'>
-              <button className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
-                Criar meu currículo
+              <button
+              onClick={() => setOpenDicasCv(true)}
+              className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
+                Confira mais Dicas
               </button>
             </div>
           </div>
