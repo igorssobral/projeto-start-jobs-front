@@ -2,15 +2,15 @@ import { FaInstagram, FaFacebookF, FaLinkedinIn, FaWhatsapp, FaGithub } from "re
 
 export const Footer = () => {
   return (
-    <div className="flex flex-row justify-between">
-    <footer className="mt-10 mx-10 flex ">
-      <p className="text-base font-medium ml-12 gap-4 text-slate-900 dark:text-slate-50">
-        © 2024 Start JOBS Code All Rights Reserved
+    <div className="flex-row">
+    <footer className="mt-10 flex justify-around gap-6 md:ms-1">
+      <p className="text-base font-medium text-slate-900 dark:text-slate-50">
+        © 2024 <strong>Start JOBS</strong> Code All Rights Reserved
       </p>
       <div className="text-base font-medium text-slate-900 dark:text-slate-50">
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-6">
           {/* Texto acima dos ícones das redes sociais*/}
-          <p className="text-base ml-40 text-slate-900 dark:text-slate-50">
+          <p className="text-base text-slate-900 dark:text-slate-50">
             Acompanhe nossas redes sociais
           </p>
 

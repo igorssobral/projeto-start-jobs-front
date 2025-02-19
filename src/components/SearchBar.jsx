@@ -16,7 +16,7 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div className='my-10 px-10 flex flex-col items-center gap-4 '>
+    <div className='my-10 px-5 flex flex-col items-center gap-4 '>
       <div className='flex flex-wrap gap-10'>
         <div className='relative flex w-full lg:w-max'>
           <input
