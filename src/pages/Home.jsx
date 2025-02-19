@@ -22,10 +22,10 @@ function Home({ showMenu }) {
   const [slidePerView, setSlidePerView] = useState(1);
   const data = [
     { id: '1', image: Reuniao},
-    { id: '2', image: ApertoMao},
+    { id: '2', image: Smartphone},
     { id: '3', image: Hiring},
     { id: '4', image: SocialMedia},
-    { id: '5', image: Smartphone}
+    { id: '5', image: ApertoMao}
   ]
 
 
@@ -47,7 +47,7 @@ function Home({ showMenu }) {
 
         <div className="col-span-3 md:col-span-3 ">
           <h1 className="text-blue-500 mb-2 text-3xl font-bold">Start JOBS</h1>
-          <h2 className="text-xl font-semibold ml-10 mb-1">
+          <h2 className="text-xl font-semibold ml-10 mb-1 dark:text-slate-50">
             Conectando Você a um mundo de Oportunidades!
           </h2>
         </div>
@@ -62,7 +62,7 @@ function Home({ showMenu }) {
           </div>
         </div>
 
-        <div className="col-span-3 md:col-span-3 flex bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50">
+        <div className="col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50">
           <div className=" border border-separate p-5 rounded-lg ">
             <p className="font-medium text-xl mb-1">Mas o que é Start JOBS?</p>
             <p className="font-medium text-gl ml-10 mb-5">
@@ -88,10 +88,10 @@ function Home({ showMenu }) {
         </div>
 
         {/* Row 2 */}
-        <div className="col-span-3 md:col-span-auto bg-white rounded-lg shadow-md h-96 dark:bg- [#151419] dark:text-slate-50">
-          <div className="border border-separate p-5 rounded-lg flex flex-col">
+        <div className="col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50">
+          <div className="border border-separate pt-2 pl-5 rounded-lg flex flex-col">
             <div>
-              <h1 className="text-blue-500 mt-3 ml-8 text-3xl font-bold">
+              <h1 className="text-blue-500 mt-3 ml-8 text-3xl font-bold ">
                 Start JOBS
               </h1>
               <h2 className="text-xl text-center font-medium mt-3 mb-5">
@@ -153,7 +153,7 @@ function Home({ showMenu }) {
 
         </div>
       </div>
-      <div className="border-b  w-[100%] mx-auto border-zinc-500/70 mt-10" />
+      <div className="border-b  w-[100%] mx-auto border-zinc-500/70 mt-6" />
       <Footer />
     </main>
   );

@@ -1,40 +1,42 @@
-import { FaInstagram, FaFacebookF, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaLinkedinIn, FaWhatsapp, FaGithub } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer className="mt-10 mx-10 flex items-center justify-between">
+    <div className="flex flex-row justify-between">
+    <footer className="mt-10 mx-10 flex ">
       <p className="text-base font-medium ml-12 gap-4 text-slate-900 dark:text-slate-50">
         © 2024 Start JOBS Code All Rights Reserved
       </p>
-      <div className="flex items-center justify-end text-base font-medium text-slate-900 dark:text-slate-50">
-        <div className="flex flex-col items-end gap-4 mr-12">
+      <div className="text-base font-medium text-slate-900 dark:text-slate-50">
+        <div className="flex flex-row gap-4">
           {/* Texto acima dos ícones das redes sociais*/}
-          <p className="text-sm text-slate-900 dark:text-slate-50">
+          <p className="text-base ml-40 text-slate-900 dark:text-slate-50">
             Acompanhe nossas redes sociais
           </p>
 
           {/* Ícones das redes sociais */}
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/" target="_blank"
               className="text-slate-900 dark:text-slate-50 hover:text-blue-500 dark:hover:text-blue-500 transition"
             >
               <FaInstagram size={20} />
             </a>
             <a
-              href="#"
+              href="https://github.com/Project-Start-Jobs" target="_blank"
               className="text-slate-900 dark:text-slate-50 hover:text-blue-500 dark:hover:text-blue-500 transition"
             >
-              <FaFacebookF size={20} />
+              <FaGithub size={20}/>
+              
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/" target="_blank"
               className="text-slate-900 dark:text-slate-50 hover:text-blue-500 dark:hover:text-blue-500 transition"
             >
               <FaLinkedinIn size={20} />
             </a>
             <a
-              href="#"
+              href="https://web.whatsapp.com/" target="_blank"
               className="text-slate-900 dark:text-slate-50 hover:text-blue-500 dark:hover:text-blue-500 transition"
             >
               <FaWhatsapp size={20} />
@@ -43,5 +45,6 @@ export const Footer = () => {
         </div>
       </div>
     </footer>
+    </div>
   );
 };
