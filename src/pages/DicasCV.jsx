@@ -1,5 +1,4 @@
 import { MenuIcon } from 'lucide-react';
-import PDFViewer from '../components/PdfViewer';
 import Header from '../components/Header';
 
 import DicasCVCard from '../components/DicasCVCard';
@@ -7,8 +6,8 @@ import Image1 from '../assets/DicasCV_1.png';
 import Image2 from '../assets/DicasCV_2.png';
 import Image3 from '../assets/DicasCV_3.png';
 import Image4 from '../assets/DicasCV_4.png';
-// import Modal from '../components/Modal';
-import pdf from '../assets/ATS.pdf';
+
+import pdf from '../assets/DicaCV.pdf';
 import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
@@ -18,7 +17,7 @@ const DicasCV = ({ showMenu }) => {
     {
       image: Image1,
       altText: 'Descrição da imagem 1',
-      title: 'Modelos criados por profissionais',
+      title: 'Modelos de currículos profissionais',
       description:
         'Chame atenção com modelos de currículos desenvolvidos por especialistas e seja aprovado pelos recrutadores das empresas.',
         url: 'https://www.jobseeker.com/pt/curriculo?msclkid=4ec8da9bb6b61019ef7fbd2f6200ef05&utm_source=bing&utm_medium=cpc&utm_campaign=02+%7C+PT-BR+%7C+CV&utm_term=curriculo+pronto&utm_content=curriculo+pronto',
@@ -26,26 +25,26 @@ const DicasCV = ({ showMenu }) => {
     {
       image: Image2,
       altText: 'Descrição da imagem 2',
-      title: 'Conteúdos escritos por especialistas',
+      title: 'Entrevista de empregos: dicas para se dar bem',
       description:
-        'Tópicos específicos por cargos. Personalize o conteúdo para cada vaga que quiser se candidatar.',
-      url: 'https://www.scielo.br/j/ptp/a/6fnm9ShDY8jLZN5XSyJy96h/?form=MG0AV3'  
+        'Como se comportar e o que dizer no momento da entrevista de emprego sobre você e suas experiências de trabalho.',
+      url:'https://www.hostgator.com.br/blog/entrevista-de-emprego-dicas/?gad_source=1',  
     },
     {
       image: Image3,
       altText: 'Descrição da imagem 3',
-      title: 'Guia de orientações do recrutamento',
+      title: 'Guia para criar o seu portfólio',
       description:
-        'Aprenda a apresentar suas experiências profissionais da melhor forma, isso lhe ajudará em cada etapa.',
-      url: 'https://estudogeral.uc.pt/bitstream/10316/115227/2/vf_PT_Guia%20de%20procedimentos%20de%20recrutamento%20e%20sele%c3%a7%c3%a3o.pdf'
+        'Portfólio profissional: dicas para montar um bom perfil de apresentação',
+      url: 'https://www.serasaexperian.com.br/carreiras/blog-carreiras/portfolio-profissional/'
     },
     {
       image: Image4,
       altText: 'Descrição da imagem 4',
-      title: 'Compartilhe seu currículo com amigos',
+      title: 'Fazer networking e potencializar sua carreira',
       description:
-        'Crie um link do seu currículo, compartilhe com amigos e use o feedback deles para deixar seu currículo ainda melhor.',
-      url:'',
+        'Aprenda a se conectar com outros profissionais e construir bons relacionamentos para sua carreira.',
+      url:'https://blog.infojobs.com.br/candidatos/como-fazer-networking-e-potencializar-sua-carreira/',
     },
   ];
 
@@ -98,24 +97,8 @@ const DicasCV = ({ showMenu }) => {
                 Confira mais Dicas
                 </button></a>
             </div>
-            {/* <div className='flex justify-center mt-12'>
-              <button
-              onClick={() => setOpenDicasCv(true)}
-              className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
-                Confira mais Dicas
-              </button>
-            </div> */}
           </div>
         </main>
-        {/* <PDFViewer /> */}
-        {/* Modal para exibir o PDF */}
-        {/* <Modal
-          isVisible={openDicasCv}
-          width={'800px'}
-          closeModal={() => setOpenDicasCv(false)}
-        >
-          
-        </Modal> */}
       </div>
     </div>
   );

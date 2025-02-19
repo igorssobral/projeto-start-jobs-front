@@ -147,12 +147,12 @@ const Dashboard = ({ showMenu }) => {
                     <Bar
                       dataKey="uv"
                       fill="#B3CDAD"
-                      activeBar={<Rectangle fill="pink" stroke="blue" />}
+                      activeBar={<Rectangle fill="lightgreen" stroke="red" />}
                     />
                     <Bar
                       dataKey="pv"
                       fill="#FF5F5E"
-                      activeBar={<Rectangle fill="gold" stroke="purple" />}
+                      activeBar={<Rectangle fill="gold" stroke="blue" />}
                     />
                   </BarChart>
                 </ResponsiveContainer>
