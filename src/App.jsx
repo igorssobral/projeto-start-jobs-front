@@ -1,13 +1,14 @@
 import AppRouter from './pages/AppRoutes/AppRoutes';
 import { AuthProvider } from './context/auth-context';
 import { Bounce, ToastContainer } from 'react-toastify';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
-//export default function App
 function App() {
   return (
-    <AuthProvider>
-      <AppRouter />
-      <ToastContainer
+    <GoogleOAuthProvider clientId='214187768471-9ct2tn4d50b3lst9tcbubs1if2jq53ba.apps.googleusercontent.com'>
+      <AuthProvider>
+        <AppRouter />
+        <ToastContainer
           position='top-right'
           autoClose={2000}
           hideProgressBar={false}
@@ -20,9 +21,9 @@ function App() {
           theme='light'
           transition={Bounce}
           aria-live='polite'
-          
         />
-    </AuthProvider>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

@@ -18,13 +18,13 @@ export const getJobsByFilters = async (title, location, remote) => {
         remote: remote === 'yes' ? true : false,
         job_location_pattern_or: [location],
         page: 0,
-        limit: 5,
+        limit: 6,
         blur_company_data: false,
       },
       {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmcmVla2lsbDIwMTYxNkBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6InVzZXIiLCJjcmVhdGVkX2F0IjoiMjAyNS0wMi0xM1QwMDozOToyNS4zMjY4MDArMDA6MDAiLCJleHAiOjE3Mzk0MDgwNjV9.LKD13KnOWU86uiuMQaQo1-bNcRM9gcar8gexuJDOoJY',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpZ29yLnNvYnJhbEBhY2FkZW1pY28uaWZwYi5lZHUuYnIiLCJwZXJtaXNzaW9ucyI6InVzZXIiLCJjcmVhdGVkX2F0IjoiMjAyNS0wMi0yMlQxNzo1MToxNS4yNTA0OTQrMDA6MDAifQ.dVSMBfb0iqBdciqL4YcpwxYaFmvSeVOqlvEaTbtMml8',
           'Content-Type': 'application/json',
         },
       }
@@ -54,13 +54,13 @@ export const getJobs = async () => {
         job_country_code_or: ['BR'],
         job_title_or: ['Desenvolvedor'],
         page: 0,
-        limit: 5,
+        limit: 6,
         blur_company_data: false,
       },
       {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmcmVla2lsbDIwMTYxNkBnbWFpbC5jb20iLCJwZXJtaXNzaW9ucyI6InVzZXIiLCJjcmVhdGVkX2F0IjoiMjAyNS0wMi0xM1QwMDozOToyNS4zMjY4MDArMDA6MDAiLCJleHAiOjE3Mzk0MDgwNjV9.LKD13KnOWU86uiuMQaQo1-bNcRM9gcar8gexuJDOoJY',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpZ29yLnNvYnJhbEBhY2FkZW1pY28uaWZwYi5lZHUuYnIiLCJwZXJtaXNzaW9ucyI6InVzZXIiLCJjcmVhdGVkX2F0IjoiMjAyNS0wMi0yMlQxNzo1MToxNS4yNTA0OTQrMDA6MDAifQ.dVSMBfb0iqBdciqL4YcpwxYaFmvSeVOqlvEaTbtMml8',
           'Content-Type': 'application/json',
         },
       }

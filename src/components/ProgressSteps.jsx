@@ -121,7 +121,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
         setNewSteps([]);
         setModalNewStep(false);
-        refreshJobs(); // Recarrega os dados após adicionar uma nova etapa
+        refreshJobs(); 
       }
 
       adicionarNovoStatus();

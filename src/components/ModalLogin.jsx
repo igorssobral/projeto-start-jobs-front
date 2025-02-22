@@ -5,6 +5,7 @@ import { login } from '../services/authService';
 import { useAuth } from '../context/auth-context';
 import { toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 
 function ModalLogin(props) {
   const [email, setEmail] = useState('');
@@ -24,18 +25,18 @@ function ModalLogin(props) {
 
       setLoading(false);
       props.handleClose();
-      setEmail('')
-      setPassword('')
+      setEmail('');
+      setPassword('');
       toast.success(`Bem Vindo! ${user.user}`);
     } catch (err) {
       console.error('Erro ao fazer login:', err);
-      setLoading(false)
+      setLoading(false);
       setError('Email ou senha inválidos. Tente novamente.');
     }
   };
 
   return (
-    <Modal isVisible={props.isVisible} >
+    <Modal isVisible={props.isVisible}>
       <div className='py-6 px-6 lg:8 text-left relative'>
         <button
           className='text-xl absolute px-7 right-0 top-6 text-blue-600 hover:text-blue-800 transition-colors'
@@ -99,7 +100,7 @@ function ModalLogin(props) {
               </label>
             </div>
             <button
-            type='button'
+              type='button'
               onClick={props.showRecoveryPassword}
               className='text-sm text-blue-700 hover:underline'
             >
@@ -127,6 +128,18 @@ function ModalLogin(props) {
           >
             <FaGoogle /> Entrar com o Google
           </button>
+          <GoogleLogin
+            onSuccess={(data) => {
+              logged(data.credential);
+              localStorage.setItem('token', data.credential);
+              console.log(data);
+
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+          ;
         </form>
       </div>
     </Modal>

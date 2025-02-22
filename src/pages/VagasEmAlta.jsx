@@ -25,7 +25,7 @@ const VagasEmAlta = ({ showMenu }) => {
 
   async function Jobs() {
     if (filters.keyword != '' || filters.location != '') {
-        // const response = await getJobsByFilters(filters.keyword, filters.location, filters.remote);
+      //   const response = await getJobsByFilters(filters.keyword, filters.location, filters.remote);
       //  console.log('🚀 ~ Jobs ~ response:', response.data);
       //  setJobs(response.data);
        setJobs([]);

@@ -1,6 +1,5 @@
 import { MenuIcon } from 'lucide-react';
 import PDFViewer from '../components/PdfViewer';
-import pdf from '../assets/ATS.pdf';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import DicasCVCard from '../components/DicasCVCard';

@@ -19,9 +19,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setLocalStorage('token', token);
 
     const decoded = decodeJwt(token);
+    console.log('🚀 ~ logged ~ decoded:', decoded)
     setUser({
       token: token,
-      user: decoded.nome || '',
+      user: decoded.nome || decoded.name || '',
       id: decoded.idUsuario,
     });
   };
