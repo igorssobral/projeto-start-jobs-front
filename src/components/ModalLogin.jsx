@@ -132,7 +132,6 @@ function ModalLogin(props) {
             onSuccess={(data) => {
               logged(data.credential);
               localStorage.setItem('token', data.credential);
-              console.log(data);
 
             }}
             onError={() => {

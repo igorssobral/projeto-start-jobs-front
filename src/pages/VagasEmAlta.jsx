@@ -16,7 +16,6 @@ const VagasEmAlta = ({ showMenu }) => {
 
   useEffect(() => {
     Jobs();
-    console.log(filters);
   }, [filters]);
 
   useEffect(() => {
