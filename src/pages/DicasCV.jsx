@@ -1,56 +1,57 @@
 import { MenuIcon } from 'lucide-react';
-import PDFViewer from '../components/PdfViewer';
 import Header from '../components/Header';
-import { Footer } from '../components/Footer';
+
 import DicasCVCard from '../components/DicasCVCard';
 import Image1 from '../assets/DicasCV_1.png';
 import Image2 from '../assets/DicasCV_2.png';
 import Image3 from '../assets/DicasCV_3.png';
 import Image4 from '../assets/DicasCV_4.png';
-import Modal from '../components/Modal';
+
+import pdf from '../assets/DicaCV.pdf';
 import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
   const [openDicasCv, setOpenDicasCv] = useState(false);
+
   const cardsData = [
     {
       image: Image1,
       altText: 'Descrição da imagem 1',
-      title: 'Modelos criados por profissionais',
+      title: 'Modelos de currículos profissionais',
       description:
-        'Chame atenção com nossos modelos de currículo desenvolvidos por especialistas e seja aprovado pelos softwares de recrutamento usados nas empresas.',
+        'Chame atenção com modelos de currículos desenvolvidos por especialistas e seja aprovado pelos recrutadores das empresas.',
+        url: 'https://www.jobseeker.com/pt/curriculo?msclkid=4ec8da9bb6b61019ef7fbd2f6200ef05&utm_source=bing&utm_medium=cpc&utm_campaign=02+%7C+PT-BR+%7C+CV&utm_term=curriculo+pronto&utm_content=curriculo+pronto',
     },
     {
       image: Image2,
       altText: 'Descrição da imagem 2',
-      title: 'Conteúdos escritos por especialistas',
+      title: 'Entrevista de empregos: dicas para se dar bem',
       description:
-        'Você pode escolher entre milhares de tópicos pré-escritos e específicos por cargo. Em segundos, personalize o conteúdo para cada vaga que quiser se candidatar.',
+        'Como se comportar e o que dizer no momento da entrevista de emprego sobre você e suas experiências de trabalho.',
+      url:'https://www.hostgator.com.br/blog/entrevista-de-emprego-dicas/?gad_source=1',  
     },
     {
       image: Image3,
       altText: 'Descrição da imagem 3',
-      title: 'Dicas e orientações em todas as etapas',
+      title: 'Guia para criar o seu portfólio',
       description:
-        'Nossos especialistas estão prontos para te ajudar em cada etapa. Aprenda a apresentar sua experiência profissional e educação da melhor forma.',
+        'Portfólio profissional: dicas para montar um bom perfil de apresentação',
+      url: 'https://www.serasaexperian.com.br/carreiras/blog-carreiras/portfolio-profissional/'
     },
     {
       image: Image4,
       altText: 'Descrição da imagem 4',
-      title: 'Compartilhe seu currículo com amigos',
+      title: 'Fazer networking e potencializar sua carreira',
       description:
-        'Crie um link do seu currículo, compartilhe com amigos e use o feedback deles para deixar seu currículo ainda melhor.',
+        'Aprenda a se conectar com outros profissionais e construir bons relacionamentos para sua carreira.',
+      url:'https://blog.infojobs.com.br/candidatos/como-fazer-networking-e-potencializar-sua-carreira/',
     },
   ];
 
   function handleOpenMenu() {
     showMenu();
   }
-  function handleCardClick(index) {
-    if (index === 2) {
-      setOpenDicasCv(!openDicasCv);
-    }
-  }
+
   return (
     <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
       <div className='ml-0 md:ml-64 p-6'>
@@ -67,16 +68,14 @@ const DicasCV = ({ showMenu }) => {
           }
         />
 
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+        <div className='border-b w-[100%] mx-auto border-zinc-500/70 mb-8' />
 
-        {/* <PDFViewer pdfUrl={pdf}/> */}
-
-        {/* Grid Layout */}
         <main>
-          <h1 className='text-2xl text-center font-medium mb-8 dark:text-[#FAFAF9]'>
-            Crie o currículo perfeito com nosso gerador online
+          <h1 className='text-2xl text-center font-medium mb-6 dark:text-[#FAFAF9]'>
+            Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira
           </h1>
           <div className='p-4'>
+
             {/* Grid dos cards */}
             <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
               {cardsData.map((card, index) => (
@@ -86,28 +85,20 @@ const DicasCV = ({ showMenu }) => {
                   altText={card.altText}
                   title={card.title}
                   description={card.description}
-                  onClick={() => handleCardClick(index)}
+                  url={card.url}
                 />
               ))}
             </div>
 
-            {/* Botão Criar Currículo */}
+            {/* Botão Confira mais Dicas - Abrirá o pdf */}
             <div className='flex justify-center mt-12'>
-              <button className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
-                Criar meu currículo
-              </button>
+              <a href={pdf} target='_blank'>
+                <button className='px-8 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '>
+                Confira mais Dicas
+                </button></a>
             </div>
           </div>
         </main>
-        <Modal
-          isVisible={openDicasCv}
-          width={'800px'}
-          closeModal={() => setOpenDicasCv(false)}
-        >
-          <PDFViewer />
-        </Modal>
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-        <Footer />
       </div>
     </div>
   );

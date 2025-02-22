@@ -147,12 +147,12 @@ const Dashboard = ({ showMenu }) => {
                     <Bar
                       dataKey="uv"
                       fill="#B3CDAD"
-                      activeBar={<Rectangle fill="pink" stroke="blue" />}
+                      activeBar={<Rectangle fill="lightgreen" stroke="red" />}
                     />
                     <Bar
                       dataKey="pv"
                       fill="#FF5F5E"
-                      activeBar={<Rectangle fill="gold" stroke="purple" />}
+                      activeBar={<Rectangle fill="gold" stroke="blue" />}
                     />
                   </BarChart>
                 </ResponsiveContainer>
@@ -256,8 +256,8 @@ const Dashboard = ({ showMenu }) => {
           </div>
         </div>
       </main>
-      <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-      <Footer />
+      {/* <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
+      <Footer /> */}
       </div>
     </div>
   );
