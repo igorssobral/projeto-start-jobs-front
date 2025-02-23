@@ -11,6 +11,7 @@ function ModalRegistro(props) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerSchema),
@@ -18,14 +19,15 @@ function ModalRegistro(props) {
 
   const [loading, setLoading] = useState(false);
 
-  const handleRegister = async (data) => {
+  const handleRegister = async (dataRegister) => {
     setLoading(true);
 
     try {
-      const data = await registerUser(data);
+      const data = await registerUser(dataRegister);
       console.log('Usuário registrado com sucesso:', data);
       setLoading(false);
       props.handleClose();
+      reset();
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);
       setLoading(false);

@@ -16,6 +16,7 @@ function ModalLogin(props) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(loginSchema),
@@ -30,6 +31,7 @@ function ModalLogin(props) {
       logged(data);
       localStorage.setItem('token', data); // Salva o token no localStorage
       setLoading(false);
+      reset();
       props.handleClose();
 
       

@@ -11,6 +11,7 @@ function ModalNewCandidatura(props) {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(candidaturaSchema),
@@ -31,12 +32,13 @@ function ModalNewCandidatura(props) {
         },
       ],
       vaga: {
-        data,
+        ...data,
       },
     };
 
     await adicionarCandidatura(candidaturaData);
     setLoading(false);
+    reset();
     props.handleClose();
     props.refreshJobs();
   }
