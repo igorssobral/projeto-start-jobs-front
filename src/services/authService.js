@@ -19,6 +19,34 @@ export const login = async (email, senha) => {
     });
     return response.data; // Retorna o token JWT do back-end
   } catch (error) {
-    return error;
+    toast.error(error.response.data);
+
+    return error.response.data;
   }
+};
+
+export const recoveryPassword = (credentials )=> {
+  return new Promise((resolve, reject) => {
+    api
+      .post(`/api/usuarios/forgot-password`, credentials)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
+};
+
+export const resetPassword = (credentials) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post(`/api/usuarios/reset-password`, credentials)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error.response);
+      });
+  });
 };

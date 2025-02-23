@@ -28,3 +28,26 @@ export const registerSchema = z
     message: 'As senhas não coincidem',
     path: ['confirmSenha'],
   });
+
+  export const emailSchema = z.object({
+    email: z
+      .string({ required_error: 'Digite um email!' })
+      .min(1, { message: 'Email obrigatório!' })
+      .email({ message: 'Digite um email válido!' }),
+  });
+  
+  export const passwordSchema = z
+    .object({
+      senha: z
+        .string({
+          required_error: 'Campo não pode ser vazio!',
+        })
+        .min(8, 'deve conter no mínimo 8 caracteres')
+        .max(32, 'deve conter no máximo 32 caracteres'),
+      confirmSenha: z.string({ required_error: 'Repita a senha' }),
+    })
+    .refine((data) => data.senha === data.confirmSenha, {
+      message: 'As senhas não coincidem',
+      path: ['confirmSenha'],
+    });
+  
