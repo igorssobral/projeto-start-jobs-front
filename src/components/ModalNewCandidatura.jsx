@@ -3,28 +3,24 @@ import Modal from './Modal';
 import { LoaderCircle } from 'lucide-react';
 import { useAuth } from '../context/auth-context';
 import { ApiCandidatura } from '../services/candidaturaService';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { candidaturaSchema } from '../schemas/new-candidatura';
 
 function ModalNewCandidatura(props) {
-  const [formData, setFormData] = useState({
-    titulo: '',
-    empresa: '',
-    descricao: '',
-    senioridade: '',
-    modeloTrabalho: '',
-    localizacao: '',
-    url: '',
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(candidaturaSchema),
   });
   const [loading, setLoading] = useState(false);
   const { adicionarCandidatura } = ApiCandidatura();
   const { user } = useAuth();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  async function salvarCandidatura(e) {
-    e.preventDefault();
+  async function handleNewCandidatura(data) {
     setLoading(true);
     const candidaturaData = {
       idUsuario: user.id,
@@ -36,35 +32,20 @@ function ModalNewCandidatura(props) {
         },
       ],
       vaga: {
-        titulo: formData.titulo,
-        descricao: formData.descricao,
-        empresa: formData.empresa,
-        localizacao: formData.localizacao,
-        senioridade: formData.senioridade,
-        modeloTrabalho: formData.modeloTrabalho
-          ? 'Remoto'
-          : props.hybrid
-          ? 'Híbrido'
-          : 'Presencial',
-        url: formData.url,
+        ...data,
       },
     };
 
-    const data = adicionarCandidatura(candidaturaData);
+    await adicionarCandidatura(candidaturaData);
     setLoading(false);
-    setFormData({
-      titulo: '',
-      empresa: '',
-      descricao: '',
-      senioridade: '',
-      modeloTrabalho: '',
-      localizacao: '',
-      url: '',
-    });
-    props.refreshJobs()
+    reset();
     props.handleClose();
-    
+    props.refreshJobs();
   }
+
+  const onSubmit = (data) => {
+    handleNewCandidatura(data);
+  };
   return (
     <Modal isVisible={props.isVisible}>
       <div className='py-6 px-6 lg:8 text-left relative'>
@@ -83,7 +64,7 @@ function ModalNewCandidatura(props) {
             Se inscreveu na vaga? Salve em suas candidaturas.
           </p>
         </div>
-        <form className='space-y-6' onSubmit={salvarCandidatura}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='titulo'
@@ -92,15 +73,14 @@ function ModalNewCandidatura(props) {
               Titulo da Vaga
             </label>
             <input
+              {...register('titulo')}
               type='text'
               name='titulo'
               id='titulo'
-              value={formData.titulo}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='Desenevolvedor....'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.titulo?.message}</p>
           </div>
           <div>
             <label
@@ -110,15 +90,14 @@ function ModalNewCandidatura(props) {
               Empresa
             </label>
             <input
+              {...register('empresa')}
               type='text'
               name='empresa'
               id='empresa'
-              value={formData.empresa}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='ex: Google, Amazon'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.empresa?.message}</p>
           </div>
           <div>
             <label
@@ -128,16 +107,14 @@ function ModalNewCandidatura(props) {
               Descrição
             </label>
             <textarea
+              {...register('descricao')}
               name='descricao'
               id='descricao'
               rows={3}
-              maxLength={1000}
-              value={formData.descricao}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='Descrição da vaga'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.descricao?.message}</p>
           </div>
           <div>
             <label
@@ -147,15 +124,14 @@ function ModalNewCandidatura(props) {
               Link da vaga
             </label>
             <input
+              {...register('url')}
               type='text'
               name='url'
               id='url'
-              value={formData.url}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='link da vaga. ex: http://.....'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.url?.message}</p>
           </div>
           <div>
             <label
@@ -166,13 +142,12 @@ function ModalNewCandidatura(props) {
             </label>
 
             <select
+              {...register('senioridade')}
               name='senioridade'
               id='senioridade'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
-              onChange={handleChange}
-              value={formData.senioridade}
             >
-              <option value='' disabled>
+              <option value='' disabled selected>
                 Escolha a senioridade
               </option>
               <option value='estagio'>Estágio</option>
@@ -181,6 +156,9 @@ function ModalNewCandidatura(props) {
               <option value='mid_level'>Pleno</option>
               <option value='senior'>Senior</option>
             </select>
+            <p className='text-red-500 text-sm'>
+              {errors.senioridade?.message}
+            </p>
           </div>
           <div>
             <label
@@ -190,19 +168,21 @@ function ModalNewCandidatura(props) {
               Modelo de Trabalho
             </label>
             <select
+              {...register('modeloTrabalho')}
               name='modeloTrabalho'
               id='modeloTrabalho'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
-              onChange={handleChange}
-              value={formData.modeloTrabalho}
             >
-              <option value='' disabled>
+              <option value='' disabled selected>
                 Escolha o Modelo de Trabalho
               </option>
               <option value='Remoto'>Remoto</option>
               <option value='Híbrido'>Hibrido</option>
               <option value='Presencial'>Presencial</option>
             </select>
+            <p className='text-red-500 text-sm'>
+              {errors.modeloTrabalho?.message}
+            </p>
           </div>
 
           <div>
@@ -213,15 +193,16 @@ function ModalNewCandidatura(props) {
               Localização
             </label>
             <input
+              {...register('localizacao')}
               type='text'
               name='localizacao'
               id='localizacao'
-              value={formData.localizacao}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='cidade, estado'
-              required
             />
+            <p className='text-red-500 text-sm'>
+              {errors.localizacao?.message}
+            </p>
           </div>
           <button
             type='submit'

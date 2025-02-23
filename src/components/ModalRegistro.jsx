@@ -1,61 +1,41 @@
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import Modal from './Modal';
-import { register } from '../services/authService';
+import { registerUser } from '../services/authService';
 import { LoaderCircle } from 'lucide-react';
+import { registerSchema } from '../schemas/register-validate';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 function ModalRegistro(props) {
-  const [formData, setFormData] = useState({
-    nome: '',
-    telefone: '',
-    email: '',
-    senha: '',
-    confirmPassword: '',
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
   });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleRegister = async (dataRegister) => {
     setLoading(true);
 
-    if (formData.senha !== formData.confirmPassword) {
-      setError('As senhas não coincidem.');
-      return;
-    }
-
     try {
-      const payload = {
-        nome: formData.nome,
-        telefone: formData.telefone,
-        email: formData.email,
-        senha: formData.senha,
-      };
-
-      const data = await register(payload);
+      const data = await registerUser(dataRegister);
       console.log('Usuário registrado com sucesso:', data);
-      setSuccess('Usuário registrado com sucesso!');
-      setError('');
       setLoading(false);
-      setFormData({
-        nome: '',
-        telefone: '',
-        email: '',
-        senha: '',
-        confirmPassword: '',
-      });
       props.handleClose();
+      reset();
     } catch (err) {
       console.error('Erro ao registrar usuário:', err);
-      setError('Erro ao registrar usuário. Tente novamente.');
       setLoading(false);
     }
+  };
+
+  const onSubmit = (data) => {
+    handleRegister(data);
   };
 
   return (
@@ -71,9 +51,8 @@ function ModalRegistro(props) {
         <h3 className='mb-4 text-2xl font-medium text-gray-900 dark:text-white'>
           Cadastrar-se
         </h3>
-        {error && <p className='text-red-500 text-sm'>{error}</p>}
-        {success && <p className='text-green-500 text-sm'>{success}</p>}
-        <form className='space-y-6' onSubmit={handleSubmit}>
+
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='nome'
@@ -82,15 +61,14 @@ function ModalRegistro(props) {
               Nome
             </label>
             <input
+              {...register('nome')}
               type='text'
               name='nome'
               id='nome'
-              value={formData.nome}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='Fulano'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.nome?.message}</p>
           </div>
           <div>
             <label
@@ -100,15 +78,14 @@ function ModalRegistro(props) {
               Telefone
             </label>
             <input
+              {...register('telefone')}
               type='tel'
               name='telefone'
               id='telefone'
-              value={formData.telefone}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='(XX) XXXXX-XXXX'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.telefone?.message}</p>
           </div>
           <div>
             <label
@@ -118,15 +95,14 @@ function ModalRegistro(props) {
               Seu email
             </label>
             <input
+              {...register('email')}
               type='email'
               name='email'
               id='email'
-              value={formData.email}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='name@company.com'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.email?.message}</p>
           </div>
           <div>
             <label
@@ -136,15 +112,14 @@ function ModalRegistro(props) {
               Sua senha
             </label>
             <input
+              {...register('senha')}
               type='password'
               name='senha'
               id='senha'
-              value={formData.senha}
-              onChange={handleChange}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='*********'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.senha?.message}</p>
           </div>
           <div>
             <label
@@ -154,15 +129,16 @@ function ModalRegistro(props) {
               Confirme sua senha
             </label>
             <input
+              {...register('confirmSenha')}
               type='password'
-              name='confirmPassword'
-              id='confirmPassword'
-              value={formData.confirmPassword}
-              onChange={handleChange}
+              name='confirmSenha'
+              id='confirmSenha'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='*********'
-              required
             />
+            <p className='text-red-500 text-sm'>
+              {errors.confirmSenha?.message}
+            </p>
           </div>
           <button
             type='submit'

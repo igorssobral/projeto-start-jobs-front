@@ -6,33 +6,44 @@ import { useAuth } from '../context/auth-context';
 import { toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '../schemas/login-schema';
 
 function ModalLogin(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { logged, user } = useAuth();
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { logged } = useAuth();
+
+  const handleLogin = async (loginData) => {
     setLoading(true);
     try {
-      const data = await login(email, password);
+      const data = await login(loginData.email, loginData.senha);
       logged(data);
       localStorage.setItem('token', data); // Salva o token no localStorage
-
       setLoading(false);
+      reset();
       props.handleClose();
-      setEmail('');
-      setPassword('');
-      toast.success(`Bem Vindo! ${user.user}`);
+
+      
     } catch (err) {
       console.error('Erro ao fazer login:', err);
+      toast.error('Erro ao fazer login:', err)
       setLoading(false);
-      setError('Email ou senha inválidos. Tente novamente.');
     }
+  };
+
+  const onSubmit = (data) => {
+    handleLogin(data);
   };
 
   return (
@@ -47,8 +58,7 @@ function ModalLogin(props) {
         <h3 className='mb-4 text-2xl font-medium text-gray-900 dark:text-white'>
           Faça login pra entrar na plataforma
         </h3>
-        {error && <p className='text-red-500 text-sm'>{error}</p>}
-        <form className='space-y-6' onSubmit={handleSubmit}>
+        <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor='email'
@@ -57,31 +67,29 @@ function ModalLogin(props) {
               Seu email
             </label>
             <input
+              {...register('email')}
               type='email'
               id='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='name@company.com'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.email?.message}</p>
           </div>
           <div>
             <label
-              htmlFor='password'
+              htmlFor='senha'
               className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
             >
               Sua senha
             </label>
             <input
+              {...register('senha')}
               type='password'
-              id='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id='senha'
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='*********'
-              required
             />
+            <p className='text-red-500 text-sm'>{errors.senha?.message}</p>
           </div>
           <div className='flex justify-between'>
             <div className='flex items-start'>
@@ -132,7 +140,6 @@ function ModalLogin(props) {
             onSuccess={(data) => {
               logged(data.credential);
               localStorage.setItem('token', data.credential);
-
             }}
             onError={() => {
               console.log('Login Failed');
