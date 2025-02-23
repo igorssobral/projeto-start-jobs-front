@@ -59,8 +59,8 @@ const SideBar = ({
       icon: <UserPlus size={20} />,
       page: 'register',
     },
-    { label: 'Candidaturas', icon: <Box size={20} />, page: 'candidaturas' },
-    { label: 'Dashboard', icon: <Globe size={20} />, page: 'dashboard' },
+     user &&{ label: 'Candidaturas', icon: <Box size={20} />, page: 'candidaturas' },
+     user &&{ label: 'Dashboard', icon: <Globe size={20} />, page: 'dashboard' },
     { label: 'Dicas de Currículo', icon: <Brain size={20} />, page: 'dicasCv' },
     {
       label: 'Vagas em Alta',

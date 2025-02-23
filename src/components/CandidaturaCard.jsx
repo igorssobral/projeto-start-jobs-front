@@ -33,12 +33,12 @@ function CandidaturaCard(props) {
   return (
     <>
       <div className='py-6 px-6 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover:border-blue-500 hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
-        <div className='flex flex-col xl:flex-row justify-between items-center lg:items-center gap-4 lg:gap-8'>
-          <div className='flex flex-col items-start gap-3 w-full lg:w-max'>
-            <h1 className='lg:max-w-80 text-lg font-semibold text-gray-900 dark:text-white'>
+        <div className='flex flex-col xl:flex-row justify-between items-center lg:items-center gap-4 '>
+          <div className='flex flex-col items-center lg:items-start gap-3 w-full lg:w-max'>
+            <h1 className='lg:max-w-80 text-base  2xl:text-lg font-semibold text-gray-900 dark:text-white'>
               {props.vaga.titulo} - {props.vaga.empresa}
             </h1>
-            <p className='text-sm text-gray-700 dark:text-gray-300 flex flex-wrap gap-6'>
+            <p className='text-sm text-gray-700 dark:text-gray-300 flex flex-wrap gap-6 '>
               <span>
                 {props.vaga.senioridade === 'mid_level'
                   ? 'pleno'
@@ -49,25 +49,25 @@ function CandidaturaCard(props) {
             </p>
           </div>
 
-          <div className='flex flex-col 2xl:flex-row items-center lg:gap-4 w-full lg:w-auto'>
+          <div className='flex flex-col 2xl:flex-row items-center lg:gap-4 w-full lg:w-max'>
             <p className='text-gray-500 dark:text-gray-400 text-sm'>
               {diffInDays > 0
                 ? `Inscrito há ${diffInDays} dia${diffInDays !== 1 ? 's' : ''}`
                 : 'Inscrito Hoje'}
             </p>
-            <div className='flex xl:flex-col gap-4 mt-4 lg:mt-0'>
+            <div className='flex flex-col gap-4 mt-4 lg:mt-0'>
               <button
                 onClick={toggleModal}
                 className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
-                Ver mais detalhes
+                Mais detalhes
               </button>
-              {/* <button
+              <button
                 onClick={()=> setConfirmDelete(true)}
                 className='w-full lg:w-auto text-red-600 bg-transparent border border-red-700 hover:bg-red-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Remover
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
@@ -141,7 +141,10 @@ function CandidaturaCard(props) {
             </div>
           </div>
 
-          {confirmDelete && (
+         
+        </div>
+      )}
+       {confirmDelete && (
             <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
               <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-[600px] p-6'>
                 <div className='flex flex-col justify-between items-start border-b pb-3'>
@@ -178,8 +181,6 @@ function CandidaturaCard(props) {
               </div>
             </div>
           )}
-        </div>
-      )}
     </>
   );
 }

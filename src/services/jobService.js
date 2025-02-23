@@ -16,6 +16,7 @@ export const getJobsByFilters = async (title, location, remote) => {
         job_country_code_or: ['BR'],
         job_title_or: [title],
         remote: remote === 'yes' ? true : false,
+        hybrid: remote === 'no' ? true : false,
         job_location_pattern_or: [location],
         page: 0,
         limit: 6,

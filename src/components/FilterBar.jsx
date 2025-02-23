@@ -39,7 +39,7 @@ function FilterBar({ onSearch }) {
           </span>
         </label>
         <button
-          className='w-full md:w-40 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'
+          className='w-full lg:w-40 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'
           onClick={handleSearch}
         >
           Filtrar
