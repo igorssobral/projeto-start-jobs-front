@@ -33,13 +33,10 @@ function ModalLogin(props) {
       setLoading(false);
       reset();
       props.handleClose();
-
-      
-    } catch (err) {
-      console.error('Erro ao fazer login:', err);
-      toast.error('Erro ao fazer login:', err)
-      setLoading(false);
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
     }
+    setLoading(false);
   };
 
   const onSubmit = (data) => {

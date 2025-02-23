@@ -24,7 +24,6 @@ function ModalRegistro(props) {
 
     try {
       const data = await registerUser(dataRegister);
-      console.log('Usuário registrado com sucesso:', data);
       setLoading(false);
       props.handleClose();
       reset();

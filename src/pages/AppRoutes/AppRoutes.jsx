@@ -6,6 +6,7 @@ import Dashboard from "../Dashboard";
 import Candidaturas from "../candidaturas";
 import DicasCV from "../DicasCV";
 import VagasEmAlta from "../VagasEmAlta";
+import ResetPassword from '../ResetPassword';
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,7 @@ const AppRouter = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/Dicas" element={<DicasCV />} />
             <Route path="/vagas" element={<VagasEmAlta />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
           </Routes>
         </Router>
