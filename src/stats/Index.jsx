@@ -21,7 +21,17 @@ import user03 from "../assets/user03.png";
 // import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 import ProfileImage from "../assets/profile-image.jpg";
-import ProductImage from "../assets/product-image.jpg";
+
+import Catho from "../assets/img/catho.png";
+import Empregos from "../assets/img/empregos-logo.png";
+import Google from "../assets/img/googleJobs.png";
+import Glassdoor from "../assets/img/glassdoor.png";
+import Indeed from "../assets/img/indeed-logo.png";
+import InfoJobs from "../assets/img/infojobs-logo.png";
+import Jooble from "../assets/img/jooble-logo.png";
+import LinkedIn from "../assets/img/linkedin.png";
+import TrabalhaBrasil from "../assets/img/trabalhaBrasil.png";
+import Vagas from "../assets/img/vagas-com.png";
 
 
 export const navbarLinks = [
@@ -184,95 +194,121 @@ export const destaquesData = [
 ];
 
 
+// const [imgSite, setImgSite] = useState(1);
+//   const data = [
+//     { id: '1', image: LinkedIn },
+//     { id: '2', image: Catho },
+//     { id: '3', image: Empregos },
+//     { id: '4', image: Google },
+//     { id: '5', image: Glassdoor },
+//     { id: '6', image: Indeed },
+//     { id: '7', image: InfoJobs },
+//     { id: '8', image: Jooble },
+//     { id: '9', image: TrabalhaBrasil },
+//     { id: '10', image: Vagas },
+//   ];
+
 export const topVagas = [
+
+
     {
         number: 1,
-        empresa: "Stock Headquarters",
-        image: ProductImage,
-        description: "High-quality noise-canceling wireless headphones.",
-        atividade: "Programador em C#",
-        status: "Entrevista",
+        site: "LinkedIn Jobs",
+        image: LinkedIn,
+        url: "https://www.linkedin.com/jobs",
+        // description: "High-quality noise-canceling wireless headphones.",
+        // atividade: "Programador em C#",
+        // status: "Entrevista",
         classificacao: 4.5,
     },
     {
         number: 2,
-        empresa: "Smartphone House",
-        image: ProductImage,
-        description: "Latest 5G smartphone with excellent camera features.",
-        atividade: "Programador em PHP",
-        status: "Analise",
+        site: "Indeed",
+        image: Indeed,
+        url: "https://www.indeed.com/jobs",
+        // description: "Latest 5G smartphone with excellent camera features.",
+        // atividade: "Programador em PHP",
+        // status: "Analise",
         classificacao: 4.7,
     },
     {
         number: 3,
-        empresa: "Gaming Store",
-        image: ProductImage,
-        description: "Powerful gaming laptop with high-end graphics.",
-        atividade: "Programador em C#",
-        status: "Analise",
+        site: "Glassdoor",
+        image: Glassdoor,
+        url: "https://www.glassdoor.com/jobs",
+        // description: "Powerful gaming laptop with high-end graphics.",
+        // atividade: "Programador em C#",
+        // status: "Analise",
         classificacao: 4.8,
     },
     {
         number: 4,
-        empresa: "Smartwatch",
-        image: ProductImage,
-        description: "Stylish smartwatch with fitness tracking features.",
-        atividade: "Programador em C#",
-        status: "Contratado",
+        site: "InfoJobs",
+        image: InfoJobs,
+        url: "https://www.infojobs.com.br",
+        // description: "Stylish smartwatch with fitness tracking features.",
+        // atividade: "Programador em C#",
+        // status: "Contratado",
         classificacao: 4.9,
     },
     {
         number: 5,
-        empresa: "Bluetooth Speaker",
-        image: ProductImage,
-        description: "Portable Bluetooth speaker with deep bass sound.",
-        atividade: "designer UI UX",
-        status: "Triagem",
+        site: "Catho",
+        image: Catho,
+        url: "https://www.catho.com.br",
+        // description: "Portable Bluetooth speaker with deep bass sound.",
+        // atividade: "designer UI UX",
+        // status: "Triagem",
         classificacao: 4.3,
     },
     {
         number: 6,
-        empresa: "4K Enterprise",
-        image: ProductImage,
-        description: "Ultra HD 4K monitor with stunning color accuracy.",
-        atividade: "Programador em C#",
-        status: "Analise",
+        site: "Vagas.com",
+        image: Vagas,
+        url: "https://www.vagas.com.br",
+        // description: "Ultra HD 4K monitor with stunning color accuracy.",
+        // atividade: "Programador em C#",
+        // status: "Analise",
         classificacao: 4.6,
     },
     {
         number: 7,
-        empresa: "Mechanical Cloud",
-        image: ProductImage,
-        description: "Mechanical keyboard with customizable RGB lighting.",
-        atividade: "Programador em Java",
-        status: "Triagem",
+        site: "Trabalha Brasil",
+        image: TrabalhaBrasil,
+        url: "https://www.trabalhabrasil.com.br",
+        // description: "Mechanical keyboard with customizable RGB lighting.",
+        // atividade: "Programador em Java",
+        // status: "Triagem",
         classificacao: 4.7,
     },
     {
         number: 8,
-        empresa: "Wireless Mouse",
-        image: ProductImage,
-        description: "Ergonomic wireless mouse with precision tracking.",
-        atividade: "Programador em Python",
-        status: "contratado",
+        site: "Google Jobs",
+        image: Google,
+        url: "https://www.google.com/jobs",
+        // description: "Ergonomic wireless mouse with precision tracking.",
+        // atividade: "Programador em Python",
+        // status: "contratado",
         classificacao: 5.0,
     },
     {
         number: 9,
-        empresa: "Action Camera",
-        image: ProductImage,
-        description: "Waterproof action camera with 4K video recording.",
-        atividade: "Programador em Javascript",
-        status: "Estágio",
+        site: "Empregos.com.br",
+        image: Empregos,
+        url: "https://www.empregos.com.br",
+        // description: "Waterproof action camera with 4K video recording.",
+        // atividade: "Programador em Javascript",
+        // status: "Estágio",
         classificacao: 4.8,
     },
     {
         number: 10,
-        empresa: "External Hard Drive",
-        image: ProductImage,
-        description: "Portable 2TB external hard drive for data storage.",
-        atividade: "Programador em C#",
-        status: "Analise",
+        site: "Jooble",
+        image: Jooble,
+        url: "https://www.jooble.org",
+        // description: "Portable 2TB external hard drive for data storage.",
+        // atividade: "Programador em C#",
+        // status: "Analise",
         classificacao: 3.5,
     },
 ];

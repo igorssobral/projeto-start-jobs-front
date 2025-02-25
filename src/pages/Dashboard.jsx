@@ -224,7 +224,7 @@ const Dashboard = ({ showMenu }) => {
                   <p className='card-title'>Análises</p>
                 </div>
 
-                <div className='card-body p-0 '>
+                <div className='card-body p-0'>
                   <ResponsiveContainer width={'100%'} height={300}>
                     <BarChart
                       data={overviewData}
@@ -255,7 +255,7 @@ const Dashboard = ({ showMenu }) => {
               </div>
               {/* ***************************** */}
 
-              <div className='card col-span-1 md:col-span-2 lg:col-span-3 dark:bg-[#0e0d11]'>
+              {/* <div className='card col-span-1 md:col-span-2 lg:col-span-3 dark:bg-[#0e0d11]'>
                 <div className='card-header'>
                   <p className='card-title'>Top 10 Destaques</p>
                 </div>
@@ -286,11 +286,11 @@ const Dashboard = ({ showMenu }) => {
                     </div>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className='card dark:bg-[#0e0d11]'>
               <div className='card-header'>
-                <p className='card-title'>Oportunidades</p>
+                <p className='card-title'>Top 10 sites de empregos mais procurados na internet</p>
               </div>
               <div className='card-body p-0'></div>
               <div className='relative h-[500px] w-full flex-shrink-0 overflow-auto rounded-none [scrollbar-width:_thin]'>
@@ -298,9 +298,9 @@ const Dashboard = ({ showMenu }) => {
                   <thead className='table-header dark:bg-[#1F1E25]'>
                     <tr className='table-row'>
                       <th className='table-head'>#</th>
-                      <th className='table-head'>Empresas</th>
-                      <th className='table-head'>Descrição da vaga</th>
-                      <th className='table-head'>Status</th>
+                      <th className='table-head'>Plataforma</th>
+                      <th className='table-head'>Endereço</th>
+                      {/* <th className='table-head'>Status</th> */}
                       <th className='table-head'>Classificação</th>
                       <th className='table-head'>Acões</th>
                     </tr>
@@ -313,17 +313,19 @@ const Dashboard = ({ showMenu }) => {
                           <div className='flex w-max gap-x-4'>
                             <img
                               src={vagas.image}
-                              alt={vagas.empresa}
+                              alt={vagas.site}
                               className='size-14 rounded-lg object-cover'
                             />
                             <div className='flex flex-col'>
-                              <p>{vagas.empresa}</p>
+                              <p>{vagas.site}</p>
                               <p className='font-normal text-slate-600 dark:text-slate-400'></p>
                             </div>
                           </div>
                         </td>
-                        <td className='table-cell'>{vagas.atividade}</td>
-                        <td className='table-cell'>{vagas.status}</td>
+                        <td className='table-cell'> {vagas.url}</td>
+                        
+                        
+                        {/* <td className='table-cell'>{vagas.status}</td> */}
                         <td className='table-cell'>
                           <div className='flex items-center gap-x-2'>
                             <Star
