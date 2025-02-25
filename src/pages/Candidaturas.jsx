@@ -76,7 +76,7 @@ const Candidaturas = ({ showMenu }) => {
             {' '}
             <FilterBar onSearch={(e) => handleFilter(e)} />
             <button
-              className='px-8 py-3  bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
+              className='px-[38px] py-3  bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
               onClick={() => setModalNewCandidatura(true)}
             >
               Adicionar candidatura

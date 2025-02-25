@@ -62,9 +62,9 @@ const DicasCV = ({ showMenu }) => {
           <MenuIcon />
         </button>
         <Header
-          title={'Dicas para o seu Currículo'}
+          title={'Dicas de Currículo'}
           description={
-            ' Aqui você encontra dicas de como montar um Currículo Vitae Profissional.'
+            'Monte seu currículo profissional'
           }
         />
 
