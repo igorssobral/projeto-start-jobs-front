@@ -14,6 +14,8 @@ const Candidaturas = ({ showMenu }) => {
   const [modalNewCandidatura, setModalNewCandidatura] = useState(false);
   const { getCandidaturas } = ApiCandidatura();
 
+  
+
   const refreshJobs = async () => {
     const candidaturasList = await getCandidaturas();
     setCandidaturas(candidaturasList);
@@ -82,7 +84,7 @@ const Candidaturas = ({ showMenu }) => {
               Adicionar candidatura
             </button>
           </div>
-          <div style={{ height: 'calc(100dvh - 370px)' }}>
+          <div style={{ minHeight: 'calc(100dvh - 370px)' }}>
           <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
             {Array.isArray(filters) &&
               filters.map((job) => (
@@ -101,8 +103,6 @@ const Candidaturas = ({ showMenu }) => {
             handleClose={() => setModalNewCandidatura(false)}
             refreshJobs={refreshJobs}
           />
-          {/* <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-          <Footer /> */}
         </main>
       </div>
     </>

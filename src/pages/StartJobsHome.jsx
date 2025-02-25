@@ -55,7 +55,11 @@ const StartJobsHome = () => {
       {activePage === 'dashboard' && <Dashboard showMenu={handleOpenMenu} />}
       {activePage === 'dicasCv' && <DicasCV showMenu={handleOpenMenu} />}
       {activePage === 'vagasEmAlta' && (
-        <VagasEmAlta showMenu={handleOpenMenu} />
+        <VagasEmAlta
+          showMenu={handleOpenMenu}
+          showLogin={() => handleShowModal('login')}
+          showRegister={() => handleShowModal('register')}
+        />
       )}
 
       <ModalLogin
