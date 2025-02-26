@@ -125,9 +125,9 @@ function Home({ showMenu }) {
             <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />
             <div className='flex ml-8'>
               <LuMapPinPlus size={26} />
-              <p className='font-medium ml-8'>Oportunidades certeiras:</p>
+              <p className='font-medium ml-8'>Oportunidades promissoras:</p>
               <p className='ml-8 mb-4 text-gl'>
-                Encontre o emprego ideal rapidamente.
+                Encontre rapidamente o emprego ideal.
               </p>
             </div>
             <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />

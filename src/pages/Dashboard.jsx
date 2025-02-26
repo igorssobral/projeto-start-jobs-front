@@ -233,7 +233,7 @@ const Dashboard = ({ showMenu }) => {
 
             {/* ******************************** */}
 
-            <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7'>
+            <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
               <div className='card col-span-1 md:col-span-2 lg:col-span-4 dark:bg-[#0e0d11]'>
                 <div className='card-header'>
                   <p className='card-title'>Análises</p>
