@@ -23,11 +23,11 @@ import {
   YAxis,
 } from 'recharts';
 
-import { overviewData, destaquesData, topVagas } from '../stats/Index';
+import { overviewData, topVagas } from '../stats/Index';
 
-import { Footer } from '../components/Footer';
 import { ApiCandidatura } from '../services/candidaturaService';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Dashboard = ({ showMenu }) => {
   const [totalCandidaturas, setTotalCandidaturas] = useState([]);
@@ -37,54 +37,48 @@ const Dashboard = ({ showMenu }) => {
   useEffect(() => {
     async function getTotalCandidaturas() {
       const response = await getCandidaturas();
-      console.log('🚀 ~ getTotalCandidaturas ~ response:', response);
 
       setTotalCandidaturas(response);
     }
 
     getTotalCandidaturas();
   }, []);
+
   useEffect(() => {
-   setCrescimentoCandidaturas(calcularCrescimento(candidaturasMesAtual, mesAtual, 2025))
+    setCrescimentoCandidaturas(
+      calcularCrescimento(totalCandidaturas, mesAtual)
+    );
   }, [totalCandidaturas]);
 
-  let dados = [
-    { data: '2025-01-15', valor: 1000 },
-    { data: '2025-02-10', valor: 1250 },
-    { data: '2025-03-05', valor: 1300 },
-    { data: '2025-04-10', valor: 1400 },
-    { data: '2025-05-20', valor: 1500 },
-  ];
-
   const mesAtual = new Date().getMonth() + 1;
-  let totalVagasMesAtual = 0
-  let totalVagasMesAnterior = 0
-   const candidaturasMesAtual = totalCandidaturas?.filter((e) => {
-    if(e.dataCandidatura[1] === mesAtual){
-      totalVagasMesAtual++
-      return e
-    }
-    if(e.dataCandidatura[1] === mesAtual - 1){
-      totalVagasMesAnterior++
-      return e
-    }
-  }
-  );
+
+  const vagasEmAndamento = totalCandidaturas?.filter((e) => {
+    return e.statusCandidatura.some(
+      (status) => status.rejected === false && status.approved === false
+    );
+  });
+  const vagasEmAndamentoMesAtual = totalCandidaturas?.filter((e) => {
+    return e.statusCandidatura.some(
+      (status) =>
+        e.dataCandidatura[1] >= new Date().getMonth() &&
+        status.rejected === false &&
+        status.approved === false
+    );
+  });
 
   function formateDate(candidatura) {
     let dataFormatada = new Date(
       candidatura[0], // Ano
       candidatura[1] - 1, // Mês (lembre-se que o mês começa do 0 em JavaScript)
-      candidatura[2], // Dia
-     
-     
+      candidatura[2] // Dia
     );
 
     // Formatando a data no formato desejado (ex: "2025-02-24")
     return dataFormatada.toISOString().replace('T', ' ').slice(0, 10);
   }
 
-  function calcularCrescimento(dados, mesReferencia, anoReferencia) {
+  function calcularCrescimento(dados, mesReferencia) {
+    const anoReferencia = new Date().getFullYear();
     let dadosMesAnterior = dados.filter((dado) => {
       const data = new Date(formateDate(dado.dataCandidatura));
       return (
@@ -95,7 +89,6 @@ const Dashboard = ({ showMenu }) => {
 
     // Filtra os dados para o mês de referência
     let dadosMesReferencia = dados.filter((dado) => {
-      console.log(formateDate(dado.dataCandidatura))
       const data = new Date(formateDate(dado.dataCandidatura));
       return (
         data.getFullYear() === anoReferencia &&
@@ -105,13 +98,13 @@ const Dashboard = ({ showMenu }) => {
 
     // Verifica se há dados para o mês anterior e o mês de referência
     if (dadosMesAnterior.length > 0 && dadosMesReferencia.length > 0) {
-      let valorAnterior = totalVagasMesAnterior;
-      let valorAtual = totalVagasMesAtual;
+      let valorAnterior = dadosMesAnterior.length;
+      let valorAtual = dadosMesReferencia.length;
 
       // Calculando o crescimento
       let crescimento = ((valorAtual - valorAnterior) / valorAnterior) * 100;
 
-   return crescimento
+      return crescimento;
     } else {
       console.log(
         'Não foi possível calcular o crescimento. Verifique se há dados para os meses especificados.'
@@ -119,7 +112,7 @@ const Dashboard = ({ showMenu }) => {
     }
   }
 
-  calcularCrescimento(candidaturasMesAtual, mesAtual, 2025); 
+  // calcularCrescimento(mesAtual, 2025);
 
   function handleOpenMenu() {
     showMenu();
@@ -157,8 +150,18 @@ const Dashboard = ({ showMenu }) => {
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
                     {totalCandidaturas.length}
                   </p>
-                  <span className={`flex w-fit items-center gap-x-2 rounded-full border ${crescimentoCandidaturas > 0 ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600':'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'}  px-2 py-1 font-medium `}>
-                    {crescimentoCandidaturas >= 0 ? <TrendingUp size={18} /> : <TrendingDown size={18} className='text-red-500'/>}
+                  <span
+                    className={`flex w-fit items-center gap-x-2 rounded-full border ${
+                      crescimentoCandidaturas > 0
+                        ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                        : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
+                    }  px-2 py-1 font-medium `}
+                  >
+                    {crescimentoCandidaturas >= 0 ? (
+                      <TrendingUp size={18} />
+                    ) : (
+                      <TrendingDown size={18} className='text-red-500' />
+                    )}
                     {crescimentoCandidaturas}%
                   </span>
                 </div>
@@ -168,15 +171,27 @@ const Dashboard = ({ showMenu }) => {
                   <div className='w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600'>
                     <Expand size={26} />
                   </div>
-                  <p className='card-title'>Vagas Abertas</p>
+                  <p className='card-title'>Candidaturas em curso</p>
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    16
+                    {vagasEmAndamento.length}
                   </p>
-                  <span className='flex w-fit items-center gap-x-2 rounded-full border border-blue-500 px-2 py-1 font-medium text-blue-500 dark:border-blue-600 dark:text-blue-600'>
-                    <TrendingUp size={18} />
-                    12%
+
+                  {/* lembrar de refatorar pra remover a chamada repetitiva da função*/}
+                  <span
+                    className={`flex w-fit items-center gap-x-2 rounded-full border ${
+                      calcularCrescimento(vagasEmAndamento, mesAtual) > 0
+                        ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                        : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
+                    }  px-2 py-1 font-medium `}
+                  >
+                    {calcularCrescimento(vagasEmAndamento, mesAtual) >= 0 ? (
+                      <TrendingUp size={18} />
+                    ) : (
+                      <TrendingDown size={18} className='text-red-500' />
+                    )}
+                    {calcularCrescimento(vagasEmAndamento, mesAtual)}%
                   </span>
                 </div>
               </div>
@@ -223,7 +238,14 @@ const Dashboard = ({ showMenu }) => {
                 <div className='card-header'>
                   <p className='card-title'>Análises</p>
                 </div>
+                {/* Idéia 1: Pegar o total das candidaturas do mes atual e mes anterior e colocar em verde
+                 o total de todas e em vermelho o total de rejeitadas*/}
 
+                {/* Idéia 2: Criar um grafico de barras separado por mês e um grafico de linha mostrando o numero 
+                de candidaturas rejeitas que o usuario teve no mês*/}
+
+                {/* Complemento(Opcional): Adicionar um grafico de Pizza ao lado do grafico de barra(Analisar dados que
+                 poderiamos utilizar no grafico)*/}
                 <div className='card-body p-0'>
                   <ResponsiveContainer width={'100%'} height={300}>
                     <BarChart
@@ -290,7 +312,9 @@ const Dashboard = ({ showMenu }) => {
             </div>
             <div className='card dark:bg-[#0e0d11]'>
               <div className='card-header'>
-                <p className='card-title'>Top 10 sites de empregos mais procurados na internet</p>
+                <p className='card-title'>
+                  Top 10 sites de empregos mais procurados na internet
+                </p>
               </div>
               <div className='card-body p-0'></div>
               <div className='relative h-[500px] w-full flex-shrink-0 overflow-auto rounded-none [scrollbar-width:_thin]'>
@@ -299,10 +323,7 @@ const Dashboard = ({ showMenu }) => {
                     <tr className='table-row'>
                       <th className='table-head'>#</th>
                       <th className='table-head'>Plataforma</th>
-                      <th className='table-head'>Endereço</th>
-                      {/* <th className='table-head'>Status</th> */}
-                      <th className='table-head'>Classificação</th>
-                      <th className='table-head'>Acões</th>
+                      <th className='table-head'>Link do Site</th>
                     </tr>
                   </thead>
                   <tbody className='table-body'>
@@ -310,11 +331,11 @@ const Dashboard = ({ showMenu }) => {
                       <tr key={vagas.number} className='table-row'>
                         <td className='table-cell'>{vagas.number}</td>
                         <td className='table-cell'>
-                          <div className='flex w-max gap-x-4'>
+                          <div className='flex w-max gap-x-4 items-center'>
                             <img
                               src={vagas.image}
                               alt={vagas.site}
-                              className='size-14 rounded-lg object-cover'
+                              className='size-14 rounded-lg object-contain'
                             />
                             <div className='flex flex-col'>
                               <p>{vagas.site}</p>
@@ -322,29 +343,14 @@ const Dashboard = ({ showMenu }) => {
                             </div>
                           </div>
                         </td>
-                        <td className='table-cell'> {vagas.url}</td>
-                        
-                        
+                        <td className='table-cell hover:underline'>
+                          {' '}
+                          <Link to={vagas.url} target='_blank'>
+                            {vagas.url}
+                          </Link>
+                        </td>
+
                         {/* <td className='table-cell'>{vagas.status}</td> */}
-                        <td className='table-cell'>
-                          <div className='flex items-center gap-x-2'>
-                            <Star
-                              size={18}
-                              className='fill-yellow-400 stroke-yellow-500'
-                            />
-                            {vagas.classificacao}
-                          </div>
-                        </td>
-                        <td className='table-cell'>
-                          <div className='flex items-center gap-x-4'>
-                            <button className='text-blue-500 dark:text-blue-600'>
-                              <PencilLine size={20} />
-                            </button>
-                            <button className='text-red-500'>
-                              <Trash size={20} />
-                            </button>
-                          </div>
-                        </td>
                       </tr>
                     ))}
                   </tbody>

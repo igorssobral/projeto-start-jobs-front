@@ -3,7 +3,7 @@ import profile from '../assets/user01.png';
 
 const Header = ({ title, description }) => {
   const { user } = useAuth();
-  const firstName = user.user.split(' ')[0];
+  const firstName = user?.user.split(' ')[0];
   return (
     <div className='mb-8 flex items-center justify-between'>
       <div>
