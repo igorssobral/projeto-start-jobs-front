@@ -6,17 +6,16 @@ import {
   setLocalStorage,
 } from '../utils/local-storage';
 import { decodeJwt } from '../utils/decode-jwt';
-import { toast } from 'react-toastify';
-// import { isValidToken } from '../services/auth';
+
 
 const AuthContext = createContext(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+export const AuthProvider = ({
   children,
 }) => {
   const [user, setUser] = useState(isAuthenticated());
 
-  const logged = (token: any) => {
+  const logged = (token) => {
     setLocalStorage('token', token);
 
     const decoded = decodeJwt(token);
