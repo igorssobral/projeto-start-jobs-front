@@ -142,7 +142,6 @@ function ModalLogin(props) {
               console.log('Login Failed');
             }}
           />
-          ;
         </form>
       </div>
     </Modal>

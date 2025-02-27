@@ -10,6 +10,7 @@ import {
   PencilLine,
   Trash,
   TrendingDown,
+  Minus,
 } from 'lucide-react';
 
 import {
@@ -21,6 +22,11 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  ComposedChart,
+  Legend,
+  Area,
+  Line,
+  Scatter,
 } from 'recharts';
 
 import { overviewData, topVagas } from '../stats/Index';
@@ -79,6 +85,8 @@ const Dashboard = ({ showMenu }) => {
 
   function calcularCrescimento(dados, mesReferencia) {
     const anoReferencia = new Date().getFullYear();
+
+    // Filtra os dados para o mês anterior
     let dadosMesAnterior = dados.filter((dado) => {
       const data = new Date(formateDate(dado.dataCandidatura));
       return (
@@ -86,6 +94,10 @@ const Dashboard = ({ showMenu }) => {
         data.getMonth() === mesReferencia - 2
       ); // Mes anterior
     });
+    console.log(
+      '🚀 ~ dadosMesAnterior ~ dadosMesAnterior:',
+      dadosMesAnterior.length
+    );
 
     // Filtra os dados para o mês de referência
     let dadosMesReferencia = dados.filter((dado) => {
@@ -95,22 +107,110 @@ const Dashboard = ({ showMenu }) => {
         data.getMonth() === mesReferencia - 1
       ); // Mes de referencia
     });
+    console.log(
+      '🚀 ~ dadosMesReferencia ~ dadosMesReferencia:',
+      dadosMesReferencia.length
+    );
 
-    // Verifica se há dados para o mês anterior e o mês de referência
+    // Verifica se há dados para os meses especificados
     if (dadosMesAnterior.length > 0 && dadosMesReferencia.length > 0) {
       let valorAnterior = dadosMesAnterior.length;
       let valorAtual = dadosMesReferencia.length;
 
+      // Verifica se o valor do mês anterior é 0 para evitar divisão por zero
+      if (valorAnterior === 0) {
+        return 0;
+      }
+
       // Calculando o crescimento
       let crescimento = ((valorAtual - valorAnterior) / valorAnterior) * 100;
 
-      return crescimento;
+      // Verifica se o valor do crescimento é válido
+
+      //quando usa tofixed a cor mostra errada
+      return crescimento.toFixed(0);
     } else {
       console.log(
         'Não foi possível calcular o crescimento. Verifique se há dados para os meses especificados.'
       );
+      return 0; // Caso não haja dados para os meses, retorna 0
     }
   }
+
+  const data = [
+    {
+      name: 'Janeiro',
+      uv: 590,
+      TotalCandidaturas: 800,
+      cnt: 490,
+    },
+    {
+      name: 'Fevereiro',
+      uv: 868,
+      TotalCandidaturas: 967,
+      cnt: 590,
+    },
+    {
+      name: 'Março',
+      uv: 1397,
+      TotalCandidaturas: 1098,
+      cnt: 350,
+    },
+    {
+      name: 'Abril',
+      uv: 1480,
+      TotalCandidaturas: 1200,
+      cnt: 480,
+    },
+    {
+      name: 'Maio',
+      uv: 1520,
+      TotalCandidaturas: 1108,
+      cnt: 460,
+    },
+    {
+      name: 'Junho',
+      uv: 1400,
+      TotalCandidaturas: 680,
+      cnt: 380,
+    },
+    {
+      name: 'Julho',
+      uv: 1100,
+      TotalCandidaturas: 850,
+      cnt: 500,
+    },
+    {
+      name: 'Agosto',
+      uv: 1300,
+      TotalCandidaturas: 910,
+      cnt: 520,
+    },
+    {
+      name: 'Setembro',
+      uv: 1200,
+      TotalCandidaturas: 950,
+      cnt: 530,
+    },
+    {
+      name: 'Outubro',
+      uv: 1350,
+      TotalCandidaturas: 980,
+      cnt: 540,
+    },
+    {
+      name: 'Novembro',
+      uv: 1450,
+      TotalCandidaturas: 1010,
+      cnt: 550,
+    },
+    {
+      name: 'Dezembro',
+      uv: 1500,
+      TotalCandidaturas: 1050,
+      cnt: 560,
+    },
+  ];
 
   // calcularCrescimento(mesAtual, 2025);
 
@@ -154,11 +254,15 @@ const Dashboard = ({ showMenu }) => {
                     className={`flex w-fit items-center gap-x-2 rounded-full border ${
                       crescimentoCandidaturas > 0
                         ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                        : crescimentoCandidaturas === 0
+                        ? 'text-zinc-400 border-zinc-400'
                         : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
                     }  px-2 py-1 font-medium `}
                   >
-                    {crescimentoCandidaturas >= 0 ? (
+                    {crescimentoCandidaturas > 0 ? (
                       <TrendingUp size={18} />
+                    ) : crescimentoCandidaturas === 0 ? (
+                      <Minus size={18} className='text-zinc-400' />
                     ) : (
                       <TrendingDown size={18} className='text-red-500' />
                     )}
@@ -171,7 +275,7 @@ const Dashboard = ({ showMenu }) => {
                   <div className='w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600'>
                     <Expand size={26} />
                   </div>
-                  <p className='card-title'>Candidaturas em curso</p>
+                  <p className='card-title'>Em Andamento</p>
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
@@ -180,14 +284,19 @@ const Dashboard = ({ showMenu }) => {
 
                   {/* lembrar de refatorar pra remover a chamada repetitiva da função*/}
                   <span
-                    className={`flex w-fit items-center gap-x-2 rounded-full border ${
+                    className={`flex w-fit items-center gap-x-2 rounded-full border  ${
                       calcularCrescimento(vagasEmAndamento, mesAtual) > 0
                         ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                        : calcularCrescimento(vagasEmAndamento, mesAtual) === 0
+                        ? 'text-zinc-400 border-zinc-400'
                         : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
                     }  px-2 py-1 font-medium `}
                   >
-                    {calcularCrescimento(vagasEmAndamento, mesAtual) >= 0 ? (
+                    {calcularCrescimento(vagasEmAndamento, mesAtual) > 0 ? (
                       <TrendingUp size={18} />
+                    ) : calcularCrescimento(vagasEmAndamento, mesAtual) ===
+                      0 ? (
+                      <Minus size={18} className='text-zinc-400' />
                     ) : (
                       <TrendingDown size={18} className='text-red-500' />
                     )}
@@ -217,15 +326,15 @@ const Dashboard = ({ showMenu }) => {
                   <div className='w-fit rounded-lg bg-blue-500/20 p-2 text-blue-500 transition-colors dark:bg-[#151419] dark:text-blue-600'>
                     <ArrowUpNarrowWide size={26} />
                   </div>
-                  <p className='card-title'>Classificação</p>
+                  <p className='card-title'>Recusas</p>
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    12
+                    1500
                   </p>
                   <span className='flex w-fit items-center gap-x-2 rounded-full border border-blue-500 px-2 py-1 font-medium text-blue-500 dark:border-blue-600 dark:text-blue-600'>
                     <TrendingUp size={18} />
-                    19%
+                    500%
                   </span>
                 </div>
               </div>
@@ -244,34 +353,44 @@ const Dashboard = ({ showMenu }) => {
                 {/* Idéia 2: Criar um grafico de barras separado por mês e um grafico de linha mostrando o numero 
                 de candidaturas rejeitas que o usuario teve no mês*/}
 
-                {/* Complemento(Opcional): Adicionar um grafico de Pizza ao lado do grafico de barra(Analisar dados que
-                 poderiamos utilizar no grafico)*/}
+                {/* Complemento(Opcional): Atraves da url pegar nome da plataforma da vaga( Candidaturas/Plataforma)*/}
+
                 <div className='card-body p-0'>
                   <ResponsiveContainer width={'100%'} height={300}>
-                    <BarChart
-                      data={overviewData}
+                    <ComposedChart
+                      data={data}
                       margin={{
-                        top: 0,
-                        right: 0,
-                        left: -5,
-                        bottom: 2,
+                        top: 20,
+                        right: 20,
+                        bottom: 20,
+                        left: 20,
                       }}
                     >
-                      <CartesianGrid strokeDasharray='3 3' />
-                      <XAxis dataKey='name' />
+                      <CartesianGrid stroke='#f5f5f5' />
+                      <XAxis dataKey='name' scale='auto' />
                       <YAxis />
                       <Tooltip />
+                      <Legend />
+
                       <Bar
+                        dataKey='TotalCandidaturas'
+                        name='Total Candidaturas'
+                        barSize={20}
+                        fill='#413ea0'
+                      />
+                      <Line
+                        type='bumpX'
+                        dataKey='cnt'
+                        name='Aguardando'
+                        stroke='#bd5704'
+                      />
+                      <Line
+                        type='bumpX'
                         dataKey='uv'
-                        fill='#B3CDAD'
-                        activeBar={<Rectangle fill='lightgreen' stroke='red' />}
+                        name='Recusas'
+                        stroke='#ef0000'
                       />
-                      <Bar
-                        dataKey='pv'
-                        fill='#FF5F5E'
-                        activeBar={<Rectangle fill='gold' stroke='blue' />}
-                      />
-                    </BarChart>
+                    </ComposedChart>
                   </ResponsiveContainer>
                 </div>
               </div>
