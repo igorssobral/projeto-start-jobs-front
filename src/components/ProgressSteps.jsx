@@ -14,7 +14,6 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentStatus, setCurrentStatus] = useState();
-  const [newStepLabel, setNewStepLabel] = useState('');
   const [newSteps, setNewSteps] = useState([]);
   const [idUpdate, setIdUpdate] = useState(0);
   const [updateStatus, setUpdateStatus] = useState(false);
@@ -28,37 +27,10 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
     if (nextStep) {
       setCurrentStep(nextStep.id);
-      setCurrentStatus(nextStep)
+      setCurrentStatus(nextStep);
     }
   }, [steps]);
-
-  const addStep = () => {
-    if (newStepLabel.trim() === '') return;
-
-    const isStepExist = steps.some(
-      (step) => step.label.toLowerCase() === newStepLabel.trim().toLowerCase()
-    );
-
-    if (isStepExist) {
-      toast.error('Este passo já existe!');
-      return;
-    }
-
-    const newStep = {
-      id: steps.length + 1,
-      label: newStepLabel,
-      approved: false,
-      rejected: false,
-    };
-
-    setSteps((prevSteps) => [...prevSteps, newStep]);
-    setNewSteps((prevNewSteps) => [...prevNewSteps, newStep]);
-
-    setNewStepLabel('');
-    setCurrentStep(steps.length + 1);
-    refreshJobs();
-  };
-
+  
   const markCompleted = (stepId) => {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
 
@@ -103,7 +75,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     if (nextStep) {
       setCurrentStep(nextStep.id);
     }
-   
+
     setUpdateStatus(true);
   };
 
@@ -121,7 +93,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
         setNewSteps([]);
         setModalNewStep(false);
-        refreshJobs(); 
+        refreshJobs();
       }
 
       adicionarNovoStatus();
@@ -144,7 +116,22 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     setIdUpdate(id);
     setModalConfirmUpdate(true);
   }
+  function pegarLabel() {
+    var select = document.getElementById('etapas');
+    var selectedOption = select.options[select.selectedIndex]; // Pega a opção selecionada
+    var label = selectedOption.text; // Obtém o texto (label) da opção selecionada
+    const newStep = {
+      id: steps.length + 1,
+      label: label,
+      approved: false,
+      rejected: false,
+    };
+    setSteps((prevSteps) => [...prevSteps, newStep]);
+    setNewSteps((prevNewSteps) => [...prevNewSteps, newStep]);
 
+    setCurrentStep(steps.length + 1);
+    refreshJobs();
+  }
   return (
     <div className='flex flex-col items-center space-y-4 p-4'>
       <div className='flex flex-wrap items-center gap-4'>
@@ -194,7 +181,9 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
         <button
           onClick={() => setModalNewStep(true)}
           disabled={currentStatus?.rejected}
-          className={`flex items-center space-x-2 ${currentStatus?.rejected ? 'text-blue-600/50' : 'text-blue-600'}`}
+          className={`flex items-center space-x-2 ${
+            currentStatus?.rejected ? 'text-blue-600/50' : 'text-blue-600'
+          }`}
         >
           <PlusCircle size={20} /> <span>Adicionar Etapa</span>
         </button>
@@ -227,12 +216,6 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
             </div>
 
             <div className='flex space-x-2'>
-              {/* <button
-                onClick={() => setModalConfirmUpdate(false)}
-                className='flex items-center h-10 space-x-2 text-white bg-zinc-500 px-2 rounded-md hover:bg-red-600 transition-colors'
-              >
-                <span>Cancelar</span>
-              </button> */}
               <button
                 onClick={() => markRejected(idUpdate)}
                 className='flex items-center h-10 space-x-2 text-white bg-red-500 px-2 rounded-md hover:bg-red-600 transition-colors'
@@ -271,15 +254,36 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
             </div>
 
             <div className='flex space-x-2'>
-              <input
+              {/* <input
                 type='text'
                 value={newStepLabel}
                 onChange={(e) => setNewStepLabel(e.target.value)}
                 placeholder='Nome da etapa'
                 className='border p-2 rounded'
-              />
+              /> */}
+
+              <select
+                id='etapas'
+                name='etapas'
+                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              >
+                <option value='' selected disabled>
+                  Selecione uma etapa
+                </option>
+                <option value='entrevista_rh'>Entrevista RH</option>
+                <option value='fit_cultural'>Fit Cultural</option>
+                <option value='teste_logica'>Teste de Lógica</option>
+                <option value='teste_ingles'>Teste de Inglês</option>
+                <option value='entrevista_tecnica'>Entrevista Técnica</option>
+                <option value='teste_conhecimentos'>
+                  Teste de Conhecimentos Específicos
+                </option>
+                <option value='dinamica_grupo'>Dinâmica de Grupo</option>
+                <option value='entrevista_final'>Entrevista Final</option>
+                <option value='proposta'>Proposta</option>
+              </select>
               <button
-                onClick={addStep}
+                onClick={pegarLabel}
                 className='flex items-center space-x-2 text-white bg-blue-500 px-2 rounded-md hover:bg-blue-600 transition-colors'
               >
                 <PlusCircle size={20} /> <span>Adicionar</span>
