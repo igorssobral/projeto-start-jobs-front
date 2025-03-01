@@ -168,83 +168,115 @@ const Dashboard = ({ showMenu }) => {
       return 0; // Caso não haja dados para os meses, retorna 0
     }
   }
+  function pegarTotalCandidaturas(dados, mesReferencia) {
+    const anoAtual = new Date().getFullYear();
+
+    // Filtra os dados para o mês anterior
+    let dadosMesAtual = [];
+
+    if (dados.length > 0) {
+      // Filtra os dados para o mês de referência
+      dadosMesAtual = dados?.filter((dado) => {
+        console.log('🚀 ~ dadosMesAtual=dados?.filter ~ dado:', dado);
+        return (
+          dado.dataCandidatura[0] === anoAtual &&
+          dado.dataCandidatura[1] === mesReferencia
+        ); // Mes de referencia
+      });
+
+      return dadosMesAtual.length;
+    } else {
+      return 0;
+    }
+  }
+  function pegarTotalRecusas(dados, mesReferencia) {
+    const anoAtual = new Date().getFullYear();
+
+    // Filtra os dados para o mês anterior
+    let dadosMesAtual = [];
+    if (dados.length > 0) {
+      // Filtra os dados para o mês de referência
+      dadosMesAtual = dados?.filter((dado) => {
+        return (
+          dado.dataCandidatura[1] === mesReferencia &&
+          dado.statusCandidatura.some((status) => {
+            return (
+              dado.dataCandidatura[0] === anoAtual &&
+              dado.dataCandidatura[1] === mesReferencia &&
+              status.rejected === true
+            );
+          })
+        );
+      });
+
+      return dadosMesAtual.length;
+    } else {
+      return 0;
+    }
+  }
 
   const data = [
     {
       name: 'Janeiro',
-      uv: 590,
-      TotalCandidaturas: 800,
-      cnt: 490,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 1),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 1),
     },
     {
       name: 'Fevereiro',
-      uv: 868,
-      TotalCandidaturas: 967,
-      cnt: 590,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 2),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 2),
     },
     {
       name: 'Março',
-      uv: 1397,
-      TotalCandidaturas: 1098,
-      cnt: 350,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 3),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 3),
     },
     {
       name: 'Abril',
-      uv: 1480,
-      TotalCandidaturas: 1200,
-      cnt: 480,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 4),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 4),
     },
     {
       name: 'Maio',
-      uv: 1520,
-      TotalCandidaturas: 1108,
-      cnt: 460,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 5),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 5),
     },
     {
       name: 'Junho',
-      uv: 1400,
-      TotalCandidaturas: 680,
-      cnt: 380,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 6),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 6),
     },
     {
       name: 'Julho',
-      uv: 1100,
-      TotalCandidaturas: 850,
-      cnt: 500,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 7),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 7),
     },
     {
       name: 'Agosto',
-      uv: 1300,
-      TotalCandidaturas: 910,
-      cnt: 520,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 8),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 8),
     },
     {
       name: 'Setembro',
-      uv: 1200,
-      TotalCandidaturas: 950,
-      cnt: 530,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 9),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 9),
     },
     {
       name: 'Outubro',
-      uv: 1350,
-      TotalCandidaturas: 980,
-      cnt: 540,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 10),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 10),
     },
     {
       name: 'Novembro',
-      uv: 1450,
-      TotalCandidaturas: 1010,
-      cnt: 550,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 11),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 11),
     },
     {
       name: 'Dezembro',
-      uv: 1500,
-      TotalCandidaturas: 1050,
-      cnt: 560,
+      TotalRecusas: pegarTotalRecusas(totalCandidaturas, 12),
+      TotalCandidaturas: pegarTotalCandidaturas(totalCandidaturas, 12),
     },
   ];
-
-  // calcularCrescimento(mesAtual, 2025);
 
   function handleOpenMenu() {
     showMenu();
@@ -269,7 +301,6 @@ const Dashboard = ({ showMenu }) => {
       <div className='ml-10 mb-6 md:ml-64 px-10'>
         <main>
           <div className='flex flex-col gap-y-3'>
-            {/* <h1 className="title text-2xl text-">Dashboard</h1> */}
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 '>
               <div className='card dark:bg-[#0e0d11]'>
                 <div className='card-header '>
@@ -444,36 +475,36 @@ const Dashboard = ({ showMenu }) => {
                 </div>
 
                 <div className='card-body p-0'>
-                  <ResponsiveContainer width={'100%'} height={300}>
-                    <ComposedChart
-                      data={data}
-                      margin={{
-                        top: 20,
-                        right: 20,
-                        bottom: 20,
-                        left: 20,
-                      }}
-                    >
+                  <ResponsiveContainer width={'100%'} height={500}>
+                    {/* Slice pra mostrar de janeiro até o atual */}
+                    <ComposedChart  data={data.slice(0, mesAtual)}>
+                      <CartesianGrid
+                      
+                        strokeDasharray='18 4' // Linhas mais longas e espaçadas
+                        strokeWidth={1} // Linhas mais finas
+                        opacity={0.2}
+                        stroke='#7f7f7f'
+                      />
+
                       <XAxis dataKey='name' scale='auto' />
-                      <YAxis />
+                      <YAxis
+                        tickCount={20}
+                        domain={[0, 20]}
+                        allowDataOverflow={true}
+                      />
                       <ToolTip />
                       <Legend />
 
                       <Bar
                         dataKey='TotalCandidaturas'
                         name='Total Candidaturas'
-                        barSize={20}
+                        barSize={30}
                         fill='#413ea0'
                       />
+
                       <Line
                         type='linear'
-                        dataKey='cnt'
-                        name='Aguardando'
-                        stroke='#bd5704'
-                      />
-                      <Line
-                        type='linear'
-                        dataKey='uv'
+                        dataKey='TotalRecusas'
                         name='Recusas'
                         stroke='#ef0000'
                       />
@@ -482,6 +513,7 @@ const Dashboard = ({ showMenu }) => {
                 </div>
               </div>
             </div>
+
             <div className='card dark:bg-[#0e0d11]'>
               <div className='card-header'>
                 <p className='card-title'>
