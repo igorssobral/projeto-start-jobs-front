@@ -52,19 +52,19 @@ const SideBar = ({
   };
 
   const navButtons = [
-    { label: 'Home', icon: <Home size={20} />, page: 'home' },
-    !user && { label: 'Login', icon: <UserCircle2 size={20} />, page: 'login' },
+    { label: 'Home', icon: <Home size={24} />, page: 'home' },
+    !user && { label: 'Login', icon: <UserCircle2 size={24} />, page: 'login' },
     !user && {
       label: 'Registro',
-      icon: <UserPlus size={20} />,
+      icon: <UserPlus size={24} />,
       page: 'register',
     },
-     user &&{ label: 'Candidaturas', icon: <Box size={20} />, page: 'candidaturas' },
-     user &&{ label: 'Dashboard', icon: <Globe size={20} />, page: 'dashboard' },
-    { label: 'Dicas de Currículo', icon: <Brain size={20} />, page: 'dicasCv' },
+     user &&{ label: 'Candidaturas', icon: <Box size={24} />, page: 'candidaturas' },
+     user &&{ label: 'Dashboard', icon: <Globe size={24} />, page: 'dashboard' },
+    { label: 'Dicas de Currículo', icon: <Brain size={24} />, page: 'dicasCv' },
     {
       label: 'Vagas em Alta',
-      icon: <FileText size={20} />,
+      icon: <FileText size={24} />,
       page: 'vagasEmAlta',
     },
   ];
@@ -97,21 +97,20 @@ const SideBar = ({
           : '-translate-x-full xs:opacity-0'
       } md:translate-x-0 fixed left-0 top-0 h-screen w-64 bg-white dark:bg-zinc-900 shadow-lg flex flex-col z-40 transition-all rounded-2xl duration-300 ease-in-out`}
     >
-      <div className='p-6'>
+      <div className='p-6 flex justify-center'>
         <div className='flex items-center space-x-2'>
-          <div className='text-blue-500 text-3xl'>
-            <img src={logo} alt='Logo' width='50' height='50' />
+          <div className='text-blue-500'>
+            <img src={logo} alt='Logo' width='90' height='90' />
           </div>
-          <div className='text-blue-500 font-bold text-xl'>Start JOBS</div>
-
+          
           <button onClick={handleOpenMenu}>
-            <Menu className='absolute top-10 right-2 md:hidden dark:text-zinc-50' />
+            <Menu className='absolute top-7 right-2 md:hidden dark:text-zinc-50' />
           </button>
         </div>
       </div>
-      <div className='border-b w-[90%] mx-auto border-zinc-500/70 my-4' />
+      {/* <div className='border-b w-[90%] mx-auto border-zinc-500/70 my-4' /> */}
 
-      <nav className='flex-1 px-4 space-y-1'>{renderNavButtons}</nav>
+      <nav className='flex-1 px-4 py-7 space-y-1'>{renderNavButtons}</nav>
 
       <div className='p-4 space-y-3'>
         {user && (
@@ -121,7 +120,7 @@ const SideBar = ({
               darkMode ? 'text-zinc-400 hover:bg-zinc-900' : 'hover:bg-gray-50'
             }`}
           >
-            <LogOut size={20} />
+            <LogOut size={24} />
             <span>Sair</span>
           </button>
         )}
@@ -134,8 +133,8 @@ const SideBar = ({
               : 'hover:bg-gray-50'
           }`}
         >
-          {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-          <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
+          {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+          <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
       </div>
     </aside>

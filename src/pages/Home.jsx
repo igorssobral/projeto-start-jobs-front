@@ -33,8 +33,8 @@ function Home({ showMenu }) {
         <MenuIcon />
       </button>
       <Header
-        title={'Start JOBS'}
-        description={'Gerenciamento de candidaturas'}
+        title={'Conheça a Plataforma'}
+        description={'Saiba mais sobre a Start JOBS'}
       />
 
       <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
