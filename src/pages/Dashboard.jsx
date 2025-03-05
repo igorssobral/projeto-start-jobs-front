@@ -46,6 +46,8 @@ const Dashboard = ({ showMenu }) => {
   const [crescimentoCandidaturas, setCrescimentoCandidaturas] = useState(0);
   const [candCrescimentoAndamento, setCandCrescimentoAndamento] = useState(0);
   const [totalRecusasCrescimento, setTotalRecusasCrescimento] = useState(0);
+  const [totalEntrevistasCrescimento, setTotalEntrevistasCrescimento] = useState(0);
+
   const { getCandidaturas } = ApiCandidatura();
 
   useEffect(() => {
@@ -68,6 +70,9 @@ const Dashboard = ({ showMenu }) => {
     );
 
     setTotalRecusasCrescimento(calcularCrescimento(recusadasTotal, mesAtual));
+
+    setTotalEntrevistasCrescimento(calcularCrescimento(emEntrevista, mesAtual))
+    console.log(calcularCrescimento(emEntrevista, mesAtual))
   }, [totalCandidaturas]);
 
   const mesAtual = new Date().getMonth() + 1;
@@ -79,17 +84,23 @@ const Dashboard = ({ showMenu }) => {
         (status) => status.rejected === false && status.approved === false
       );
     });
-  const emEntrevista =
-    totalCandidaturas.length > 0 &&
-    totalCandidaturas?.filter((e) => {
-      return e.statusCandidatura.some((status) => {
-        return (
-          status.label.toLowerCase().includes('entrevista') &&
-          status.approved === false &&
-          status.rejected === false
-        );
-      });
-    });
+
+  const emEntrevista = vagasEmAndamento.length > 0 && vagasEmAndamento?.filter((candidatura) => {
+    const etapaAtual = candidatura.statusCandidatura.find((status) =>
+      !status.approved && !status.rejected
+    );
+
+    if (etapaAtual && etapaAtual.label.toLowerCase().includes('entrevista')) {
+      return true;
+    }
+
+    return false;
+  });
+
+
+
+
+
   const recusadasTotal =
     totalCandidaturas.length > 0 &&
     totalCandidaturas?.filter((e) => {
@@ -97,6 +108,8 @@ const Dashboard = ({ showMenu }) => {
         return status.rejected === true;
       });
     });
+
+
   const recusadasMesAtual =
     totalCandidaturas.length > 0 &&
     totalCandidaturas?.filter((e) => {
@@ -151,7 +164,7 @@ const Dashboard = ({ showMenu }) => {
 
       // Verifica se o valor do mês anterior é 0 para evitar divisão por zero
       if (valorAnterior === 0) {
-        return 0;
+        return 100;
       }
 
       // Calculando o crescimento
@@ -177,7 +190,6 @@ const Dashboard = ({ showMenu }) => {
     if (dados.length > 0) {
       // Filtra os dados para o mês de referência
       dadosMesAtual = dados?.filter((dado) => {
-        console.log('🚀 ~ dadosMesAtual=dados?.filter ~ dado:', dado);
         return (
           dado.dataCandidatura[0] === anoAtual &&
           dado.dataCandidatura[1] === mesReferencia
@@ -192,7 +204,6 @@ const Dashboard = ({ showMenu }) => {
   function pegarTotalRecusas(dados, mesReferencia) {
     const anoAtual = new Date().getFullYear();
 
-    // Filtra os dados para o mês anterior
     let dadosMesAtual = [];
     if (dados.length > 0) {
       // Filtra os dados para o mês de referência
@@ -318,13 +329,12 @@ const Dashboard = ({ showMenu }) => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border cursor-default ${
-                            crescimentoCandidaturas > 0
-                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                              : crescimentoCandidaturas === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border cursor-default ${crescimentoCandidaturas > 0
+                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                            : crescimentoCandidaturas === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                          } px-2 py-1 font-medium`}
+                            } px-2 py-1 font-medium`}
                         >
                           {crescimentoCandidaturas > 0 ? (
                             <TrendingUp size={18} />
@@ -362,13 +372,12 @@ const Dashboard = ({ showMenu }) => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${
-                            candCrescimentoAndamento > 0
-                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                              : candCrescimentoAndamento === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${candCrescimentoAndamento > 0
+                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                            : candCrescimentoAndamento === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                          }  px-2 py-1 font-medium `}
+                            }  px-2 py-1 font-medium `}
                         >
                           {candCrescimentoAndamento > 0 ? (
                             <TrendingUp size={18} />
@@ -405,9 +414,22 @@ const Dashboard = ({ showMenu }) => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <span className='flex w-fit items-center gap-x-2 rounded-full border cursor-default border-blue-500 px-2 py-1 font-medium text-blue-500 dark:border-blue-600 dark:text-blue-600'>
-                          <TrendingUp size={18} />
-                          0%
+                        <span
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${totalEntrevistasCrescimento > 0
+                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                            : totalEntrevistasCrescimento === 0
+                              ? 'text-zinc-400 border-zinc-400'
+                              : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
+                            }  px-2 py-1 font-medium `}
+                        >
+                          {totalEntrevistasCrescimento > 0 ? (
+                            <TrendingUp size={18} />
+                          ) : totalEntrevistasCrescimento === 0 ? (
+                            <Minus size={18} className='text-zinc-400' />
+                          ) : (
+                            <TrendingDown size={18} className='text-red-500' />
+                          )}
+                          {totalEntrevistasCrescimento}%
                         </span>
                       </TooltipTrigger>
 
@@ -437,13 +459,12 @@ const Dashboard = ({ showMenu }) => {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${
-                            totalRecusasCrescimento > 0
-                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                              : totalRecusasCrescimento === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${totalRecusasCrescimento > 0
+                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                            : totalRecusasCrescimento === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                          }  px-2 py-1 font-medium `}
+                            }  px-2 py-1 font-medium `}
                         >
                           {totalRecusasCrescimento > 0 ? (
                             <TrendingUp size={18} />
@@ -477,9 +498,9 @@ const Dashboard = ({ showMenu }) => {
                 <div className='card-body p-0'>
                   <ResponsiveContainer width={'100%'} height={500}>
                     {/* Slice pra mostrar de janeiro até o atual */}
-                    <ComposedChart  data={data.slice(0, mesAtual)}>
+                    <ComposedChart data={data.slice(0, mesAtual)}>
                       <CartesianGrid
-                      
+
                         strokeDasharray='18 4' // Linhas mais longas e espaçadas
                         strokeWidth={1} // Linhas mais finas
                         opacity={0.2}
