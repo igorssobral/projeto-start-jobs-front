@@ -74,10 +74,10 @@ const DicasCV = ({ showMenu }) => {
           <h1 className='text-2xl text-center font-medium mb-6 dark:text-[#FAFAF9]'>
             Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira
           </h1>
-          <div className='p-4'>
+          <div className='p-4 flex flex-col items-center'>
 
             {/* Grid dos cards */}
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 2xl:gap-8 max-w-[1100px]'>
               {cardsData.map((card, index) => (
                 <DicasCVCard
                   key={index}
