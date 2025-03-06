@@ -1,18 +1,21 @@
-import { Locate, MapPin, Search } from 'lucide-react';
+import { FilterX, Locate, MapPin, Search } from 'lucide-react';
 import { useState } from 'react';
 import { GoLocation } from 'react-icons/go';
 
-function FilterBar({ onSearch }) {
+function FilterBar({ onSearch, visible }) {
   const [remote, setRemote] = useState(false);
   const [search, setSearch] = useState('');
 
   const handleSearch = () => {
-      onSearch({ remote, search });
-  
+    onSearch({ remote, search });
   };
 
   return (
-    <div className=' my-1 px-10 flex flex-col items-center gap-4 '>
+    <div
+      className={` my-1 px-10 flex flex-col items-center gap-4 max-md:${
+        visible ? 'hidden' : 'visible'
+      }`}
+    >
       <div className='w-full  flex flex-col lg:flex-row gap-5'>
         <div className='relative flex w-full  lg:w-max'>
           <input
@@ -23,7 +26,7 @@ function FilterBar({ onSearch }) {
             onChange={(e) => setSearch(e.target.value)}
             aria-label='Palavra-chave'
           />
-          <Search  className='absolute left-4 top-4  text-zinc-400 size-[20px] lg:size-[25]' />
+          <Search className='absolute left-4 top-4  text-zinc-400 size-[20px] lg:size-[25]' />
         </div>
 
         <label className='flex h-12 items-center space-x-2 bg-gray-50 dark:bg-[#151419] px-4 rounded-md border border-zinc-400'>
@@ -44,8 +47,10 @@ function FilterBar({ onSearch }) {
         >
           Filtrar
         </button>
+        <button className='w-full lg:w-40 bg-red-500 text-white font-semibold py-3 rounded-lg hover:bg-red-700 transition-colors duration-200 focus:ring-4 '>
+          Limpar filtros
+        </button>
       </div>
-      
     </div>
   );
 }

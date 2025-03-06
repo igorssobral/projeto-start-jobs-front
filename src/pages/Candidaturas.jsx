@@ -1,4 +1,4 @@
-import { MenuIcon } from 'lucide-react';
+import { FilterX, MenuIcon } from 'lucide-react';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import { useEffect, useState } from 'react';
@@ -6,15 +6,26 @@ import CandidaturaCard from '../components/CandidaturaCard';
 import { ApiCandidatura } from '../services/candidaturaService';
 import FilterBar from '../components/FilterBar';
 import ModalNewCandidatura from '../components/ModalNewCandidatura';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '../components/ui/drawer';
+import { Button } from '@react-pdf-viewer/core';
 
 const Candidaturas = ({ showMenu }) => {
   const [candidaturas, setCandidaturas] = useState([]);
   const [searchFilter, setSearchFilter] = useState('');
   const [isRemote, setIsRemote] = useState(false);
   const [modalNewCandidatura, setModalNewCandidatura] = useState(false);
-  const { getCandidaturas } = ApiCandidatura();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  
+  const { getCandidaturas } = ApiCandidatura();
 
   const refreshJobs = async () => {
     const candidaturasList = await getCandidaturas();
@@ -24,6 +35,7 @@ const Candidaturas = ({ showMenu }) => {
   function handleFilter(filters) {
     setSearchFilter(filters.search);
     setIsRemote(filters.remote);
+    setIsDrawerOpen(false)
   }
 
   useEffect(() => {
@@ -74,9 +86,33 @@ const Candidaturas = ({ showMenu }) => {
 
           <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-          <div className='flex flex-col lg:flex-row justify-evenly  items-center mt-12'>
+          <div className='flex flex-col-reverse lg:flex-row justify-evenly  items-center mt-3'>
             {' '}
-            <FilterBar onSearch={(e) => handleFilter(e)} />
+            <div className='md:hidden'>
+              <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <DrawerTrigger className='w-32 mt-2'>
+                  <button className='w-full  bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'>
+                    Filtros
+                  </button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerClose className='fixed right-2 top-3'>
+                      <FilterX className='dark:text-[#FAFAF9]'/>
+                    </DrawerClose>
+
+                    <DrawerTitle>Filtros</DrawerTitle>
+                  </DrawerHeader>
+                  <FilterBar
+                    onSearch={(e) => handleFilter(e)}
+                    visible={false}
+                  />
+
+                  <DrawerFooter className=' px-10'></DrawerFooter>
+                </DrawerContent>
+              </Drawer>
+            </div>
+            <FilterBar onSearch={(e) => handleFilter(e)} visible={true} />
             <button
               className='px-[38px] py-3  bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
               onClick={() => setModalNewCandidatura(true)}
@@ -85,16 +121,16 @@ const Candidaturas = ({ showMenu }) => {
             </button>
           </div>
           <div style={{ minHeight: 'calc(100dvh - 370px)' }}>
-          <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
-            {Array.isArray(filters) &&
-              filters.map((job) => (
-                <CandidaturaCard
-                  key={job.id}
-                  {...job}
-                  refreshJobs={refreshJobs}
-                />
-              ))}
-          </div>
+            <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
+              {Array.isArray(filters) &&
+                filters.map((job) => (
+                  <CandidaturaCard
+                    key={job.id}
+                    {...job}
+                    refreshJobs={refreshJobs}
+                  />
+                ))}
+            </div>
           </div>
           <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
           <Footer />
