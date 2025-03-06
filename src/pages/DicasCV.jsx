@@ -8,10 +8,8 @@ import Image3 from '../assets/DicasCV_3.png';
 import Image4 from '../assets/DicasCV_4.png';
 
 import pdf from '../assets/DicaCV.pdf';
-import { useState } from 'react';
 
 const DicasCV = ({ showMenu }) => {
-  const [openDicasCv, setOpenDicasCv] = useState(false);
 
   const cardsData = [
     {
@@ -77,7 +75,7 @@ const DicasCV = ({ showMenu }) => {
           <div className='p-4 flex flex-col items-center'>
 
             {/* Grid dos cards */}
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 2xl:gap-8 max-w-[1100px]'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 2xl:gap-8 max-w-[1400px]'>
               {cardsData.map((card, index) => (
                 <DicasCVCard
                   key={index}

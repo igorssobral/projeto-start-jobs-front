@@ -6,27 +6,20 @@ import {
   Package,
   TrendingUp,
   Users,
-  Star,
-  PencilLine,
-  Trash,
   TrendingDown,
   Minus,
 } from 'lucide-react';
 
 import {
   Bar,
-  BarChart,
   CartesianGrid,
   ResponsiveContainer,
-  Rectangle,
   Tooltip as ToolTip,
   XAxis,
   YAxis,
   ComposedChart,
   Legend,
-  Area,
   Line,
-  Scatter,
 } from 'recharts';
 
 import { topVagas } from '../stats/Index';
@@ -46,7 +39,8 @@ const Dashboard = ({ showMenu }) => {
   const [crescimentoCandidaturas, setCrescimentoCandidaturas] = useState(0);
   const [candCrescimentoAndamento, setCandCrescimentoAndamento] = useState(0);
   const [totalRecusasCrescimento, setTotalRecusasCrescimento] = useState(0);
-  const [totalEntrevistasCrescimento, setTotalEntrevistasCrescimento] = useState(0);
+  const [totalEntrevistasCrescimento, setTotalEntrevistasCrescimento] =
+    useState(0);
 
   const { getCandidaturas } = ApiCandidatura();
 
@@ -71,8 +65,7 @@ const Dashboard = ({ showMenu }) => {
 
     setTotalRecusasCrescimento(calcularCrescimento(recusadasTotal, mesAtual));
 
-    setTotalEntrevistasCrescimento(calcularCrescimento(emEntrevista, mesAtual))
-    console.log(calcularCrescimento(emEntrevista, mesAtual))
+    setTotalEntrevistasCrescimento(calcularCrescimento(emEntrevista, mesAtual));
   }, [totalCandidaturas]);
 
   const mesAtual = new Date().getMonth() + 1;
@@ -85,21 +78,19 @@ const Dashboard = ({ showMenu }) => {
       );
     });
 
-  const emEntrevista = vagasEmAndamento.length > 0 && vagasEmAndamento?.filter((candidatura) => {
-    const etapaAtual = candidatura.statusCandidatura.find((status) =>
-      !status.approved && !status.rejected
-    );
+  const emEntrevista =
+    vagasEmAndamento.length > 0 &&
+    vagasEmAndamento?.filter((candidatura) => {
+      const etapaAtual = candidatura.statusCandidatura.find(
+        (status) => !status.approved && !status.rejected
+      );
 
-    if (etapaAtual && etapaAtual.label.toLowerCase().includes('entrevista')) {
-      return true;
-    }
+      if (etapaAtual && etapaAtual.label.toLowerCase().includes('entrevista')) {
+        return true;
+      }
 
-    return false;
-  });
-
-
-
-
+      return false;
+    });
 
   const recusadasTotal =
     totalCandidaturas.length > 0 &&
@@ -108,7 +99,6 @@ const Dashboard = ({ showMenu }) => {
         return status.rejected === true;
       });
     });
-
 
   const recusadasMesAtual =
     totalCandidaturas.length > 0 &&
@@ -158,7 +148,7 @@ const Dashboard = ({ showMenu }) => {
     }
 
     // Verifica se há dados para os meses especificados
-    if (dadosMesAnterior.length >= 0 && dadosMesReferencia.length > 0) {
+    if (dadosMesAnterior.length >= 0 && dadosMesReferencia.length >= 0) {
       let valorAnterior = dadosMesAnterior.length;
       let valorAtual = dadosMesReferencia.length;
 
@@ -293,7 +283,7 @@ const Dashboard = ({ showMenu }) => {
     showMenu();
   }
   return (
-    <div className='min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
+    <div className=' min-h-screen bg-slate-100 transition-colors dark:bg-[#1F1E25]'>
       <div className='ml-0 md:ml-64 p-6'>
         <button
           onClick={handleOpenMenu}
@@ -309,9 +299,9 @@ const Dashboard = ({ showMenu }) => {
         <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
       </div>
 
-      <div className='ml-10 mb-6 md:ml-64 px-10'>
-        <main>
-          <div className='flex flex-col gap-y-3'>
+      <div className='mb-6 md:ml-64 px-4'>
+        <main >
+          <div className=' flex flex-col gap-y-3'>
             <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 '>
               <div className='card dark:bg-[#0e0d11]'>
                 <div className='card-header '>
@@ -322,19 +312,20 @@ const Dashboard = ({ showMenu }) => {
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    {totalCandidaturas.length}
+                    {totalCandidaturas.length || 0}
                   </p>
 
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border cursor-default ${crescimentoCandidaturas > 0
-                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                            : crescimentoCandidaturas === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border cursor-default ${
+                            crescimentoCandidaturas > 0
+                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                              : crescimentoCandidaturas === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                            } px-2 py-1 font-medium`}
+                          } px-2 py-1 font-medium`}
                         >
                           {crescimentoCandidaturas > 0 ? (
                             <TrendingUp size={18} />
@@ -366,18 +357,19 @@ const Dashboard = ({ showMenu }) => {
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    {vagasEmAndamento.length}
+                    {vagasEmAndamento.length || 0}
                   </p>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${candCrescimentoAndamento > 0
-                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                            : candCrescimentoAndamento === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${
+                            candCrescimentoAndamento > 0
+                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                              : candCrescimentoAndamento === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                            }  px-2 py-1 font-medium `}
+                          }  px-2 py-1 font-medium `}
                         >
                           {candCrescimentoAndamento > 0 ? (
                             <TrendingUp size={18} />
@@ -409,18 +401,19 @@ const Dashboard = ({ showMenu }) => {
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    {emEntrevista.length}
+                    {emEntrevista.length || 0}
                   </p>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${totalEntrevistasCrescimento > 0
-                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                            : totalEntrevistasCrescimento === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${
+                            totalEntrevistasCrescimento > 0
+                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                              : totalEntrevistasCrescimento === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                            }  px-2 py-1 font-medium `}
+                          }  px-2 py-1 font-medium `}
                         >
                           {totalEntrevistasCrescimento > 0 ? (
                             <TrendingUp size={18} />
@@ -452,19 +445,20 @@ const Dashboard = ({ showMenu }) => {
                 </div>
                 <div className='card-body rounded-lg p-6 bg-slate-100 transition-colors dark:bg-[#151419]'>
                   <p className='text-3xl font-bold text-slate-900 transition-colors dark:text-slate-50'>
-                    {recusadasMesAtual.length}
+                    {recusadasMesAtual.length || 0}
                   </p>
 
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span
-                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${totalRecusasCrescimento > 0
-                            ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
-                            : totalRecusasCrescimento === 0
+                          className={`flex w-fit items-center gap-x-2 rounded-full border  cursor-default ${
+                            totalRecusasCrescimento > 0
+                              ? 'text-blue-500 border-blue-500 dark:border-blue-600 dark:text-blue-600'
+                              : totalRecusasCrescimento === 0
                               ? 'text-zinc-400 border-zinc-400'
                               : 'text-red-500 dark:border-red-600 dark:text-red-500 border-red-500'
-                            }  px-2 py-1 font-medium `}
+                          }  px-2 py-1 font-medium `}
                         >
                           {totalRecusasCrescimento > 0 ? (
                             <TrendingUp size={18} />
@@ -500,7 +494,6 @@ const Dashboard = ({ showMenu }) => {
                     {/* Slice pra mostrar de janeiro até o atual */}
                     <ComposedChart data={data.slice(0, mesAtual)}>
                       <CartesianGrid
-
                         strokeDasharray='18 4' // Linhas mais longas e espaçadas
                         strokeWidth={1} // Linhas mais finas
                         opacity={0.2}
