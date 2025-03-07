@@ -10,13 +10,11 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from '../components/ui/drawer';
-import { Button } from '@react-pdf-viewer/core';
 
 const Candidaturas = ({ showMenu }) => {
   const [candidaturas, setCandidaturas] = useState([]);
@@ -35,7 +33,7 @@ const Candidaturas = ({ showMenu }) => {
   function handleFilter(filters) {
     setSearchFilter(filters.search);
     setIsRemote(filters.remote);
-    setIsDrawerOpen(false)
+    setIsDrawerOpen(false);
   }
 
   useEffect(() => {
@@ -86,35 +84,31 @@ const Candidaturas = ({ showMenu }) => {
 
           <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
 
-          <div className='flex flex-col-reverse lg:flex-row justify-evenly  items-center mt-3'>
+          <div className='flex flex-col-reverse lg:flex-row-reverse justify-center gap-6  items-center mt-3'>
             {' '}
             <div className='md:hidden'>
               <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerTrigger className='w-32 mt-2'>
-                  <button className='w-full  bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'>
-                    Filtros
-                  </button>
+                <DrawerTrigger className='w-32 mt-2 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'>
+                  Filtros
                 </DrawerTrigger>
                 <DrawerContent>
                   <DrawerHeader>
                     <DrawerClose className='fixed right-2 top-3'>
-                      <FilterX className='dark:text-[#FAFAF9]'/>
+                      <FilterX className='dark:text-[#FAFAF9]' />
                     </DrawerClose>
 
                     <DrawerTitle>Filtros</DrawerTitle>
                   </DrawerHeader>
-                  <FilterBar
-                    onSearch={(e) => handleFilter(e)}
-                    visible={false}
-                  />
-
+                  <FilterBar onSearch={(e) => handleFilter(e)} />
                   <DrawerFooter className=' px-10'></DrawerFooter>
                 </DrawerContent>
               </Drawer>
             </div>
-            <FilterBar onSearch={(e) => handleFilter(e)} visible={true} />
+            <div className='max-md:hidden'>
+              <FilterBar onSearch={(e) => handleFilter(e)} />
+            </div>
             <button
-              className='px-[38px] py-3  bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
+              className='w-max px-2 py-3  bg-blue-500 text-base text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
               onClick={() => setModalNewCandidatura(true)}
             >
               Adicionar candidatura
