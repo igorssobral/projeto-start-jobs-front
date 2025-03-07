@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import StartJobsHome from "../StartJobsHome";
 import Dashboard from "../Dashboard";
-import Candidaturas from "../candidaturas";
+import Candidaturas from "../Candidaturas";
 import DicasCV from "../DicasCV";
 import VagasEmAlta from "../VagasEmAlta";
 import ResetPassword from '../ResetPassword';
