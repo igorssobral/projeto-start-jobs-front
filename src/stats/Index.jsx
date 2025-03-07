@@ -1,6 +1,6 @@
 import Catho from '../assets/img/catho.png';
 import Empregos from '../assets/img/empregos-logo.png';
-import Google from '../assets/img/googleJobs.png';
+import {Google} from '../assets/img/googleJobs.png';
 import Glassdoor from '../assets/img/glassdoor.png';
 import Indeed from '../assets/img/indeed-logo.png';
 import InfoJobs from '../assets/img/infojobs-logo.png';
