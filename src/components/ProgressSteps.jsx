@@ -2,15 +2,20 @@ import { useEffect, useState } from 'react';
 import {
   CheckCircle,
   Circle,
+  CircleDot,
   Loader,
   OctagonX,
   PlusCircle,
   X,
 } from 'lucide-react';
 import { ApiCandidatura } from '../services/candidaturaService';
-import { toast } from 'react-toastify';
 
-export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
+export const ProgressSteps = ({
+  idCandidatura,
+  status,
+  refreshJobs,
+  isCurrentProp,
+}) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentStatus, setCurrentStatus] = useState();
@@ -30,7 +35,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
       setCurrentStatus(nextStep);
     }
   }, [steps]);
-  
+
   const markCompleted = (stepId) => {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
 
@@ -55,6 +60,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
     setUpdateStatus(true);
   };
+
   const markRejected = (stepId) => {
     const stepIndex = steps.findIndex((step) => step.id === stepId);
 
@@ -116,6 +122,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     setIdUpdate(id);
     setModalConfirmUpdate(true);
   }
+
   function pegarLabel() {
     var select = document.getElementById('etapas');
     var selectedOption = select.options[select.selectedIndex]; // Pega a opção selecionada
@@ -132,46 +139,55 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
     setCurrentStep(steps.length + 1);
     refreshJobs();
   }
+
+
+
   return (
     <div className='flex flex-col items-center space-y-4 p-4'>
-      <div className='flex flex-wrap items-center gap-4'>
+      <div className='flex flex-col  '>
         {steps.map((step, index) => {
           const isCompleted = step.approved;
           const isRejected = step.rejected;
           const isCurrent = step.id === currentStep && !step.rejected;
+          
+          const hasNext = index < steps.length - 1;
 
           return (
-            <div key={step.id} className='flex items-center space-x-2'>
-              {isCompleted ? (
-                <CheckCircle className='text-green-500' size={24} />
-              ) : isRejected ? (
-                <OctagonX className='text-red-500' size={24} />
-              ) : isCurrent ? (
-                <Loader className='text-blue-500 animate-spin' size={24} />
-              ) : (
-                <Circle className='text-gray-300' size={24} />
-              )}
-
-              <span
-                className={`text-sm cursor-pointer ${
-                  isCurrent ? 'font-bold text-blue-500' : 'text-gray-300'
-                } ${isRejected ? 'text-red-400' : ''}`}
-                onClick={() => confirmUpdate(step.id)}
-              >
-                {step.label}
-              </span>
-
-              {index < steps.length - 1 && (
-                <div
-                  className={`w-10 h-1 ${
-                    isCompleted
-                      ? 'bg-green-500'
+            <div className='flex space-x-2' key={step.id}>
+              <div className='flex flex-col items-center'>
+                <div className='w-8 h-8 flex items-center justify-center cursor-pointer'>
+                  {isCompleted ? (
+                    <CheckCircle className='text-blue-500' size={28} />
+                  ) : isRejected ? (
+                    <OctagonX className='text-red-500' size={28} />
+                  ) : isCurrent ? (
+                    <Loader className='text-blue-500 animate-spin' size={28} />
+                  ) : (
+                    <CircleDot className='text-gray-400 dark:text-zinc-400' size={28} />
+                  )}
+                </div>
+                {hasNext && (
+                  <div
+                    className={`w-0.5 h-6   ${
+                      isCompleted ? 'bg-blue-500' : 'bg-gray-300 dark:bg-zinc-400'
+                    } `}
+                  ></div>
+                )}
+              </div>
+              <div>
+                <h3
+                  onClick={() => confirmUpdate(step.id)}
+                  className={`text-base font-bold cursor-pointer ${
+                    isCompleted || isCurrent
+                      ? 'text-blue-600'
                       : isRejected
-                      ? 'bg-red-600'
-                      : 'bg-gray-300'
+                      ? 'text-red-500'
+                      : 'text-gray-400 dark:text-zinc-400'
                   }`}
-                />
-              )}
+                >
+                  {step.label}
+                </h3>
+              </div>
             </div>
           );
         })}
@@ -185,10 +201,11 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
             currentStatus?.rejected ? 'text-blue-600/50' : 'text-blue-600'
           }`}
         >
-          <PlusCircle size={20} /> <span>Adicionar Etapa</span>
+          <PlusCircle size={25} /> <span className='text-base'>Adicionar Etapa</span>
         </button>
       </div>
 
+      {/* Modal de Confirmação de Atualização */}
       {modalConfirmUpdate && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
           <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/3 p-6 space-y-4'>
@@ -232,6 +249,8 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
           </div>
         </div>
       )}
+
+      {/* Modal para adicionar nova etapa */}
       {modalNewStep && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
           <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/3 p-6 space-y-4'>
@@ -254,14 +273,6 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
             </div>
 
             <div className='flex space-x-2'>
-              {/* <input
-                type='text'
-                value={newStepLabel}
-                onChange={(e) => setNewStepLabel(e.target.value)}
-                placeholder='Nome da etapa'
-                className='border p-2 rounded'
-              /> */}
-
               <select
                 id='etapas'
                 name='etapas'

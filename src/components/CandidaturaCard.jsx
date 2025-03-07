@@ -1,19 +1,54 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { ProgressSteps } from './ProgressSteps';
-import { LoaderCircle, Trash, X } from 'lucide-react';
+import {
+  ChevronRight,
+  CircleCheckBig,
+  CircleDot,
+  Loader,
+  LoaderCircle,
+  OctagonX,
+  Trash,
+  X,
+} from 'lucide-react';
 import dayjs from 'dayjs';
 import { ApiCandidatura } from '../services/candidaturaService';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './ui/accordion';
 
 function CandidaturaCard(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [etapaAtual, setEtapaAtual] = useState([]);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false); // Estado para controlar se o Accordion está aberto
 
   const { deleteCandidatura } = ApiCandidatura();
 
   const toggleModal = useCallback(() => {
     setIsModalOpen((prevState) => !prevState);
     props.refreshJobs();
+  }, []);
+
+  useEffect(() => {
+    let currentStep = 1;
+    const nextStep = props.statusCandidatura.find((step) => !step.approved);
+
+    if (nextStep) currentStep = nextStep.id;
+
+    props.statusCandidatura?.map((step) => {
+      const isRejected = step.rejected;
+
+      const isCurrent = step.id === currentStep && !step.rejected;
+      if (isCurrent) console.log(step);
+
+      if (isCurrent || isRejected) {
+        setEtapaAtual(step);
+      }
+    });
   }, []);
 
   const date1 = dayjs();
@@ -29,6 +64,10 @@ function CandidaturaCard(props) {
     setConfirmDelete(false);
     toggleModal();
   }
+
+  const handleAccordionChange = (value) => {
+    setIsAccordionOpen(value === 'item-1'); // Se o item-1 estiver aberto, setamos isAccordionOpen para true
+  };
 
   return (
     <>
@@ -63,7 +102,7 @@ function CandidaturaCard(props) {
                 Mais detalhes
               </button>
               <button
-                onClick={()=> setConfirmDelete(true)}
+                onClick={() => setConfirmDelete(true)}
                 className='w-full lg:w-auto text-red-600 bg-transparent border border-red-700 hover:bg-red-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Remover
@@ -92,11 +131,47 @@ function CandidaturaCard(props) {
               <p className='dark:text-zinc-400'>
                 Adicione as etapas do processo seletivo
               </p>
-              <ProgressSteps
-                idCandidatura={props.id}
-                status={props.statusCandidatura}
-                refreshJobs={props.refreshJobs}
-              />
+              <div
+                className={`flex items-center gap-2 mt-5 other-div ${
+                  isAccordionOpen ? 'hidden' : ''
+                }`}
+              >
+                <h1 className='font-bold text-zinc-600 dark:text-zinc-200 flex items-center gap-2'>Etapa Atual <ChevronRight className='text-zinc-800 dark:text-zinc-400' size={20}/></h1>
+                <div className='flex items-center gap-2 '>
+                  {!etapaAtual.approved && !etapaAtual.rejected ? (
+                    <Loader className='text-blue-600 animate-spin' size={28} />
+                  ) : (
+                    <OctagonX className='text-red-500' size={28} />
+                  )}
+                  <h3
+                    className={`text-base font-bold cursor-pointer ${
+                      !etapaAtual.approved && !etapaAtual.rejected
+                        ? 'text-blue-600'
+                        : 'text-red-500'
+                    }`}
+                  >
+                    {etapaAtual.label}
+                  </h3>
+                </div>
+              </div>
+
+              <Accordion
+                type='single'
+                collapsible
+                value={isAccordionOpen ? 'item-1' : ''}
+                onValueChange={handleAccordionChange}
+              >
+                <AccordionItem value='item-1'>
+                  <AccordionTrigger className={' rounded-lg px-4 border my-2 dark:text-zinc-50 dark:border-zinc-500  hover:border-blue-600'}>Ver todas as etapas</AccordionTrigger>
+                  <AccordionContent>
+                    <ProgressSteps
+                      idCandidatura={props.id}
+                      status={props.statusCandidatura}
+                      refreshJobs={props.refreshJobs}
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
             <div className='mt-4 space-y-4'>
               <p className='text-gray-700 dark:text-gray-300'>
@@ -122,10 +197,10 @@ function CandidaturaCard(props) {
                 {props.vaga.descricao || 'Descrição não fornecida.'}
               </p>
             </div>
-            <div className='flex justify-center mt-6 gap-10'>
+            <div className='flex flex-col items-center lg:flex-row justify-center mt-6 gap-3 lg:gap-10'>
               <button
                 onClick={() => setConfirmDelete(true)}
-                className='flex gap-2 text-gray-50  bg-red-700 hover:bg-red-500  transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
+                className='flex w-max gap-2 text-gray-50  bg-red-700 hover:bg-red-500  transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
               >
                 <Trash size={20} /> Remover candidatura
               </button>
@@ -140,47 +215,45 @@ function CandidaturaCard(props) {
               </a>
             </div>
           </div>
-
-         
         </div>
       )}
-       {confirmDelete && (
-            <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
-              <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-[600px] p-6'>
-                <div className='flex flex-col justify-between items-start border-b pb-3'>
-                  <h2 className='text-xl font-semibold text-gray-900 dark:text-zinc-200'>
-                    Remover candidatura
-                  </h2>
-                  <p className='text-base text-zinc-800 dark:text-zinc-400'>
-                    Tem certeza? Essa ação não pode ser desfeita.
-                  </p>
-                </div>
-
-                <div className='flex justify-end mt-6 space-x-2'>
-                  <button
-                    onClick={() => setConfirmDelete(false)}
-                    className='text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
-                  >
-                    Fechar
-                  </button>
-
-                  <button
-                    className=' text-white bg-red-600 hover:bg-red-800 transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
-                    onClick={removerCandidatura}
-                  >
-                    {isLoading ? (
-                      <span className='flex items-center justify-center gap-2'>
-                        <LoaderCircle className='animate-spin' /> Removendo
-                        candidatura
-                      </span>
-                    ) : (
-                      'Remover'
-                    )}
-                  </button>
-                </div>
-              </div>
+      {confirmDelete && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+          <div className='bg-white dark:bg-[#151419] rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-[600px] p-6'>
+            <div className='flex flex-col justify-between items-start border-b pb-3'>
+              <h2 className='text-xl font-semibold text-gray-900 dark:text-zinc-200'>
+                Remover candidatura
+              </h2>
+              <p className='text-base text-zinc-800 dark:text-zinc-400'>
+                Tem certeza? Essa ação não pode ser desfeita.
+              </p>
             </div>
-          )}
+
+            <div className='flex justify-end mt-6 space-x-2'>
+              <button
+                onClick={() => setConfirmDelete(false)}
+                className='text-gray-700 dark:text-gray-300 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium rounded-lg text-sm px-5 py-2.5'
+              >
+                Fechar
+              </button>
+
+              <button
+                className=' text-white bg-red-600 hover:bg-red-800 transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
+                onClick={removerCandidatura}
+              >
+                {isLoading ? (
+                  <span className='flex items-center justify-center gap-2'>
+                    <LoaderCircle className='animate-spin' /> Removendo
+                    candidatura
+                  </span>
+                ) : (
+                  'Remover'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
