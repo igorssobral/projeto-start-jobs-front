@@ -1,6 +1,5 @@
-import { Locate, MapPin, Search } from 'lucide-react';
+import { MapPin, Search } from 'lucide-react';
 import { useState } from 'react';
-import { GoLocation } from 'react-icons/go';
 
 function SearchBar({ onSearch }) {
   const [remote, setRemote] = useState('no');

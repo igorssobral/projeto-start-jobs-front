@@ -18,7 +18,7 @@ function Home({ showMenu }) {
     showMenu();
   }
 
-  const [slidePerView, setSlidePerView] = useState(1);
+  const [slidePerView, ] = useState(1);
   const data = [
     { id: '1', image: Reuniao },
     { id: '2', image: Smartphone },

@@ -8,7 +8,7 @@ import ModalLogin from '../components/ModalLogin';
 import ModalRegistro from '../components/ModalRegistro';
 import ModalRecoveryPassword from '../components/ModalRecoveryPassword';
 import SideBar from '../components/SideBar';
-import Candidaturas from './candidaturas';
+import Candidaturas from './Candidaturas';
 
 const StartJobsHome = () => {
   const [openMenu, setOpenMenu] = useState(false);

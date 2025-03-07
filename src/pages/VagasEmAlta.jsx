@@ -1,9 +1,9 @@
 import { FilterX, MenuIcon, UserCircle2, UserPlus } from 'lucide-react';
 import SearchBar from '../components/SearchBar';
-import Jobcard from '../components/JobCard';
+
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
-import { getJobs, getJobsByFilters } from '../services/jobService';
+// import { getJobs, getJobsByFilters } from '../services/jobService';
 import { useAuth } from '../context/auth-context';
 import {
   Drawer,
@@ -14,7 +14,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../components/ui/drawer';
-import FilterBar from '../components/FilterBar';
+import Jobcard from '../components/Jobcard';
 
 const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
   const [jobs, setJobs] = useState([]);

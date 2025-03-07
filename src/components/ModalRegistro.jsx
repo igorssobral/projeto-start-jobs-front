@@ -23,7 +23,7 @@ function ModalRegistro(props) {
     setLoading(true);
 
     try {
-      const data = await registerUser(dataRegister);
+      await registerUser(dataRegister);
       setLoading(false);
       props.handleClose();
       reset();

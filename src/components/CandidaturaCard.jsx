@@ -2,8 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 import { ProgressSteps } from './ProgressSteps';
 import {
   ChevronRight,
-  CircleCheckBig,
-  CircleDot,
   Loader,
   LoaderCircle,
   OctagonX,
@@ -59,7 +57,7 @@ function CandidaturaCard(props) {
 
   async function removerCandidatura() {
     setIsLoading(true);
-    const data = await deleteCandidatura(props.id);
+    await deleteCandidatura(props.id);
     setIsLoading(false);
     setConfirmDelete(false);
     toggleModal();

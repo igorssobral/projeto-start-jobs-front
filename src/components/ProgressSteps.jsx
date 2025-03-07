@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
   CheckCircle,
-  Circle,
   CircleDot,
   Loader,
   OctagonX,
@@ -14,7 +13,6 @@ export const ProgressSteps = ({
   idCandidatura,
   status,
   refreshJobs,
-  isCurrentProp,
 }) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
@@ -95,7 +93,7 @@ export const ProgressSteps = ({
   useEffect(() => {
     if (newSteps.length > 0) {
       async function adicionarNovoStatus() {
-        const data = await addCandidaturaNewStatus(idCandidatura, newSteps);
+       await addCandidaturaNewStatus(idCandidatura, newSteps);
 
         setNewSteps([]);
         setModalNewStep(false);
@@ -107,7 +105,7 @@ export const ProgressSteps = ({
   }, [newSteps]);
 
   async function atualizarStatus(stepsUpdated) {
-    const data = await updateCandidaturaStatus(idCandidatura, stepsUpdated);
+    await updateCandidaturaStatus(idCandidatura, stepsUpdated);
     setModalConfirmUpdate(false);
     setUpdateStatus(false);
   }
