@@ -3,6 +3,7 @@ import {
   CheckCircle,
   CircleDot,
   Loader,
+  LoaderCircle,
   OctagonX,
   PlusCircle,
   X,
@@ -19,6 +20,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [updateStatus, setUpdateStatus] = useState(false);
   const [modalNewStep, setModalNewStep] = useState(false);
   const [modalConfirmUpdate, setModalConfirmUpdate] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const { updateCandidaturaStatus, addCandidaturaNewStatus } = ApiCandidatura();
 
@@ -89,16 +91,20 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
   useEffect(() => {
     if (newSteps.length > 0) {
+      setloading(true);
       async function adicionarNovoStatus() {
+        
         await addCandidaturaNewStatus(idCandidatura, newSteps);
 
         setNewSteps([]);
         setModalNewStep(false);
-        refreshJobs();
+        refreshJobs();  
+        setloading(false);
       }
 
       adicionarNovoStatus();
     }
+  
   }, [newSteps]);
 
   async function atualizarStatus(stepsUpdated) {
@@ -154,7 +160,7 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
           const hasNext = index < steps.length - 1;
 
           return (
-            <div className='flex space-x-2' key={step.id}>
+            <div className='flex space-x-2  overflow-hidden' key={step.id} >
               <div className='flex flex-col items-center'>
                 <div className='w-8 h-8 flex items-center justify-center cursor-pointer'>
                   {isCompleted ? (
@@ -304,7 +310,15 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
                 onClick={pegarLabel}
                 className='flex items-center space-x-2 text-white bg-blue-500 px-2 rounded-md hover:bg-blue-600 transition-colors'
               >
-                <PlusCircle size={20} /> <span>Adicionar</span>
+                {loading ? (
+                  <span className='flex items-center justify-center gap-2'>
+                    <LoaderCircle className='animate-spin' /> Adicionando
+                  </span>
+                ) : (
+                  <span className='flex items-center justify-center gap-2'>
+                    <PlusCircle size={20} /> <span>Adicionar</span>
+                  </span>
+                )}
               </button>
             </div>
           </div>
