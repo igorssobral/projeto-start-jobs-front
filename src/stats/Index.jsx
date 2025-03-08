@@ -6,7 +6,7 @@ import Indeed from '../assets/img/indeed-logo.png';
 import InfoJobs from '../assets/img/infojobs-logo.png';
 import Jooble from '../assets/img/jooble-logo.png';
 import LinkedIn from '../assets/img/linkedin.png';
-import TrabalhaBrasil from '../assets/img/trabalhaBrasil.png';
+import TrabalhaBrasil from '../assets/img/trabalha-brasil.png';
 import Vagas from '../assets/img/vagas-com.png';
 
 export const topVagas = [
