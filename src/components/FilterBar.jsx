@@ -20,7 +20,7 @@ function FilterBar({ onSearch }) {
         <div className='relative flex w-full  lg:w-max'>
           <input
             type='text'
-            className='w-full h-12 placeholder:text-[13px] truncate xl:w-[260px] py-3 pl-10 bg-gray-50 dark:bg-[#151419] dark:text-white border border-zinc-400 text-gray-900 font-semibold rounded-lg focus:ring-4 focus:ring-blue-300 transition-colors duration-200 '
+            className='w-full h-12 placeholder:text-[13px] truncate xl:w-[260px] py-3 pl-10 bg-gray-50 dark:bg-[#151419] dark:text-white border border-zinc-400 text-gray-900 font-semibold rounded-lg   transition-colors duration-200 '
             placeholder='Cargo, palavras-chave ou empresa'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -32,7 +32,7 @@ function FilterBar({ onSearch }) {
         <label className='flex h-12 items-center space-x-2 bg-gray-50 dark:bg-[#151419] px-4 rounded-md border border-zinc-400'>
           <input
             type='checkbox'
-            className='w-4 h-4 bg-gray-50 dark:bg-[#151419] dark:text-white border border-zinc-400 text-gray-900 rounded-lg focus:ring-4 focus:ring-blue-300 transition-colors duration-200 cursor-pointer'
+            className='w-4 h-4 bg-gray-50 dark:bg-[#151419] dark:text-white border border-zinc-400 text-gray-900 rounded-lg    transition-colors duration-200 cursor-pointer'
             checked={remote === true}
             onChange={(e) => setRemote(e.target.checked ? true : false)}
             aria-label='Remoto'
@@ -43,7 +43,7 @@ function FilterBar({ onSearch }) {
         </label>
         <button
           type='button'
-          className='w-full lg:w-max px-6  bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'
+          className='w-full lg:w-max px-6  bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200   '
           onClick={handleSearch}
         >
           Filtrar
@@ -51,7 +51,7 @@ function FilterBar({ onSearch }) {
         <button
           type='button'
           onClick={handleReset}
-          className='w-full lg:w-max px-6  bg-red-500 text-white font-semibold py-3 rounded-lg hover:bg-red-700 transition-colors duration-200 focus:ring-4 '
+          className='w-full lg:w-max px-6  bg-red-500 text-white font-semibold py-3 rounded-lg hover:bg-red-700 transition-colors duration-200   '
         >
           Limpar filtros
         </button>

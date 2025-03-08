@@ -1,4 +1,4 @@
-import { FilterX, MenuIcon } from 'lucide-react';
+import { ChevronDown, ChevronUp, FilterX, MenuIcon } from 'lucide-react';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import { useEffect, useState } from 'react';
@@ -22,6 +22,7 @@ const Candidaturas = ({ showMenu }) => {
   const [isRemote, setIsRemote] = useState(false);
   const [modalNewCandidatura, setModalNewCandidatura] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [openFilters, setOpenFilters] = useState(false);
 
   const { getCandidaturas } = ApiCandidatura();
 
@@ -73,7 +74,7 @@ const Candidaturas = ({ showMenu }) => {
         <main className='ml-0 md:ml-64 p-6 h-[100%] rounded-3xl'>
           <button
             onClick={handleOpenMenu}
-            className='md:hidden dark:text-zinc-50'
+            className='xl:hidden dark:text-zinc-50'
           >
             <MenuIcon />
           </button>
@@ -82,13 +83,10 @@ const Candidaturas = ({ showMenu }) => {
             description={'Veja todas as vagas que você se candidatou.'}
           />
 
-          <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-
-          <div className='flex flex-col-reverse lg:flex-row-reverse justify-center gap-6  items-center mt-3'>
-            {' '}
+          <div className='flex flex-col-reverse lg:flex-col justify-center gap-6  items-center mt-3'>
             <div className='md:hidden'>
               <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerTrigger className='w-32 mt-2 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'>
+                <DrawerTrigger className='w-32 mt-2 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 '>
                   Filtros
                 </DrawerTrigger>
                 <DrawerContent>
@@ -104,18 +102,40 @@ const Candidaturas = ({ showMenu }) => {
                 </DrawerContent>
               </Drawer>
             </div>
-            <div className='max-md:hidden'>
+
+            <div className='w-full flex items-center justify-center'>
+              <div className='w-full flex justify-center items-center '>
+                <button
+                  className='w-max px-2 py-3  lg:ml-20  bg-blue-500 text-base text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
+                  onClick={() => setModalNewCandidatura(true)}
+                >
+                  Adicionar candidatura
+                </button>
+              </div>
+
+              <button
+                type='button'
+                className='w-max h-12 flex items-center gap-2 px-2  max-md:hidden  bg-transparent text-black dark:text-gray-50 dark:border-zinc-500 font-semibold py-3 rounded-lg border border-zinc-300 hover:border-zinc-500 transition-colors duration-200'
+                onClick={() => setOpenFilters(!openFilters)}
+              >
+                Filtros
+                {openFilters ? (
+                  <ChevronUp className=' transition-transform' />
+                ) : (
+                  <ChevronUp className='rotate-180 transition-transform' />
+                )}
+              </button>
+            </div>
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                openFilters ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
               <FilterBar onSearch={(e) => handleFilter(e)} />
             </div>
-            <button
-              className='w-max px-2 py-3  bg-blue-500 text-base text-white font-semibold rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:text-zinc-50 dark:hover:bg-blue-700 transition duration-300 '
-              onClick={() => setModalNewCandidatura(true)}
-            >
-              Adicionar candidatura
-            </button>
           </div>
           <div style={{ minHeight: 'calc(100dvh - 370px)' }}>
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 my-10'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 my-10'>
               {Array.isArray(filters) &&
                 filters.map((job) => (
                   <CandidaturaCard

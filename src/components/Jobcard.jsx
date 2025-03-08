@@ -53,7 +53,7 @@ function Jobcard(props) {
 
   return (
     <>
-      <div className='py-6 px-6 2xl:max-h-44 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover:border-blue-500 hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
+      <div className='py-6 px-6 2xl:max-h-44 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover   hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
         <div className='flex flex-col xl:flex-row justify-between items-center lg:items-center gap-4 lg:gap-8'>
           <div className='flex flex-col items-start gap-3 w-full lg:w-max'>
             <h1 className='lg:max-w-80 text-lg font-semibold text-gray-900 dark:text-white'>
@@ -81,13 +81,13 @@ function Jobcard(props) {
             <div className='flex xl:flex-col-reverse gap-4 mt-4 lg:mt-0'>
               <button
                 onClick={toggleModal}
-                className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors    font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Ver mais detalhes
               </button>
               <a href={props.url} target='_blank' rel='noopener noreferrer'>
                 <button
-                  className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full'
+                  className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors   font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full'
                   onClick={() => setConfirmCandidatura(true)}
                 >
                   Aplicar
@@ -171,7 +171,7 @@ function Jobcard(props) {
               </button>
 
               <button
-                className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
+                className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors   font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
                 onClick={salvarCandidatura}
               >
                 {loading ? (

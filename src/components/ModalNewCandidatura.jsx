@@ -77,7 +77,7 @@ function ModalNewCandidatura(props) {
               type='text'
               name='titulo'
               id='titulo'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300  block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='Desenevolvedor....'
             />
             <p className='text-red-500 text-sm'>{errors.titulo?.message}</p>
@@ -94,7 +94,7 @@ function ModalNewCandidatura(props) {
               type='text'
               name='empresa'
               id='empresa'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300  block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='ex: Google, Amazon'
             />
             <p className='text-red-500 text-sm'>{errors.empresa?.message}</p>
@@ -111,7 +111,7 @@ function ModalNewCandidatura(props) {
               name='descricao'
               id='descricao'
               rows={3}
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300   block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='Descrição da vaga'
             />
             <p className='text-red-500 text-sm'>{errors.descricao?.message}</p>
@@ -128,7 +128,7 @@ function ModalNewCandidatura(props) {
               type='text'
               name='url'
               id='url'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg    outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300  block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='link da vaga. ex: http://.....'
             />
             <p className='text-red-500 text-sm'>{errors.url?.message}</p>
@@ -145,7 +145,7 @@ function ModalNewCandidatura(props) {
               {...register('senioridade')}
               name='senioridade'
               id='senioridade'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300   block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
             >
               <option value='' disabled selected>
                 Escolha a senioridade
@@ -171,7 +171,7 @@ function ModalNewCandidatura(props) {
               {...register('modeloTrabalho')}
               name='modeloTrabalho'
               id='modeloTrabalho'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg   outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300   block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
             >
               <option value='' disabled selected>
                 Escolha o Modelo de Trabalho
@@ -197,7 +197,7 @@ function ModalNewCandidatura(props) {
               type='text'
               name='localizacao'
               id='localizacao'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg    outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300  block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='cidade, estado'
             />
             <p className='text-red-500 text-sm'>
@@ -206,7 +206,7 @@ function ModalNewCandidatura(props) {
           </div>
           <button
             type='submit'
-            className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+            className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors    font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
             {loading ? (
               <span className='flex items-center justify-center gap-2'>

@@ -65,9 +65,6 @@ const DicasCV = ({ showMenu }) => {
             'Monte seu currículo profissional'
           }
         />
-
-        <div className='border-b w-[100%] mx-auto border-zinc-500/70 mb-8' />
-
         <main>
           <h1 className='text-2xl text-center font-medium mb-6 dark:text-[#FAFAF9]'>
             Transforme seu Currículo: Dicas Essenciais para Alavancar sua Carreira

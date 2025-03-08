@@ -69,7 +69,7 @@ function CandidaturaCard(props) {
 
   return (
     <>
-      <div className='py-6 px-6 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover:border-blue-500 hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
+      <div className='py-6 px-6 lg:px-6 text-left relative bg-gray-50 rounded-lg border border-zinc-600 shadow-lg hover   hover:scale-103 transition-all duration-200 dark:bg-[#151419]'>
         <div className='flex flex-col xl:flex-row justify-between items-center lg:items-center gap-4 '>
           <div className='flex flex-col items-center lg:items-start gap-3 w-full lg:w-max'>
             <h1 className='lg:max-w-80 text-base  2xl:text-lg font-semibold text-gray-900 dark:text-white'>
@@ -95,13 +95,13 @@ function CandidaturaCard(props) {
             <div className='flex flex-col gap-4 mt-4 lg:mt-0'>
               <button
                 onClick={toggleModal}
-                className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                className='w-full lg:w-auto text-blue-700 bg-transparent border border-blue-700 hover:bg-blue-700 hover:text-white transition-colors   font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Mais detalhes
               </button>
               <button
                 onClick={() => setConfirmDelete(true)}
-                className='w-full lg:w-auto text-red-600 bg-transparent border border-red-700 hover:bg-red-700 hover:text-white transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                className='w-full lg:w-auto text-red-600 bg-transparent border border-red-700 hover:bg-red-700 hover:text-white transition-colors      font-medium rounded-lg text-sm px-5 py-2.5 text-center'
               >
                 Remover
               </button>
@@ -134,7 +134,13 @@ function CandidaturaCard(props) {
                   isAccordionOpen ? 'hidden' : ''
                 }`}
               >
-                <h1 className='font-bold text-zinc-600 dark:text-zinc-200 flex items-center gap-2'>Etapa Atual <ChevronRight className='text-zinc-800 dark:text-zinc-400' size={20}/></h1>
+                <h1 className='font-bold text-zinc-600 dark:text-zinc-200 flex items-center gap-2'>
+                  Etapa Atual{' '}
+                  <ChevronRight
+                    className='text-zinc-800 dark:text-zinc-400'
+                    size={20}
+                  />
+                </h1>
                 <div className='flex items-center gap-2 '>
                   {!etapaAtual.approved && !etapaAtual.rejected ? (
                     <Loader className='text-blue-600 animate-spin' size={28} />
@@ -160,7 +166,13 @@ function CandidaturaCard(props) {
                 onValueChange={handleAccordionChange}
               >
                 <AccordionItem value='item-1'>
-                  <AccordionTrigger className={' rounded-lg px-4 border my-2 dark:text-zinc-50 dark:border-zinc-500  hover:border-blue-600'}>Ver todas as etapas</AccordionTrigger>
+                  <AccordionTrigger
+                    className={
+                      ' rounded-lg px-4 border my-2 dark:text-zinc-50 dark:border-zinc-500  hover:border-blue-600'
+                    }
+                  >
+                    Ver todas as etapas
+                  </AccordionTrigger>
                   <AccordionContent>
                     <ProgressSteps
                       idCandidatura={props.id}
@@ -236,7 +248,7 @@ function CandidaturaCard(props) {
               </button>
 
               <button
-                className=' text-white bg-red-600 hover:bg-red-800 transition-colors focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
+                className=' text-white bg-red-600 hover:bg-red-800 transition-colors      font-medium rounded-lg text-sm px-5 py-2.5 text-center w-max'
                 onClick={removerCandidatura}
               >
                 {isLoading ? (

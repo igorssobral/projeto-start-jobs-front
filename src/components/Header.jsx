@@ -5,7 +5,7 @@ const Header = ({ title, description }) => {
   const { user } = useAuth();
   const firstName = user?.user.split(' ')[0];
   return (
-    <div className='mb-8 flex items-center justify-between'>
+    <div className='mb-8 flex items-center justify-between pb-3 border-b border-zinc-500/70'>
       <div>
         <h1 className='text-lg lg:text-2xl font-medium dark:text-[#FAFAF9]'>
           {title}
