@@ -67,7 +67,7 @@ function ModalLogin(props) {
               {...register('email')}
               type='email'
               id='email'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:border-zinc-700 outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='name@company.com'
             />
             <p className='text-red-500 text-sm'>{errors.email?.message}</p>
@@ -83,7 +83,7 @@ function ModalLogin(props) {
               {...register('senha')}
               type='password'
               id='senha'
-              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+              className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:border-blue-700 dark:focus:border-blue-700 transition-colors duration-300  block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               placeholder='*********'
             />
             <p className='text-red-500 text-sm'>{errors.senha?.message}</p>
@@ -94,7 +94,7 @@ function ModalLogin(props) {
                 <input
                   id='remember'
                   type='checkbox'
-                  className='w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300'
+                  className='w-4 h-4 bg-gray-50 rounded border border-gray-300'
                 />
               </div>
               <label
@@ -114,7 +114,7 @@ function ModalLogin(props) {
           </div>
           <button
             type='submit'
-            className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+            className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors    font-medium rounded-lg text-sm px-5 py-2.5 text-center'
           >
             {loading ? (
               <span className='flex items-center justify-center gap-2'>
@@ -126,7 +126,7 @@ function ModalLogin(props) {
           </button>
           <button
             type='button'
-            className='flex justify-center items-center gap-2 w-full text-white bg-blue-400 hover:bg-blue-600 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+            className='flex justify-center items-center gap-2 w-full text-white bg-blue-400 hover:bg-blue-600 transition-colors   font-medium rounded-lg text-sm px-5 py-2.5 text-center'
             onClick={() =>
               console.log('Login com Google ainda não implementado')
             }

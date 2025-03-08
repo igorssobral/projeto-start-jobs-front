@@ -46,8 +46,7 @@ export default function ResetPassword() {
       .catch((error) => {
         toast.error(error.data);
       });
-       setLoading(false);
-
+    setLoading(false);
   }
   const onSubmit = (data) => {
     authenticate(data);
@@ -75,7 +74,7 @@ export default function ResetPassword() {
 
               <button
                 type='submit'
-                className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors    font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 onClick={() => navigate('/')}
               >
                 {loading ? (
@@ -106,7 +105,7 @@ export default function ResetPassword() {
                     type='password'
                     name='senha'
                     id='senha'
-                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg          block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
                     placeholder='*********'
                   />
                   <p className='text-red-500 text-sm'>
@@ -125,7 +124,7 @@ export default function ResetPassword() {
                     type='password'
                     name='confirmSenha'
                     id='confirmSenha'
-                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+                    className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg          block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
                     placeholder='*********'
                   />
                   <p className='text-red-500 text-sm'>
@@ -134,7 +133,7 @@ export default function ResetPassword() {
                 </div>
                 <button
                   type='submit'
-                  className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                  className='w-full text-white bg-blue-700 hover:bg-blue-800 transition-colors    font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
                   {loading ? (
                     <span className='flex items-center justify-center gap-2'>

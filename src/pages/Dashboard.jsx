@@ -296,7 +296,6 @@ const Dashboard = ({ showMenu }) => {
           description={' Acompanhe seus processos.'}
         />
 
-        <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
       </div>
 
       <div className='mb-6 md:ml-64 px-4'>

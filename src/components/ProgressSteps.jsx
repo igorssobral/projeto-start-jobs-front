@@ -9,11 +9,7 @@ import {
 } from 'lucide-react';
 import { ApiCandidatura } from '../services/candidaturaService';
 
-export const ProgressSteps = ({
-  idCandidatura,
-  status,
-  refreshJobs,
-}) => {
+export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [steps, setSteps] = useState(status);
   const [currentStep, setCurrentStep] = useState(1);
   const [currentStatus, setCurrentStatus] = useState();
@@ -93,7 +89,7 @@ export const ProgressSteps = ({
   useEffect(() => {
     if (newSteps.length > 0) {
       async function adicionarNovoStatus() {
-       await addCandidaturaNewStatus(idCandidatura, newSteps);
+        await addCandidaturaNewStatus(idCandidatura, newSteps);
 
         setNewSteps([]);
         setModalNewStep(false);
@@ -138,8 +134,6 @@ export const ProgressSteps = ({
     refreshJobs();
   }
 
-
-
   return (
     <div className='flex flex-col items-center space-y-4 p-4'>
       <div className='flex flex-col  '>
@@ -147,7 +141,7 @@ export const ProgressSteps = ({
           const isCompleted = step.approved;
           const isRejected = step.rejected;
           const isCurrent = step.id === currentStep && !step.rejected;
-          
+
           const hasNext = index < steps.length - 1;
 
           return (
@@ -159,15 +153,20 @@ export const ProgressSteps = ({
                   ) : isRejected ? (
                     <OctagonX className='text-red-500' size={28} />
                   ) : isCurrent ? (
-                    <Loader className='text-blue-500 animate-spin' size={28} />
+                    <Loader className='text-blue-500 animate-spin ' size={28} />
                   ) : (
-                    <CircleDot className='text-gray-400 dark:text-zinc-400' size={28} />
+                    <CircleDot
+                      className='text-gray-400 dark:text-zinc-400'
+                      size={28}
+                    />
                   )}
                 </div>
                 {hasNext && (
                   <div
                     className={`w-0.5 h-6   ${
-                      isCompleted ? 'bg-blue-500' : 'bg-gray-300 dark:bg-zinc-400'
+                      isCompleted
+                        ? 'bg-blue-500'
+                        : 'bg-gray-300 dark:bg-zinc-400'
                     } `}
                   ></div>
                 )}
@@ -199,7 +198,8 @@ export const ProgressSteps = ({
             currentStatus?.rejected ? 'text-blue-600/50' : 'text-blue-600'
           }`}
         >
-          <PlusCircle size={25} /> <span className='text-base'>Adicionar Etapa</span>
+          <PlusCircle size={25} />{' '}
+          <span className='text-base'>Adicionar Etapa</span>
         </button>
       </div>
 
@@ -274,7 +274,7 @@ export const ProgressSteps = ({
               <select
                 id='etapas'
                 name='etapas'
-                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
+                className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg      block w-full p-2.5 dark:border-zinc-700 dark:bg-[#151419] dark:text-zinc-300'
               >
                 <option value='' selected disabled>
                   Selecione uma etapa

@@ -281,11 +281,9 @@ const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
           description={'Pesquise e filtre as oportunidades desejadas.'}
         />
 
-        <div className='border-b w-[100%] mx-auto border-zinc-500/70 my-4' />
-
         <div className='md:hidden flex justify-center'>
           <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-            <DrawerTrigger className='w-32 mt-2 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:ring-4 focus:ring-blue-300'>
+            <DrawerTrigger className='w-32 mt-2 bg-blue-500 text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-colors duration-200 '>
               Filtros
             </DrawerTrigger>
             <DrawerContent>
@@ -343,7 +341,7 @@ const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
                 </button>
 
                 <button
-                  className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-3.5 text-center w-max'
+                  className=' text-white bg-blue-600 hover:bg-blue-800 transition-colors  font-medium rounded-lg text-sm px-10 py-3.5 text-center w-max'
                   onClick={handleOpenLogin}
                 >
                   <span className='flex items-center justify-center gap-2'>

@@ -131,7 +131,7 @@ const SideBar = ({
         {user && (
           <button
             onClick={logout}
-            className={`flex items-center space-x-3 text-gray-600 px-4 py-3 rounded-lg w-full transition-colors duration-300 border border-transparent hover:border-blue-500 ${
+            className={`flex items-center space-x-3 text-gray-600 px-4 py-3 rounded-lg w-full transition-colors duration-300 border border-transparent hover   ${
               darkMode ? 'text-zinc-400 hover:bg-zinc-900' : 'hover:bg-gray-50'
             }`}
           >

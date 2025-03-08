@@ -18,7 +18,7 @@ function Home({ showMenu }) {
     showMenu();
   }
 
-  const [slidePerView, ] = useState(1);
+  const [slidePerView] = useState(1);
   const data = [
     { id: '1', image: Reuniao },
     { id: '2', image: Smartphone },
@@ -37,21 +37,63 @@ function Home({ showMenu }) {
         description={'Saiba mais sobre a Start JOBS'}
       />
 
-      <div className='border-b  w-[100%] mx-auto border-zinc-500/70 my-4' />
-
       {/* Grid Layout */}
       <div className='grid grid-cols-3 gap-3'>
         {/* Row 1 */}
 
-        <div className='col-span-3 md:col-span-3 '>
-          <h1 className='text-blue-500 mb-2 text-3xl font-bold'>Start JOBS</h1>
-          <h2 className='text-xl font-semibold ml-10 mb-1 dark:text-slate-50'>
+        <div className='col-span-3 md:col-span-3 shad'>
+          <h1 className='text-blue-600 mb-2 text-3xl font-bold text-center '>
+            Start JOBS
+          </h1>
+          <h2 className='text-xl text-center font-semibold ml-10 mb-1 dark:text-zinc-300'>
             Conectando Você a um mundo de Oportunidades!
           </h2>
         </div>
+        <div className='col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50 text-black shadow-lg'>
+          <div className='p-5 rounded-lg bg-white dark:bg-[#151419] '>
+            {/* Título principal */}
+            <p className='font-semibold text-2xl text-blue-500 mb-4'>
+              Mas o que é Start JOBS?
+            </p>
 
+            {/* Descrição */}
+            <p className='text-lg mb-6'>
+              Start JOBS é uma aplicação web inovadora, projetada para conectar
+              você às melhores oportunidades de emprego. Ela facilita o processo
+              de busca e candidaturas, otimizando a experiência para todos os
+              usuários.
+            </p>
+
+            {/* Subtítulo */}
+            <p className='font-semibold text-xl text-blue-500 mb-4'>
+              Como funciona?
+            </p>
+
+            {/* Descrição do funcionamento */}
+            <p className='text-lg mb-6'>
+              Nosso sistema acompanha cada etapa do processo de seleção, desde a
+              inscrição inicial até a contratação, proporcionando uma
+              experiência organizada e ágil aos candidatos. Com isso, o processo
+              é mais simples e eficiente.
+            </p>
+
+            {/* Subtítulo */}
+            <p className='font-semibold text-xl text-blue-500 mb-4'>
+              Como opero a Start JOBS?
+            </p>
+
+            {/* Descrição de operação */}
+            <p className='text-lg'>
+              Com a Start JOBS, sua plataforma integrada de gerenciamento de
+              candidaturas, você só precisa encontrar o emprego ideal,
+              adicioná-lo às vagas em alta, aplicar para a vaga, e já pode
+              começar a se preparar para os processos que virão. E pronto!
+              Buscar uma oportunidade nunca foi tão eficiente e fácil!
+            </p>
+          </div>
+        </div>
         <div className='col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50'>
-          <div className='flex flex-col bg-cover border border-separate rounded-lg'>
+          <div className=' flex flex-col bg-cover  rounded-lg'>
             <img
               src={ApertoMao}
               alt='imagem aperto de maos'
@@ -60,77 +102,64 @@ function Home({ showMenu }) {
           </div>
         </div>
 
-        <div className='col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50'>
-          <div className=' border border-separate p-5 rounded-lg '>
-            <p className='font-medium text-xl mb-1'>Mas o que é Start JOBS?</p>
-            <p className='font-medium text-gl ml-10 mb-5'>
-              {' '}
-              É uma aplicação web inovadora, projetada para conectar você às
-              melhores oportunidades de emprego.
-            </p>
-            <p className='font-medium text-xl mb-1'>Como funciona?</p>
-            <p className='font-medium text-gl mb-4 ml-10'>
-              Nosso sistema acompanha cada etapa do processo de seleção, desde a
-              inscrição inicial até a contratação, proporcionando uma
-              experiência organizada e ágil aos candidatos.
-            </p>
-            <p className='font-medium text-xl mb-1'>Como opero a Start JOBS?</p>
-            <p className='font-medium text-gl ml-10'>
-              Com a Start JOBS sua plataforma integrada de gerenciamento de
-              candidaturas, você só precisa encontrar o emprego ideal,
-              adiciona-lo a vagas em alta, aplicando a vaga, e já pode começar a
-              se preparar para os processos que virão, e pronto, buscar uma
-              oportunidade nunca foi tão eficiente e fácil!
-            </p>
-          </div>
-        </div>
-
         {/* Row 2 */}
-        <div className='col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50'>
-          <div className='border border-separate pt-2 pl-5 rounded-lg flex flex-col'>
-            <div>
-              <h1 className='text-blue-500 mt-3 ml-8 text-3xl font-bold '>
-                Start JOBS
-              </h1>
-              <h2 className='text-xl text-center font-medium mt-3 mb-5'>
-                Utilize o Start JOBS e transforme suas buscas por emprego em
-                conquistas! 🚀
-              </h2>
+        <div className='col-span-3 md:col-span-3 bg-white rounded-lg dark:bg-[#151419] dark:text-slate-50 text-black shadow-lg'>
+          <div className='pt-6 px-5 pb-4 rounded-lg flex flex-col space-y-8'>
+            {/* Título principal */}
+            <h2 className='text-xl text-center font-semibold text-blue-500'>
+              Utilize o Start JOBS e transforme suas buscas por emprego em
+              conquistas! 🚀
+            </h2>
 
-              <div />
+            {/* Lista de características */}
+            <div className='space-y-6'>
+              <div className='flex items-center space-x-4'>
+                <LuLayers size={26} className='text-blue-500' />
+                <div>
+                  <p className='font-semibold text-lg'>
+                    Experiência organizada:
+                  </p>
+                  <p className='text-lg '>
+                    Acompanhe cada passo da seleção sem complicações.
+                  </p>
+                </div>
+              </div>
+              <div className='border-b border-zinc-500/70' />
+
+              <div className='flex items-center space-x-4'>
+                <LuShrink size={26} className='text-blue-500' />
+                <div>
+                  <p className='font-semibold text-lg'>Controle total:</p>
+                  <p className='text-lg '>
+                    Saiba sempre onde está em cada etapa do processo.
+                  </p>
+                </div>
+              </div>
+              <div className='border-b border-zinc-500/70' />
+
+              <div className='flex items-center space-x-4'>
+                <LuBoxes size={26} className='text-blue-500' />
+                <div>
+                  <p className='font-semibold text-lg'>Eficiência máxima:</p>
+                  <p className='text-lg '>
+                    Economize tempo e esforço com nossa plataforma integrada.
+                  </p>
+                </div>
+              </div>
+              <div className='border-b border-zinc-500/70' />
+
+              <div className='flex items-center space-x-4'>
+                <LuMapPinPlus size={26} className='text-blue-500' />
+                <div>
+                  <p className='font-semibold text-lg'>
+                    Oportunidades promissoras:
+                  </p>
+                  <p className='text-lg '>
+                    Encontre rapidamente o emprego ideal.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className='flex ml-8'>
-              <LuLayers size={26} />
-              <h2 className='font-medium ml-8'>Experiência organizada:</h2>
-              <p className='ml-8 mb-4 text-gl'>
-                Acompanhe cada passo da seleção sem complicações.
-              </p>
-            </div>
-            <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />
-            <div className='flex ml-8'>
-              <LuShrink size={26} />
-              <p className='font-medium ml-8'>Controle total:</p>
-              <p className='ml-8 mb-4 text-gl'>
-                Saiba sempre onde está em cada etapa do processo.
-              </p>
-            </div>
-            <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />
-            <div className='flex ml-8'>
-              <LuBoxes size={26} />
-              <p className='font-medium ml-8'>Eficiência máxima:</p>
-              <p className='ml-8 mb-4 text-gl'>
-                Economize tempo e esforço com nossa plataforma integrada.
-              </p>
-            </div>
-            <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />
-            <div className='flex ml-8'>
-              <LuMapPinPlus size={26} />
-              <p className='font-medium ml-8'>Oportunidades promissoras:</p>
-              <p className='ml-8 mb-4 text-gl'>
-                Encontre rapidamente o emprego ideal.
-              </p>
-            </div>
-            <div className='border-b  w-[95%] mx-auto border-zinc-500/70 mb-6' />
           </div>
         </div>
 
@@ -140,6 +169,7 @@ function Home({ showMenu }) {
             slidesPerView={slidePerView}
             pagination={{ clickable: true }}
             navigation
+            loop={true}
           >
             {data.map((item) => (
               <SwiperSlide key={item.id}>
