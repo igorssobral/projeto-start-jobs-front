@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { jobList } from '../stats/jobsMock';
 
 export const getJobsByFilters = async (title, location, remote) => {
   try {
@@ -34,9 +35,9 @@ export const getJobsByFilters = async (title, location, remote) => {
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar vagas:', error);
-    throw error;
+    return jobList;
+
   }
-  
 };
 
 export const getJobs = async () => {
@@ -70,7 +71,8 @@ export const getJobs = async () => {
     return response.data;
   } catch (error) {
     console.error('Erro ao buscar vagas:', error);
-    throw error;
+   
+    // throw error; 
+    return jobList;
   }
 };
-

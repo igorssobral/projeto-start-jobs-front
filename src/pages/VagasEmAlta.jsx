@@ -21,6 +21,7 @@ import { jobList } from '../stats/jobsMock';
 const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
   const [jobs, setJobs] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [filters, setFilters] = useState({
     keyword: '',
@@ -40,14 +41,32 @@ const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
 
   async function Jobs() {
     if (filters.keyword != '' || filters.location != '') {
-      //   const response = await getJobsByFilters(filters.keyword, filters.location, filters.remote);
+      const response = await getJobsByFilters(
+        filters.keyword,
+        filters.location,
+        filters.remote
+      );
       //  console.log('🚀 ~ Jobs ~ response:', response.data);
-      //  setJobs(response.data);
-      setJobs([]);
+      if (response.success) {
+        setJobs(response.data);
+      } else {
+        setJobs(response);
+      }
+      // setJobs([]);
     } else {
-      //  const response = await getJobs();
-      // setJobs(response.data);
-      setJobs(jobList);
+      const response = await getJobs();
+
+      if (response.success) {
+        setJobs(response.data);
+      } else {
+        setJobs(response);
+      }
+
+      setIsLoading(true);
+      setTimeout(() => {
+        setJobs(jobList);
+      }, 1000);
+      setIsLoading(false);
     }
   }
 

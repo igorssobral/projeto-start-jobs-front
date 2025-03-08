@@ -8,6 +8,7 @@ import {
   X,
 } from 'lucide-react';
 import { ApiCandidatura } from '../services/candidaturaService';
+import { toast } from 'react-toastify';
 
 export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
   const [steps, setSteps] = useState(status);
@@ -119,19 +120,27 @@ export const ProgressSteps = ({ idCandidatura, status, refreshJobs }) => {
 
   function pegarLabel() {
     var select = document.getElementById('etapas');
-    var selectedOption = select.options[select.selectedIndex]; // Pega a opção selecionada
-    var label = selectedOption.text; // Obtém o texto (label) da opção selecionada
-    const newStep = {
-      id: steps.length + 1,
-      label: label,
-      approved: false,
-      rejected: false,
-    };
-    setSteps((prevSteps) => [...prevSteps, newStep]);
-    setNewSteps((prevNewSteps) => [...prevNewSteps, newStep]);
+    var selectedOption = select.options[select.selectedIndex];
+    var label = selectedOption.text;
+    const tempSteps = steps.find((step) => step.label === label);
+    if (!tempSteps) {
+      const newStep = {
+        id: steps.length + 1,
+        label: label,
+        approved: false,
+        rejected: false,
+      };
 
-    setCurrentStep(steps.length + 1);
-    refreshJobs();
+      setSteps((prevSteps) => [...prevSteps, newStep]);
+      setNewSteps((prevNewSteps) => [...prevNewSteps, newStep]);
+
+      setCurrentStep(steps.length + 1);
+      refreshJobs();
+    } else {
+      setModalNewStep(false);
+
+      toast.error('Etapa ja adicionada!');
+    }
   }
 
   return (

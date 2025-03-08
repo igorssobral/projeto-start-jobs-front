@@ -41,8 +41,6 @@ function CandidaturaCard(props) {
       const isRejected = step.rejected;
 
       const isCurrent = step.id === currentStep && !step.rejected;
-      if (isCurrent) console.log(step);
-
       if (isCurrent || isRejected) {
         setEtapaAtual(step);
       }
