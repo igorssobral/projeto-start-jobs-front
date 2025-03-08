@@ -7,7 +7,7 @@ import InfoJobs from '../assets/img/infojobs-logo.png';
 import Jooble from '../assets/img/jooble-logo.png';
 import LinkedIn from '../assets/img/linkedin.png';
 import TrabalhaBrasil from '../assets/img/TrabalhaBrasil.png';
-import Vagas from '../assets/img/vagas-com.png';
+import Vagas from '../assets/img/Vagas-com.png';
 
 export const topVagas = [
   {
