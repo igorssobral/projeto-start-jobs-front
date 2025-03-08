@@ -3,9 +3,8 @@ import { FaGoogle } from 'react-icons/fa';
 import Modal from './Modal';
 import { login } from '../services/authService';
 import { useAuth } from '../context/auth-context';
-import { toast } from 'react-toastify';
 import { LoaderCircle } from 'lucide-react';
-import { GoogleLogin } from '@react-oauth/google';
+// import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '../schemas/login-schema';
@@ -133,7 +132,7 @@ function ModalLogin(props) {
           >
             <FaGoogle /> Entrar com o Google
           </button>
-          <GoogleLogin
+          {/* <GoogleLogin
             onSuccess={(data) => {
               logged(data.credential);
               localStorage.setItem('token', data.credential);
@@ -141,7 +140,7 @@ function ModalLogin(props) {
             onError={() => {
               console.log('Login Failed');
             }}
-          />
+          /> */}
         </form>
       </div>
     </Modal>
