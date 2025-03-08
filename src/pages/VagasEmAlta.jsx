@@ -16,12 +16,10 @@ import {
 } from '../components/ui/drawer';
 import Jobcard from '../components/Jobcard';
 import { getJobs, getJobsByFilters } from '../services/jobService';
-import { jobList } from '../stats/jobsMock';
 
 const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
   const [jobs, setJobs] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const [filters, setFilters] = useState({
     keyword: '',
@@ -62,11 +60,7 @@ const VagasEmAlta = ({ showMenu, showLogin, showRegister }) => {
         setJobs(response);
       }
 
-      setIsLoading(true);
-      setTimeout(() => {
-        setJobs(jobList);
-      }, 1000);
-      setIsLoading(false);
+    
     }
   }
 
